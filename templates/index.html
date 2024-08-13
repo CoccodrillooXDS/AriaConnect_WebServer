@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Welcoming users -->
+<div class="py-5 boxino border border-3">
+    <div class="sponsor d-flex align-items-center">
+        <div class="order-1">
+            <h1 class="display-4 bold">Aria Connect</h1>
+            <p class="lead italic">Connecting the world through innovative air quality solutions.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">Inizia ora</a>
+            <a href="{{ url_for('project') }}" class="btn btn-link">Scopri di più</a>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Aria_Connect.jpg') }}" alt="Aria Connect"
+            class="img-right img-biggestimg rounded">
+    </div>
+</div>
+<!-- Horizontal Line -->
+<hr class="my-4">
+<!-- Sponsors -->
+<div class="py-5 boxino border border-3">
+    <h2 class="text-center mb-4 bold">Sponsors e Partners</h2>
+
+    <!-- Sponsor 1 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor1">
+        <img src="{{ url_for('static', filename='img/Logo_PNRR.png') }}" alt="PNRR Project LANGUAGE & STEM 4.0 Project"
+            class="img-left img-bigimg img-addbg rounded">
+        <div class="order-1">
+            <h3 class="bold">PNRR Project LANGUAGE & STEM 4.0</h3>
+            <p>The "LANGUAGE & STEM 4.0" project at IIS Castelli, funded by “STEM and Multilingual Competencies in State
+                Schools D.M. 65/2023”, encompasses programs for guidance and training to enhance STEM, digital, and
+                innovation skills, aimed at promoting gender equality through actions to strengthen STEM and
+                multilingual competencies.</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Sponsor 2 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor2">
+        <div class="order-1">
+            <h3 class="bold">Solar Kit Project BS1 Kempten (Germany) Erasmus Project</h3>
+            <p>Dal 3 al 7 giugno 2024, l'Istituto Tecnico I.I.S. Benedetto Castelli di Brescia ha ospitato la scuola
+                professionale tedesca BS1 Kempten che nell'ambito del progetto Erasmus, ha tenuto una serie di lezioni
+                focalizzate su:</p>
+
+            <ul>
+                <li>Collaborazione interprofessionale tra studenti di vari settori tecnici.</li>
+                <li>Importanza e potenziale delle energie rinnovabili a livello mondiale.</li>
+                <li>Realizzazione di un sistema portatile con pannello fotovoltaico per l'alimentazione di sistemi a
+                    microcontrollore.</li>
+            </ul>
+
+            <p>Il progetto è stato supportato dalle scuole partecipanti, dai loro insegnanti, dall'associazione
+                VET4Africa, dall'Institut Mistral e dal programma Erasmus+ dell'Unione Europea.</p>
+        </div>
+        <div class="img-right img-biggerimg d-flex flex-column align-items-center">
+            <img src="{{ url_for('static', filename='img/Logo_Staatliche_Berufsschule_Kempten_Allgau.png') }}"
+                alt="Solar Kit Project BS1 Kempten (Germany) Erasmus Project"
+                class="img-biggerimg img-addbg rounded mb-4">
+            <img src="{{ url_for('static', filename='img/Logo_Erasmus+.png') }}" alt="Erasmus+"
+                class="img-bigimg img-addbg rounded">
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Sponsor 3 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor3">
+        <img src="{{ url_for('static', filename='img/Logo_ARPA.png') }}" alt="ARPA Lombardia"
+            class="img-left img-bigimg img-addbg rounded">
+        <div class="order-1">
+            <h3 class="bold">ARPA Lombardia</h3>
+            <p>ARPA Lombardia - Agenzia regionale per la protezione dell'ambiente della Lombardia - si occupa della
+                prevenzione e della protezione dell'ambiente, affiancando le istituzioni regionali e locali in
+                molteplici attività: dalla lotta all'inquinamento atmosferico e acustico agli interventi per la tutela
+                delle acque superficiali e sotterranee, dal monitoraggio dei campi elettromagnetici alle indagini sulla
+                contaminazione del suolo e sui processi di bonifica.</p>
+            <p>Coerentemente ai criteri di trasparenza pubblica, attraverso azioni di informazione,
+                comunicazione ed educazione ambientale, permette a cittadini e imprese di conoscere e valutare lo stato
+                dell'ambiente in cui vivono e operano e di reperire agevolmente indicazioni sulle attività ad essa
+                delegate.</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Sponsor 4 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor4">
+        <div class="order-1">
+            <h3 class="bold">Elettrica Bresciani Giovanni</h3>
+            <p>testo testo</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt=""
+            class="img-right img-biggerimg img-addbg rounded">
+    </div>
+</div>
+{% endblock %}

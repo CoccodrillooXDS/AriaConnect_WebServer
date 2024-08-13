@@ -1,0 +1,215 @@
+{% extends "layout.html" %}
+
+{% block title %}Documentazione Tecnica{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const components = document.querySelectorAll('.component-container');
+
+        components.forEach(component => {
+            component.addEventListener('touchstart', function() {
+                // Toggle the 'active' class on touch
+                component.classList.toggle('active');
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+{% block style %}
+<style>
+    .component-container {
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .component-container img {
+        transition: filter 0.3s ease-in-out;
+    }
+
+    .component-detail {
+        position: absolute;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        height: 100%;
+        padding: 15px;
+        transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
+        overflow-y: auto; /* Make the panel scrollable */
+        max-height: 100%; /* Set a maximum height */
+    }
+
+    html[data-bs-theme="dark"] .component-detail {
+        background: #343a40c9;
+    }
+
+    html[data-bs-theme="light"] .component-detail {
+        background: #e1e1e1c9;
+    }
+
+    .component-container {
+        margin-bottom: 20px;
+    }
+
+    .component-container:hover img {
+        filter: blur(5px);
+    }
+
+    .component-container:hover .component-detail {
+        right: 0;
+        opacity: 1;
+    }
+
+    .component-container.active .component-detail {
+        right: 0;
+        opacity: 1;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .component-detail {
+            width: 100%; /* Full width on smaller screens */
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Welcoming users -->
+<div class="py-5 boxino border border-3">
+    <div class="sponsor d-flex align-items-center">
+        <div class="order-1">
+            <h1 class="display-4 bold">Aria Connect</h1>
+            <p class="lead italic">Connecting the world through innovative air quality solutions.</p>
+            <p>
+                "Aria Connect" è un innovativo progetto di monitoraggio dell'aria da remoto, ideato e realizzato da un
+                gruppo di giovani talentuosi dell'Istituto B. Castelli di Brescia. Al centro di questo progetto c'è uno
+                zaino smart, che, al suo interno, contiene una stazione mobile di rilevazione dei parametri della qualità
+                dell'aria. Questo zaino intelligente è progettato per rilevare in tempo reale vari indicatori
+                dell'inquinamento atmosferico e trasmetterli a un server centrale.
+            </p>
+            <p>
+                Il collegamento principale avviene tramite tecnologia radio LoRA, che consente una trasmissione affidabile
+                dei dati fino a una distanza di 5 km. I dati raccolti vengono quindi pubblicati su un server cloud,
+                rendendoli accessibili a chiunque desideri consultarli attraverso questo sito.
+            </p>
+            <p>
+                In caso di mancato funzionamento del collegamento principale, entra in gioco un sistema di backup basato su
+                connettività Wi-Fi, garantendo la continuità della trasmissione dei dati. Questo sistema ibrido assicura che
+                i dati sulla qualità dell'aria siano sempre disponibili, contribuendo così a una maggiore consapevolezza e
+                controllo della qualità dell'aria nelle nostre comunità.
+            </p>
+            <p>
+                "Aria Connect" rappresenta un passo significativo verso l'uso della tecnologia per migliorare la nostra
+                comprensione dell'ambiente e promuovere la salute pubblica.
+            </p>
+
+        </div>
+        <!-- TODO: Rimpiazzare con zaino finito -->
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
+            class="img-right img-biggestimg rounded">
+    </div>
+</div>
+
+<!-- Horizontal Line -->
+<hr class="my-4">
+
+<!-- Aspetti tecnici del progetto -->
+<div class="py-5 boxino border border-3">
+    <div class="sponsor d-flex align-items-center">
+        <div class="order-1">
+            <h1 class="display-4 bold">Aspetti tecnici del progetto</h1>
+            <p>
+                Testo
+            </p>
+            
+        </div>
+        
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
+            class="img-right img-biggestimg rounded">
+    </div>
+</div>
+
+<!-- Horizontal Line -->
+<hr class="my-4">
+
+<!-- Components Section -->
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component A">
+            <div class="component-detail" id="componentA">
+                <h5>Component A</h5>
+                <p>Details about Component A</p>
+                <a href="wiki_link_A" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component B">
+            <div class="component-detail" id="componentB">
+                <h5>Component B</h5>
+                <p>Details about Component B</p>
+                <a href="wiki_link_B" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component C">
+            <div class="component-detail" id="componentC">
+                <h5>Component C</h5>
+                <p>Details about Component C</p>
+                <a href="wiki_link_C" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component D">
+            <div class="component-detail" id="componentD">
+                <h5>Component D</h5>
+                <p>Details about Component D</p>
+                <a href="wiki_link_D" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component E">
+            <div class="component-detail" id="componentE">
+                <h5>Component E</h5>
+                <p>Details about Component E</p>
+                <a href="wiki_link_E" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component F">
+            <div class="component-detail" id="componentF">
+                <h5>Component F</h5>
+                <p>Details about Component F</p>
+                <a href="wiki_link_F" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component G">
+            <div class="component-detail" id="componentG">
+                <h5>Component G</h5>
+                <p>Details about Component G</p>
+                <a href="wiki_link_G" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component H">
+            <div class="component-detail" id="componentH">
+                <h5>Component H</h5>
+                <p>Details about Component H</p>
+                <a href="wiki_link_H" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative component-container">
+            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component I">
+            <div class="component-detail" id="componentI">
+                <h5>Component I</h5>
+                <p>Details about Component I</p>
+                <a href="wiki_link_I" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

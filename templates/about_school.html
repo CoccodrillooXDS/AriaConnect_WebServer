@@ -1,0 +1,256 @@
+{% extends "layout.html" %}
+
+{% block title %}La nostra scuola{% endblock %}
+
+{% block content %}
+<!-- Welcoming users -->
+<div class="py-5 boxino border border-3">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h1 class="display-4 bold">I.I.S. Benedetto Castelli</h1>
+            <p class="lead italic">Istituto Tecnico Industriale Statale di Brescia</p>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='img/ITIS_Castelli.png') }}" alt="I.I.S. Benedetto Castelli"
+                class="img-fluid rounded">
+            <!-- TODO: Taglia l'erba dalla foto -->
+        </div>
+    </div>
+</div>
+<!-- Horizontal Line -->
+<hr class="my-4">
+
+<!-- School Description -->
+<div class="py-5 boxino">
+    <h2 class="text-center mb-4 bold">Chi siamo</h2>
+
+    <div class="sponsor d-flex align-items-center">
+        <a href="https://www.iiscastelli.edu.it/Pager.aspx?Page=mainpage" target="_blank">
+            <img src="{{ url_for('static', filename='img/Logo_IIS_Castelli.png') }}" alt="I.I.S. Benedetto Castelli"
+                class="img-left img-img">
+        </a>
+        <div>
+            <p>L'Istituto Tecnico Industriale Statale “<span class="bold">Benedetto Castelli</span>” di Brescia è una
+                delle istituzioni educative
+                più prestigiose e storiche della provincia. Fondato nel <span class="bold">1839</span> da Gabriele
+                Rottini come scuola di pittura,
+                l'istituto ha subito una notevole evoluzione nel corso degli anni, trasformandosi in un centro di
+                eccellenza per l'istruzione tecnica e industriale.</p>
+
+            <p>Situato in via Cantore, l'istituto si estende su una superficie di <span class="bold">11.000 metri
+                    quadrati</span>, offrendo un
+                ambiente stimolante e altamente attrezzato per gli studenti. Le sue numerose aule, laboratori all'avanguardia
+                e strutture sportive sono progettate per supportare una formazione completa e moderna.</p>
+
+            <p>L'<span class="bold">I.I.S. Benedetto Castelli</span> offre una vasta gamma di specializzazioni, tra cui
+                meccanica e meccatronica, energia, elettrotecnica, elettronica, automazione, chimica, <a
+                    href="https://www.iiscastelli.edu.it/Pager.aspx?Page=dip_info_info" target="_blank"
+                    class="bold underline">informatica</a> e <a
+                    href="https://sway.cloud.microsoft/O2nx8uNB1DFmpG9z?ref=Link" target="_blank"
+                    class="bold underline">telecomunicazioni</a>. Questi corsi sono stati introdotti per rispondere alle
+                esigenze del
+                mercato del lavoro e per preparare gli studenti a carriere di successo nei settori tecnologici e
+                industriali.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Horizontal Line -->
+<hr class="my-4">
+
+<!-- School Position -->
+<div class="py-5 boxino">
+    <h2 class="text-center mb-4 bold">Dove siamo</h2>
+
+    <div class="align-items-center">
+        <div>
+            <p>L'Istituto Tecnico Industriale Statale Benedetto Castelli è situato in via Cantore, 9, a Brescia. La
+                scuola è facilmente raggiungibile in auto o in autobus, grazie alla sua posizione centrale e
+                ben collegata.</p>
+
+            <p>Per chi arriva in auto, l'istituto è raggiungibile tramite la tangenziale sud di Brescia, uscita 5
+                “Tangenziale Ovest”. Per chi preferisce i mezzi pubblici, la scuola è servita da numerose linee di
+                autobus
+                e si trova a breve distanza dalla stazione ferroviaria di Brescia.</p>
+
+            <p>La scuola è situata in una zona tranquilla e sicura, vicino a parchi, negozi e ristoranti. Gli studenti
+                possono godere di un ambiente accogliente e ben servito, ideale per lo studio e il relax.</p>
+        </div>
+        <div class="img-right">
+            <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1038.6287181376686!2d10.216537919037497!3d45.5567247541411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781765202008117%3A0xe87b6f0aedb1a71d!2sIstituto%20tecnico%20industriale%20statale%20Benedetto%20Castelli!5e1!3m2!1sit!2sit!4v1721285492368!5m2!1sit!2sit"
+                width="100%" height="450" class="rounded border border-2" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="map"></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- Horizontal Line -->
+<hr class="my-4">
+
+<!-- Our Team -->
+<!-- TODO: METTERE ANCHE IN "PROGETTO" -->
+<div class="py-5 boxino border border-3">
+    <h2 class="text-center mb-4 bold">Il nostro fantastico team</h2>
+
+    <!-- Persona 1 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor1">
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="LANGUAGE & STEM 4.0 Project"
+            class="img-left">
+        <div class="order-1">
+            <h3 class="bold">Giuseppe Trivella</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Telecomunicazioni</p>
+            <p>Ruolo molto imponente e importante</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 2 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor2">
+        <div class="order-1">
+            <h3 class="bold">Gabriele Cazzago</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Telecomunicazioni</p>
+            <p>Ruolo importantissimo</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="PNRR" class="img-right">
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 3 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor3">
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="LANGUAGE & STEM 4.0 Project"
+            class="img-left">
+        <div class="order-1">
+            <h3 class="bold">Francesco Cherubini</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Telecomunicazioni</p>
+            <p>Ruolo poco importante e poco imponente</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 4 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor4">
+        <div class="order-1">
+            <h3 class="bold">Azaz Mohamed</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Informatica</p>
+            <p>altro ruolo fantasioso</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="PNRR" class="img-right">
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 5 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor5">
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="LANGUAGE & STEM 4.0 Project"
+            class="img-left">
+        <div class="order-1">
+            <h3 class="bold">Manuel Bresciani</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Telecomunicazioni</p>
+            <p>Ruolo del palo con pannello fotovoltaico</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 6 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor6">
+        <div class="order-1">
+            <h3 class="bold">Butt Shafay Tanveer</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Informatica</p>
+            <p>altro ruolo super fantasioso</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="PNRR" class="img-right">
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 7 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor7">
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="LANGUAGE & STEM 4.0 Project"
+            class="img-left">
+        <div class="order-1">
+            <h3 class="bold">Micheletti Diego</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Telecomunicazioni</p>
+            <p>ruolo fantasioso</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 8 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor8">
+        <div class="order-1">
+            <h3 class="bold">Zanini Alessandro</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Telecomunicazioni</p>
+            <p>altro ruolo fantasioso</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="PNRR" class="img-right">
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 9 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor9">
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="LANGUAGE & STEM 4.0 Project"
+            class="img-left">
+        <div class="order-1">
+            <h3 class="bold">Zimolo Filippo</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Telecomunicazioni</p>
+            <p>altro ruolo super fantasioso</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 10 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor10">
+        <div class="order-1">
+            <h3 class="bold">Passante Gabriella</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Informatica</p>
+            <p>ruolo fantasioso</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="PNRR" class="img-right">
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 11 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor11">
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="LANGUAGE & STEM 4.0 Project"
+            class="img-left">
+        <div class="order-1">
+            <h3 class="bold">Andronache Alexander</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Informatica</p>
+            <p>altro ruolo fantasioso</p>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 12 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor12">
+        <div class="order-1">
+            <h3 class="bold">[??] Sabbaji Salaheddine</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Informatica</p>
+            <p>altro ruolo super fantasioso</p>
+        </div>
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="PNRR" class="img-right">
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Persona 13 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor13">
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="LANGUAGE & STEM 4.0 Project"
+            class="img-left">
+        <div class="order-1">
+            <h3 class="bold">Filisina Michele</h3>
+            <p><span class="bold">Indirizzo di studi:</span> Informatica</p>
+            <p>ruolo fantasioso</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
