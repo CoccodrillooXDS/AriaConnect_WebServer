@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block style %}
+<style>
+    iframe {
+        width: 100%;
+        height: 100vh;
+        border: none;
+    }
+
+    #realBody {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+
+    .mt-5 {
+        margin-top: -5px !important;
+    
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    const isDashboard = true;
+</script>
+{% endblock %}
+
+{% block content %}
+<iframe src="https://www.example.com/" frameborder="0"></iframe>
+{% endblock %}

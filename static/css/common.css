@@ -1,0 +1,229 @@
+#themeDropdown {
+    position: fixed;
+    left: 20px; /* Adjust as needed */
+    bottom: 20px; /* Adjust as needed */
+    z-index: 9998 !important;
+}
+
+.theme-dropdown .dropdown-menu.show {
+    z-index: 9999 !important;
+}
+
+html[data-bs-theme="light"] .navbar, html[data-bs-theme="light"] .nav, html[data-bs-theme="light"] .footer {
+    background-color: #e1e1e1; /* Darker color for light mode */
+}
+
+html[data-bs-theme="light"] .tooltips {
+    --bs-tooltip-bg: #c2c2c2 !important; /* Darker color for light mode */
+}
+
+html[data-bs-theme="dark"] .navbar, html[data-bs-theme="dark"] .nav, html[data-bs-theme="dark"] .footer {
+    background-color: #343a40; /* Lighter color for dark mode */
+}
+
+html[data-bs-theme="dark"] .tooltips {
+    --bs-tooltip-bg: #24282c !important; /* Lighter color for dark mode */
+}
+
+html[data-bs-theme="dark"] .footerBorder {
+    border-color: #c2c2c2 !important;
+}
+
+html[data-bs-theme="light"] .footerBorder {
+    border-color: #343a40 !important;
+}
+
+.tooltips > .tooltip-inner > .d-flex {
+    padding: 10px;
+    font-size: 1rem;
+}
+
+/* Default to vertical layout for small devices */
+.navbar .d-flex {
+    flex-direction: column !important;
+}
+
+/* Switch to horizontal layout for devices wider than 768px */
+@media (min-width: 768px) {
+    .navbar .d-flex {
+        flex-direction: row !important;
+    }
+}
+
+html[data-bs-theme="dark"] a {
+    color: #ffffff !important;
+}
+
+html[data-bs-theme="dark"] a:hover {
+    color: #bbbbbb !important;
+}
+
+html[data-bs-theme="light"] a {
+    color: #000000 !important;
+}
+
+html[data-bs-theme="light"] a:hover {
+    color: #3d3d3d !important;
+}
+
+.offcanvas-body a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.offcanvas-body a .bi {
+    margin-right: 10px;
+}
+
+.offcanvas-body ul li a {
+    font-size: 1.25rem; /* Increase font size */
+    padding: 0.75rem; /* Add padding */
+    display: block; /* Ensure links are block level */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+    margin: 20px;
+    width: 85% !important;
+    margin: auto;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.extrabold {
+    font-weight: 800;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+    text-decoration-thickness: 20px; /* Adjust thickness as needed */
+}
+
+.underline-strikethrough {
+    text-decoration: underline line-through;
+}
+
+.boxino {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+html[data-bs-theme="dark"] .boxino {
+    background-color: #343a40;
+}
+
+html[data-bs-theme="light"] .boxino {
+    background-color: #e1e1e1;
+}
+
+.boxino > div {
+    padding: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.img-left {
+    margin-right: 1rem;
+}
+
+.img-right {
+    margin-left: 1rem;
+}
+
+.sponsor img {
+    max-width: 150px; /* Adjust as needed */
+    height: auto;
+}
+
+.img-img {
+    max-width: 200px !important;
+}
+
+.img-bigimg {
+    max-width: 300px !important;
+}
+
+.img-biggerimg {
+    max-width: 400px !important;
+}
+
+.img-biggestimg {
+    max-width: 600px !important;
+}
+
+html[data-bs-theme="dark"] .img-addbg {
+    background-color: #adadad;
+    padding: 15px;
+}
+
+.sponsor div {
+    flex: 1;
+}
+
+@media (max-width: 1100px) {
+    .img-bigimg, .img-biggerimg, .img-biggestimg {
+        /* Center images */
+        margin-left: auto;
+        margin-right: auto;
+        /* Add space below images */
+        margin-bottom: 1rem;
+        /* Make images full width */
+        width: 75% !important;
+    }
+
+    .sponsor {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+
+    .content {
+        width: 95% !important;
+    }
+
+    .boxino > div {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .img-left, .img-right, .img-img {
+        margin: 0 0 1rem 0;
+    }
+
+    .img-bigimg, .img-biggerimg, .img-biggestimg {
+        /* Center images */
+        margin-left: auto;
+        margin-right: auto;
+        /* Add space below images */
+        margin-bottom: 1rem;
+        /* Make images full width */
+        width: 100% !important;
+    }
+}
