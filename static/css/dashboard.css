@@ -1,0 +1,90 @@
+html[data-bs-theme="dark"] .content {
+    background-color: #e41e1e;
+}
+
+html[data-bs-theme="light"] .content {
+    background-color: #273668;
+}
+
+.content{
+    width:fit-content !important;
+    min-width: 400px;
+    max-width: 1648px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+}
+
+.orario-alba, .orario-tramonto, .livello-inquinamento{
+    margin-right: 16px;
+}
+.orario-alba, .orario-tramonto, .livello-inquinamento, .meteo{
+    margin-bottom: 22px;
+
+}
+
+
+.orario-alba, .orario-tramonto, .livello-inquinamento, .meteo{
+    width: 400px;
+    height: 150px;
+}
+
+.orario-alba, .orario-tramonto, .livello-inquinamento, .meteo, .grafico-open-weather-temperatura, .grafico-open-weather-umidita, .grafico-open-weather-pressione, .widget-open-weather-temperatura, .widget-open-weather-umidita, .widget-open-weather-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita, .widget-rilevato-pressione, .CO, .CO2, .NH3, .NO2, .pm10, .TVOC, .mappa{
+    background-color: blue;
+    border-radius: 20px;
+    align-items: center;
+    display: flex;
+    justify-content:center ;
+}
+
+.grafico-open-weather-temperatura, .grafico-open-weather-umidita, .grafico-open-weather-pressione{
+    height: 400px;
+    width: 1232px;
+}
+
+.grafico-open-weather-temperatura, .widget-open-weather-temperatura, .grafico-open-weather-umidita, .widget-open-weather-umidita{
+    margin-bottom: 16px;
+}
+
+.grafico-open-weather-pressione, .widget-open-weather-pressione{
+    margin-bottom: 22px;
+}
+
+.grafico-open-weather-umidita{
+    margin-left:16px
+}
+
+.grafico-open-weather-temperatura,.grafico-open-weather-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita, .widget-rilevato-pressione{
+    margin-right: 16px;
+}
+
+.widget-rilevato-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita{
+    margin-bottom:22px;
+}
+
+.widget-open-weather-temperatura, .widget-open-weather-umidita, .widget-open-weather-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita, .widget-rilevato-pressione{
+    height: 400px;
+    width: 400px;
+}
+
+.box-inquinanti{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap:20px;
+    max-width: 400px;
+    margin-bottom: 22px;
+}
+.CO, .CO2, .NH3, .NO2, .pm10, .TVOC{
+    height:120px;
+    width: 190px;
+}
+.mappa{
+    width: 1648px;
+    height: 800px;
+}
+
+
+
