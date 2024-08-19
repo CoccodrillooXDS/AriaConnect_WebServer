@@ -7,9 +7,9 @@ html[data-bs-theme="light"] .content {
 }
 
 .content{
-    width:fit-content !important;
+    /*width:fit-content !important;*/
     min-width: 400px;
-    max-width: 1648px;
+    max-width: 60%;
     display: flex !important;
     flex-wrap: wrap !important;
     flex-direction: row !important;
@@ -24,63 +24,6 @@ html[data-bs-theme="light"] .content {
     justify-content: flex-start;
     gap:16px;
 }
-
-.orario-alba{
-    order:1;
-}
-
-.orario-tramonto{
-    order:2
-}
-
-.box{
-    order:3;
-}
-
-.grafico-open-weather-temperatura{
-    order:4;
-}
-
-.widget-open-weather-temperatura{
-    order:5;
-}
-
-.widget-open-weather-umidita{
-    order:6;
-}
-
-.grafico-open-weather-umidita{
-    order:7;
-}
-
-.grafico-open-weather-pressione{
-    order:8;
-}
-
-.widget-open-weather-pressione{
-    order:9;
-}
-
-.widget-rilevato-temperatura{
-    order:10;
-}
-
-.widget-rilevato-umidita{
-    order:11;
-}
-
-.widget-rilevato-pressione{
-    order:12;
-}
-
-.box-inquinanti{
-    order:13;
-}
-
-.mappa{
-    order:14;
-}
-
 
 
 .orario-alba, .orario-tramonto, .livello-inquinamento, .meteo{
@@ -128,8 +71,8 @@ html[data-bs-theme="light"] .content {
     min-width:calc(190/2)px;
 }
 .mappa{
-    width: 1648px;
-    height: 800px;
+    width: 100%;
+    height: 600px;
     min-width:calc(1648/2)px;
 }
 
@@ -147,7 +90,7 @@ html[data-bs-theme="light"] .content {
         flex-direction: column;
     }
 
-    .orario-alba{
+    /*.orario-alba{
         order:1;
     }
     
@@ -201,7 +144,7 @@ html[data-bs-theme="light"] .content {
     
     .mappa{
         order:14;
-    }
+    }*/
      
 
 

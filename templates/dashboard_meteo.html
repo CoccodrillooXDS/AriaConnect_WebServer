@@ -3,36 +3,35 @@
 {% block title %}Dashboard meteo{% endblock %}
 
 {% block style %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_meteo.css') }}">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 {% endblock %}
 
 {% block content %}
-<div class="orario-alba"><h1>orario alba</h1></div>
-<div class="orario-tramonto"><h1>orario tramonto</h1></div>
-<div class="box">
-    <div class="livello-inquinamento">livello di inquinamento</div>
-    <div class="meteo">meteo</div>
-</div>
-
-<div class="grafico-open-weather-temperatura"><h1>grafico openweather temperatura</h1></div>
-<div class="widget-open-weather-temperatura"><h1>widget openweather temperatura</h1></div>
-
-<div class="widget-open-weather-umidita"><h1>grafico openweather umidita</h1></div>
-<div class="grafico-open-weather-umidita"><h1>widget openweather umidita</h1></div>
-
-<div class="grafico-open-weather-pressione"><h1>grafico openweather pressione</h1></div>
-<div class="widget-open-weather-pressione"><h1>widget openweather pressione</h1></div>
-
-<div class="widget-rilevato-temperatura"><h1>widget rilevato temperatura</h1></div>
-<div class="widget-rilevato-umidita"><h1>widget rilevato umidita</h1></div>
-<div class="widget-rilevato-pressione"><h1>widget rilevato pressione</h1></div>
-<div class="box-inquinanti">
-    <div class="CO"><h1>CO</h1></div>
-    <div class="CO2"><h1>CO2</h1></div>
-    <div class="NH3"><h1>NH3</h1></div>
-    <div class="NO2"><h1>NO2</h1></div>
-    <div class="pm10"><h1>pm10</h1></div>
-    <div class="TVOC"><h1>TVOC</h1></div>
-</div>
 <div class="mappa"><h1>mappa openstreetmap</h1></div>
+<div class="meteo"> 
+    <div class="prima-riga">
+        <div class="citta">brescia</div>
+    </div>
+    
+    <div class="seconda-riga">
+        <div class="data-ora"></div>
+        <div class="icona-meteo"></div>
+        <div class="temperatura"></div>
+    </div>
+
+    <div class="terza-riga">
+        <div class="vento"><i class="fa-light fa-wind"></i></div>  <!--esprime la velocità del vento in metri/secondo-->
+        <div class="direzione-vento"><i class="fa-light fa-windsock"></i></div>  <!--esprime la direzione del vento in gradi-->
+        <div class="pressione"><i class="fa-light fa-gauge-low"></i></div>  <!--esprime la pressione in Pascal-->
+        <div class="umidita"><i class="fa-light fa-droplet"></i></div>  <!--esprime l'umidità in percentuale-->
+        <div class="altitudine"><i class="fa-light fa-line-height"></i></div>  <!--esprime l'altitudine in metri-->
+        <div class="nuvolosita"><i class="fa-light fa-clouds"></i></div> <!--esprime la copertura delle nuvole in percentuale-->
+        <div class="pioggia"><i class="fa-light fa-cloud-rain"></i></div>  <!--esprime il voume di pioggia in mm nell'ultima ora-->
+        <div class="alba"><i class="fa-light fa-sunrise"></i></div>  <!--esprime l'orario dell'alba-->
+        <div class="tramonto"><i class="fa-light fa-sunset"></i></div> <!--esprime l'orario del tramonto-->
+    </div>
+</div>
+
+
 {% endblock %}
