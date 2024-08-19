@@ -12,7 +12,15 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return redirect('/dashboard/meteo')
+
+@app.route('/dashboard/meteo')
+def meteo():
+    return render_template('dashboard_meteo.html')
+
+@app.route('/dashboard/inquinanti')
+def inquinanti():
+    return render_template('dashboard_inquinanti.html')
 
 @app.route('/about-school')
 def about_school():

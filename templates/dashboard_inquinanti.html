@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard inquinanti{% endblock %}
 
-{% block content %}
 {% block style %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 {% endblock %}
+
+{% block content %}
 <div class="orario-alba"><h1>orario alba</h1></div>
 <div class="orario-tramonto"><h1>orario tramonto</h1></div>
 <div class="box">
@@ -34,7 +35,4 @@
     <div class="TVOC"><h1>TVOC</h1></div>
 </div>
 <div class="mappa"><h1>mappa openstreetmap</h1></div>
-
-
-
 {% endblock %}
