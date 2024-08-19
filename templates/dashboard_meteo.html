@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard meteo{% endblock %}
+
+{% block style %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="orario-alba"><h1>orario alba</h1></div>
+<div class="orario-tramonto"><h1>orario tramonto</h1></div>
+<div class="box">
+    <div class="livello-inquinamento">livello di inquinamento</div>
+    <div class="meteo">meteo</div>
+</div>
+
+<div class="grafico-open-weather-temperatura"><h1>grafico openweather temperatura</h1></div>
+<div class="widget-open-weather-temperatura"><h1>widget openweather temperatura</h1></div>
+
+<div class="widget-open-weather-umidita"><h1>grafico openweather umidita</h1></div>
+<div class="grafico-open-weather-umidita"><h1>widget openweather umidita</h1></div>
+
+<div class="grafico-open-weather-pressione"><h1>grafico openweather pressione</h1></div>
+<div class="widget-open-weather-pressione"><h1>widget openweather pressione</h1></div>
+
+<div class="widget-rilevato-temperatura"><h1>widget rilevato temperatura</h1></div>
+<div class="widget-rilevato-umidita"><h1>widget rilevato umidita</h1></div>
+<div class="widget-rilevato-pressione"><h1>widget rilevato pressione</h1></div>
+<div class="box-inquinanti">
+    <div class="CO"><h1>CO</h1></div>
+    <div class="CO2"><h1>CO2</h1></div>
+    <div class="NH3"><h1>NH3</h1></div>
+    <div class="NO2"><h1>NO2</h1></div>
+    <div class="pm10"><h1>pm10</h1></div>
+    <div class="TVOC"><h1>TVOC</h1></div>
+</div>
+<div class="mappa"><h1>mappa openstreetmap</h1></div>
+{% endblock %}

@@ -71,20 +71,19 @@
         </div>
         <div class="offcanvas-body">
             <ul class="list-unstyled">
-                <li class="mb-2"><a href="{{ url_for('index') }}" class="d-block"><i class="bi bi-house"></i>
-                        Home</a></li>
-                <li class="mb-2"><a href="{{ url_for('about_school') }}" class="d-block"><i class="bi bi-building"></i>
-                        La nostra scuola</a></li>
-                <li class="mb-2"><a href="{{ url_for('project') }}" class="d-block"><i class="bi bi-lightbulb"></i> Il
-                        progetto</a></li>
-                <li class="mb-2"><a href="{{ url_for('objectives') }}" class="d-block"><i class="bi bi-flag"></i>
-                        Obiettivi</a></li>
-                <li class="mb-2"><a href="{{ url_for('dashboard') }}" class="d-block"><i class="bi bi-clouds"></i>
-                        Dashboard</a></li>
-                <li class="mb-2"><a href="{{ url_for('documentation') }}" class="d-block"><i class="bi bi-cpu"></i>
-                        Documentazione Tecnica</a></li>
-                <li class="mb-2"><a href="{{ url_for('contacts') }}" class="d-block"><i class="bi bi-envelope"></i>
-                        Contatti</a></li>
+                <li class="mb-2"><a href="{{ url_for('index') }}" class="d-block"><i class="bi bi-house"></i> Home</a></li>
+                <li class="mb-2"><a href="{{ url_for('about_school') }}" class="d-block"><i class="bi bi-building"></i> La nostra scuola</a></li>
+                <li class="mb-2"><a href="{{ url_for('project') }}" class="d-block"><i class="bi bi-lightbulb"></i> Il progetto</a></li>
+                <li class="mb-2"><a href="{{ url_for('objectives') }}" class="d-block"><i class="bi bi-flag"></i> Obiettivi</a></li>
+                <li class="mb-2">
+                    <a href="{{ url_for('dashboard') }}" class="d-block"><i class="bi bi-clouds"></i> Dashboard</a>
+                    <ul class="list-unstyled ms-3">
+                        <li class="mb-2"><a href="{{ url_for('meteo') }}" class="d-block text-decoration-none"><i class="bi bi-sun"></i> Meteo</a></li>
+                        <li class="mb-2"><a href="{{ url_for('inquinanti') }}" class="d-block text-decoration-none"><i class="bi bi-exclamation-triangle"></i> Inquinanti</a></li>
+                    </ul>
+                </li>
+                <li class="mb-2"><a href="{{ url_for('documentation') }}" class="d-block"><i class="bi bi-cpu"></i> Documentazione Tecnica</a></li>
+                <li class="mb-2"><a href="{{ url_for('contacts') }}" class="d-block"><i class="bi bi-envelope"></i> Contatti</a></li>
             </ul>
         </div>
     </div>
@@ -115,7 +114,13 @@
                             <li><a href="{{ url_for('about_school') }}" class="text-decoration-none">La nostra scuola</a></li>
                             <li><a href="{{ url_for('project') }}" class="text-decoration-none">Il progetto</a></li>
                             <li><a href="{{ url_for('objectives') }}" class="text-decoration-none">Obiettivi</a></li>
-                            <li><a href="{{ url_for('dashboard') }}" class="text-decoration-none">Dashboard</a></li>
+                            <li>
+                                <a href="{{ url_for('dashboard') }}" class="text-decoration-none">Dashboard</a>
+                                <ul class="list-unstyled ms-3">
+                                    <li><a href="{{ url_for('meteo') }}" class="text-decoration-none">Meteo</a></li>
+                                    <li><a href="{{ url_for('inquinanti') }}" class="text-decoration-none">Inquinanti</a></li>
+                                </ul>
+                            </li>
                             <li><a href="{{ url_for('documentation') }}" class="text-decoration-none">Documentazione Tecnica</a></li>
                             <li><a href="{{ url_for('contacts') }}" class="text-decoration-none">Contatti</a></li>
                         </ul>
