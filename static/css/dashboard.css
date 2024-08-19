@@ -14,24 +14,86 @@ html[data-bs-theme="light"] .content {
     flex-wrap: wrap !important;
     flex-direction: row !important;
     justify-content: flex-start !important;
+    gap:16px;
 }
 
-.orario-alba, .orario-tramonto, .livello-inquinamento{
-    margin-right: 16px;
+.box{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap:16px;
 }
-.orario-alba, .orario-tramonto, .livello-inquinamento, .meteo{
-    margin-bottom: 22px;
 
+.orario-alba{
+    order:1;
 }
+
+.orario-tramonto{
+    order:2
+}
+
+.box{
+    order:3;
+}
+
+.grafico-open-weather-temperatura{
+    order:4;
+}
+
+.widget-open-weather-temperatura{
+    order:5;
+}
+
+.widget-open-weather-umidita{
+    order:6;
+}
+
+.grafico-open-weather-umidita{
+    order:7;
+}
+
+.grafico-open-weather-pressione{
+    order:8;
+}
+
+.widget-open-weather-pressione{
+    order:9;
+}
+
+.widget-rilevato-temperatura{
+    order:10;
+}
+
+.widget-rilevato-umidita{
+    order:11;
+}
+
+.widget-rilevato-pressione{
+    order:12;
+}
+
+.box-inquinanti{
+    order:13;
+}
+
+.mappa{
+    order:14;
+}
+
 
 
 .orario-alba, .orario-tramonto, .livello-inquinamento, .meteo{
     width: 400px;
     height: 150px;
+    min-width: 200px;
 }
 
 .orario-alba, .orario-tramonto, .livello-inquinamento, .meteo, .grafico-open-weather-temperatura, .grafico-open-weather-umidita, .grafico-open-weather-pressione, .widget-open-weather-temperatura, .widget-open-weather-umidita, .widget-open-weather-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita, .widget-rilevato-pressione, .CO, .CO2, .NH3, .NO2, .pm10, .TVOC, .mappa{
     background-color: blue;
+    position:relative;
+    flex-grow: 0;
+    flex-shrink: 1;
     border-radius: 20px;
     align-items: center;
     display: flex;
@@ -41,31 +103,14 @@ html[data-bs-theme="light"] .content {
 .grafico-open-weather-temperatura, .grafico-open-weather-umidita, .grafico-open-weather-pressione{
     height: 400px;
     width: 1232px;
+    min-width:calc(1232/2)px;
 }
 
-.grafico-open-weather-temperatura, .widget-open-weather-temperatura, .grafico-open-weather-umidita, .widget-open-weather-umidita{
-    margin-bottom: 16px;
-}
-
-.grafico-open-weather-pressione, .widget-open-weather-pressione{
-    margin-bottom: 22px;
-}
-
-.grafico-open-weather-umidita{
-    margin-left:16px
-}
-
-.grafico-open-weather-temperatura,.grafico-open-weather-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita, .widget-rilevato-pressione{
-    margin-right: 16px;
-}
-
-.widget-rilevato-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita{
-    margin-bottom:22px;
-}
 
 .widget-open-weather-temperatura, .widget-open-weather-umidita, .widget-open-weather-pressione, .widget-rilevato-temperatura, .widget-rilevato-umidita, .widget-rilevato-pressione{
     height: 400px;
     width: 400px;
+    min-width:calc(400/2)px;
 }
 
 .box-inquinanti{
@@ -73,18 +118,92 @@ html[data-bs-theme="light"] .content {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    gap:20px;
+    gap:16px;
     max-width: 400px;
-    margin-bottom: 22px;
+    min-width:calc(400/2)px;
 }
 .CO, .CO2, .NH3, .NO2, .pm10, .TVOC{
     height:120px;
     width: 190px;
+    min-width:calc(190/2)px;
 }
 .mappa{
     width: 1648px;
     height: 800px;
+    min-width:calc(1648/2)px;
 }
 
+@media(max-width:1248px){
+    .content{
+        background-color: chocolate !important;
+    }
 
+    .livello-inquinamento, .meteo{
+        height:67px;
+    }
+
+    .box{
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .orario-alba{
+        order:1;
+    }
+    
+    .orario-tramonto{
+        order:2
+    }
+    
+    .box{
+        order:3;
+    }
+    
+    .grafico-open-weather-temperatura{
+        order:4;
+    }
+    
+    .grafico-open-weather-umidita{
+        order:5;
+    }
+    
+    .grafico-open-weather-pressione{
+        order:6;
+    }
+    
+    .widget-open-weather-temperatura{
+        order:7;
+    }
+
+    .widget-open-weather-umidita{
+        order:8;
+    }
+
+    .widget-open-weather-pressione{
+        order:9;
+    }
+    
+    .widget-rilevato-temperatura{
+        order:10;
+    }
+    
+    .widget-rilevato-umidita{
+        order:11;
+    }
+    
+    .widget-rilevato-pressione{
+        order:12;
+    }
+    
+    .box-inquinanti{
+        order:13;
+    }
+    
+    .mappa{
+        order:14;
+    }
+     
+
+
+}
 
