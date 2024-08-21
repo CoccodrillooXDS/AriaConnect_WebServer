@@ -92,48 +92,47 @@
         <div class="content" id="realBody">
             {% block content %}{% endblock %}
         </div>
+    </div>
 
-        <!-- Footer -->
-        <footer class="pt-4 mt-5 footer">
-            <div class="container">
-                <div class="row">
-                    <!-- Logo and Description -->
-                    <div class="col-md-6 mb-4">
-                        <img src="{{ url_for('static', filename='img/Logo_Aria_Connect.jpg') }}" height="70"
-                            alt="Aria Connect" class="branding rounded"
-                            style="display: block; margin-bottom: 10px;">
-                        <h5 class="mb-3 bold">Aria Connect</h5>
-                        <p class="italic">Connecting the world through innovative air quality solutions.</p>
-                    </div>
-
-                    <!-- Quick Links -->
-                    <div class="col-md-6 mb-4">
-                        <h5 class="mb-3 bold">Link rapidi</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="{{ url_for('index') }}" class="text-decoration-none">Home</a></li>
-                            <li><a href="{{ url_for('about_school') }}" class="text-decoration-none">La nostra scuola</a></li>
-                            <li><a href="{{ url_for('project') }}" class="text-decoration-none">Il progetto</a></li>
-                            <li><a href="{{ url_for('objectives') }}" class="text-decoration-none">Obiettivi</a></li>
-                            <li>
-                                <a href="{{ url_for('dashboard') }}" class="text-decoration-none">Dashboard</a>
-                                <ul class="list-unstyled ms-3">
-                                    <li><a href="{{ url_for('meteo') }}" class="text-decoration-none">Meteo</a></li>
-                                    <li><a href="{{ url_for('inquinanti') }}" class="text-decoration-none">Inquinanti</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url_for('documentation') }}" class="text-decoration-none">Documentazione Tecnica</a></li>
-                            <li><a href="{{ url_for('contacts') }}" class="text-decoration-none">Contatti</a></li>
-                        </ul>
-                    </div>
+    <!-- Footer -->
+    <footer class="pt-4 mt-5 footer">
+        <div class="container">
+            <div class="row">
+                <!-- Logo and Description -->
+                <div class="col-md-6 mb-4">
+                    <img src="{{ url_for('static', filename='img/Logo_Aria_Connect.jpg') }}" height="70"
+                        alt="Aria Connect" class="branding rounded"
+                        style="display: block; margin-bottom: 10px;">
+                    <h5 class="mb-3 bold">Aria Connect</h5>
+                    <p class="italic">Connecting the world through innovative air quality solutions.</p>
                 </div>
-                <hr class="border border-2 footerBorder">
-                <div class="text-center pb-3">
-                    <small class="italic">&copy; 2024 Aria Connect. All rights reserved.</small>
+
+                <!-- Quick Links -->
+                <div class="col-md-6 mb-4">
+                    <h5 class="mb-3 bold">Link rapidi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('index') }}" class="text-decoration-none">Home</a></li>
+                        <li><a href="{{ url_for('about_school') }}" class="text-decoration-none">La nostra scuola</a></li>
+                        <li><a href="{{ url_for('project') }}" class="text-decoration-none">Il progetto</a></li>
+                        <li><a href="{{ url_for('objectives') }}" class="text-decoration-none">Obiettivi</a></li>
+                        <li>
+                            <a href="{{ url_for('dashboard') }}" class="text-decoration-none">Dashboard</a>
+                            <ul class="list-unstyled ms-3">
+                                <li><a href="{{ url_for('meteo') }}" class="text-decoration-none">Meteo</a></li>
+                                <li><a href="{{ url_for('inquinanti') }}" class="text-decoration-none">Inquinanti</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ url_for('documentation') }}" class="text-decoration-none">Documentazione Tecnica</a></li>
+                        <li><a href="{{ url_for('contacts') }}" class="text-decoration-none">Contatti</a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-
-    </div>
+            <hr class="border border-2 footerBorder">
+            <div class="text-center pb-3">
+                <small class="italic">&copy; 2024 Aria Connect. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
 
     <div class="dropup">
         <button class="btn btn-info dropdown-toggle" type="button" id="themeDropdown" data-bs-toggle="dropdown"

@@ -3,36 +3,148 @@
 {% block title %}Dashboard inquinanti{% endblock %}
 
 {% block style %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_inquinanti.css') }}">
 {% endblock %}
 
+
 {% block content %}
-<div class="orario-alba"><h1>orario alba</h1></div>
-<div class="orario-tramonto"><h1>orario tramonto</h1></div>
 <div class="box">
-    <div class="livello-inquinamento">livello di inquinamento</div>
-    <div class="meteo">meteo</div>
-</div>
+    <div class="row">
+        <div class="col-8" id="grafico_NO2">col-8</div>
+        <div class="col-4" id="parametri_NO2">
+            <h3>parametri biossido di azoto</h3>
+            <div class="row">
+                <div class="col">biossido di azoto</div>
+                <div class="col">valore attuale</div>
+            </div>
+            <div class="row">
+                <div class="col">valore per legge</div>
+                <div class="col">valore per legge...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore consigliato per la salute</div>
+                <div class="col">valore per la salute...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore bresciano</div>
+                <div class="col">valore bresciano...</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4" id="parametri_PM10">
+            <h3>parametri biossido di PM10</h3>
+            <div class="row">
+                <div class="col">biossido di azoto</div>
+                <div class="col">valore attuale</div>
+            </div>
+            <div class="row">
+                <div class="col">valore per legge</div>
+                <div class="col">valore per legge...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore consigliato per la salute</div>
+                <div class="col">valore per la salute...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore bresciano</div>
+                <div class="col">valore bresciano...</div>
+            </div>
+        </div>
+        <div class="col-8" id="grafico_PM10">col-8</div>
+    </div>
+    <div class="row">
+        <div class="col-8" id="grafico_NH3">col-8</div>
+        <div class="col-4" id="parametri_NH3">
+            <h3>parametri ammoniaca</h3>
+            <<div class="row">
+                <div class="col">biossido di azoto</div>
+                <div class="col">valore attuale</div>
+            </div>
+            <div class="row">
+                <div class="col">valore per legge</div>
+                <div class="col">valore per legge...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore consigliato per la salute</div>
+                <div class="col">valore per la salute...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore bresciano</div>
+                <div class="col">valore bresciano...</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4" id="parametri_CO">
+            <h3>parametri ossido di carbonio</h3>
+            <div class="row">
+                <div class="col">biossido di azoto</div>
+                <div class="col">valore attuale</div>
+            </div>
+            <div class="row">
+                <div class="col">valore per legge</div>
+                <div class="col">valore per legge...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore consigliato per la salute</div>
+                <div class="col">valore per la salute...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore bresciano</div>
+                <div class="col">valore bresciano...</div>
+            </div>
+        </div>
+        <div class="col-8" id="grafico_CO">col-8</div>
+    </div>
+    <div class="row">
+        <div class="col-8" id="grafico_CO2">col-8</div>
+        <div class="col-4" id="parametri_CO2">
+            <h3>parametri anidride carbonica</h3>
+            <div class="row">
+                <div class="col">biossido di azoto</div>
+                <div class="col">valore attuale</div>
+            </div>
+            <div class="row">
+                <div class="col">valore per legge</div>
+                <div class="col">valore per legge...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore consigliato per la salute</div>
+                <div class="col">valore per la salute...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore bresciano</div>
+                <div class="col">valore bresciano...</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4" id="parametri_TVOC">
+            <h3>parametri composti organici volatili</h3>
+            <div class="row">
+                <div class="col">biossido di azoto</div>
+                <div class="col">valore attuale</div>
+            </div>
+            <div class="row">
+                <div class="col">valore per legge</div>
+                <div class="col">valore per legge...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore consigliato per la salute</div>
+                <div class="col">valore per la salute...</div>
+            </div>
+            <div class="row">
+                <div class="col">valore bresciano</div>
+                <div class="col">valore bresciano...</div>
+            </div>
+        </div>
+        <div class="col-8" id="grafico_TVOC">col-8</div>
+    </div>
 
-<div class="grafico-open-weather-temperatura"><h1>grafico openweather temperatura</h1></div>
-<div class="widget-open-weather-temperatura"><h1>widget openweather temperatura</h1></div>
+{% endblock %}
 
-<div class="widget-open-weather-umidita"><h1>grafico openweather umidita</h1></div>
-<div class="grafico-open-weather-umidita"><h1>widget openweather umidita</h1></div>
 
-<div class="grafico-open-weather-pressione"><h1>grafico openweather pressione</h1></div>
-<div class="widget-open-weather-pressione"><h1>widget openweather pressione</h1></div>
-
-<div class="widget-rilevato-temperatura"><h1>widget rilevato temperatura</h1></div>
-<div class="widget-rilevato-umidita"><h1>widget rilevato umidita</h1></div>
-<div class="widget-rilevato-pressione"><h1>widget rilevato pressione</h1></div>
-<div class="box-inquinanti">
-    <div class="CO"><h1>CO</h1></div>
-    <div class="CO2"><h1>CO2</h1></div>
-    <div class="NH3"><h1>NH3</h1></div>
-    <div class="NO2"><h1>NO2</h1></div>
-    <div class="pm10"><h1>pm10</h1></div>
-    <div class="TVOC"><h1>TVOC</h1></div>
-</div>
-<div class="mappa"><h1>mappa openstreetmap</h1></div>
+{% block script %}
+<!-- <script src="{{ url_for('static', filename='js/meteo/.js') }}"></script> -->
 {% endblock %}
