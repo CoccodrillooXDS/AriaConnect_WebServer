@@ -11,16 +11,16 @@ html[data-bs-theme="light"] .content {
     flex-wrap: wrap !important;
     flex-direction: row !important;
     justify-content: flex-start !important;
-    gap:16px;
+    gap: 16px;
 }
 
-.meteo{
-    display:flex;
+.meteo {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
     min-width: 200px;
-    height: 600px;
+    height: auto; /* or flex-grow: 1; */
     padding: 30px;
 }
 
@@ -28,22 +28,18 @@ html[data-bs-theme="light"] .content {
     display:flex;
     align-items: center;
     justify-content: center;
-    height: 10%;
+    height: auto;
     background-color: #e41e1e3b;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 .seconda-riga{
-    height: 40%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     background-color: rgba(165, 42, 42, 0.329);
-}
-
-.seconda-riga .data-ora, .seconda-riga .icona-meteo, .seconda-riga .temperatura{
-    width:calc(100%/3);
-    height: 100%;
-    border: 4px solid red;
 }
 
 .seconda-riga .data-ora{
@@ -55,7 +51,7 @@ html[data-bs-theme="light"] .content {
 }
 
 .seconda-riga .data-ora #data{
-    font-size: 2vw;
+    font-size: 1em;
     color: white;
     height: auto;
     line-height: 0;
@@ -63,12 +59,11 @@ html[data-bs-theme="light"] .content {
 
 
 .seconda-riga .data-ora #ora{
-    font-size: 6vw;
+    font-size: 5em;
     color: white;
     height: auto;
     line-height: normal;
 }
-
 
 .seconda-riga .icona-meteo{
     display:flex;
@@ -77,39 +72,36 @@ html[data-bs-theme="light"] .content {
     justify-content: center;
     align-items: center;
     position:relative;
+    overflow: hidden; /* Hide overflow for clean cropping */
 }
 
 .seconda-riga .icona-meteo img{
-    /* width: 70%;  */
     height: auto;
     margin-top: -3em;
 }
 
 .seconda-riga .icona-meteo #descrizione{
     color:white;
-    font-size: 2vw;
+    font-size: 2em;
     position: absolute;
-    /* top:0%; */
     bottom: 4.5%;
 }
 
-
-.terza-riga{
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+.terza-riga {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
     background-color: rgba(220, 20, 60, 0.253);
+    height: auto;
 }
 
-.vento, .direzione-vento, .pressione, .umidita, .visibilita, .nuvolosita, .altitudine, .alba, .tramonto{
-    width: calc(100%/3);
-    display:flex;
-    justify-content: flex-start;
+.vento, .direzione-vento, .pressione, .umidita, .visibilita, .nuvolosita, .altitudine, .alba, .tramonto {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    height: calc(100%/3) ;
     border: 2px solid greenyellow;
+    gap: 10px; /* Add this to create space between the icon and the text */
 }
 
 .prima-riga, .seconda-riga, .terza-riga{
@@ -127,11 +119,11 @@ html[data-bs-theme="light"] .content {
     min-width:calc(1648/2)px;
 }
 
-#vento, #direzione-vento, #pressione, #umidita, #visibilita, #nuvolosita, #altitudine, #alba, #tramonto{
-    flex-grow: 3;
+#vento, #direzione-vento, #pressione, #umidita, #visibilita, #nuvolosita, #altitudine, #alba, #tramonto {
+    flex-grow: 1;
     flex-shrink: 1;
-    border:2px solid khaki;
-    color:white;
+    border: 2px solid khaki;
+    color: white;
     font-size: 1.5em;
     max-width: 100%;
     overflow: hidden;
@@ -139,36 +131,43 @@ html[data-bs-theme="light"] .content {
     white-space: nowrap;
 }
 
-/*inizio sezione icone*/
+/* inizio sezione icone */
 
-.fa-light{
+.fa-light {
     font-size: 3em;
-    flex-grow: 1;
-    max-width: 100px;
-    flex-shrink: 4;
-    border: 3px solid magenta;
-    color:white;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50px; /* Set a fixed width for the icons */
+    text-align: center; /* Center the icon horizontally */
+    color: white;
+    margin-right: 10px; /* Add some space between the icon and the text */
 }
 
 @media (max-width: 768px) {
-    .terza-riga{
-        flex-direction: row;
-        flex-wrap: wrap;
+    .terza-riga {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4.5, 1fr);
     }
 
-    .terza-riga > * {
-        flex: 1 1 50%;
-        box-sizing: border-box;
+    .seconda-riga {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 576px) {
-    .fa-light{
-        font-size: 2em;
+    .terza-riga {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(9, 1fr);
     }
 
-    .terza-riga > * {
-        flex: 1 1 100%;
+    .seconda-riga {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    .fa-light{
+        font-size: 2em;
     }
 }
 
@@ -184,26 +183,24 @@ html[data-bs-theme="light"] .content {
 
 .fa-down{
     flex-grow: 1;
-
     color:blue;
 }
 
 #temperatura{
-    font-size: 6vw;
+    font-size: 5em;
     color: white;
     height: auto;
     line-height: 100%;
 }
 
 #massimo{
-
     color:white;
-    font-size: 2vw;
+    font-size: 2em;
 }
 
 #minimo{
     color:white;
-    font-size: 2vw;
+    font-size: 2em;
 }
 
 .temperatura{

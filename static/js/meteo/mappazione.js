@@ -11,4 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var marker = L.marker([41.9028, 12.4964]).addTo(map)
         .bindPopup('Roma, Italia')
         .openPopup();
+
+    // Disabilita lo zoom con lo scroll
+    map.scrollWheelZoom.disable();
 });
