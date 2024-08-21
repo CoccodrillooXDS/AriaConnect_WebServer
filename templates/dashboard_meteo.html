@@ -5,10 +5,11 @@
 {% block style %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_meteo.css') }}">
         <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 {% endblock %}
 
 {% block content %}
-<div class="mappa"><h1>mappa openstreetmap</h1></div>
+<div id="map"></div>
 <div class="meteo"> 
     <div class="prima-riga">
         <div  id="citta"></div>
@@ -49,5 +50,7 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/richiestaOpenweather.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/meteo/richiestaOpenweather.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/meteo/mappazione.js') }}"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 {% endblock %}

@@ -1,12 +1,13 @@
 // Variabili per la latitudine, longitudine e chiave API
-const lat = 27.9881; // Latitudine per Roma, ad esempio
-const lon = 86.9250; // Longitudine per Roma, ad esempio
+const lat = 42.6875; // Latitudine per Roma, ad esempio
+const lon = 2.9006; // Longitudine per Roma, ad esempio
 const apiKey = ''; // Inserisci la tua chiave API qui
 
 // Costruzione dell'URL con i parametri
 const url_openweather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}&lang=it`;
 const url_elevation = `https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}`;
 let elementi = {};
+
 /*aspetta il caricamento della pagina prima di prendere i vari elementi*/ 
 document.addEventListener("DOMContentLoaded", function() {
     elementi = {
@@ -40,8 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(data => {
             console.log(data);
-
-            
 
             const time = new Date();
             const dataLocale = new Date(time.getTime() + data.timezone * 1000);

@@ -7,8 +7,6 @@ html[data-bs-theme="light"] .content {
 }
 
 .content{
-    min-width: 400px;
-    max-width: 60%;
     display: flex !important;
     flex-wrap: wrap !important;
     flex-direction: row !important;
@@ -23,7 +21,7 @@ html[data-bs-theme="light"] .content {
     width: 100%;
     min-width: 200px;
     height: 600px;
-    padding:30px;
+    padding: 30px;
 }
 
 .prima-riga{
@@ -57,7 +55,7 @@ html[data-bs-theme="light"] .content {
 }
 
 .seconda-riga .data-ora #data{
-    font-size: 2dvw;
+    font-size: 2vw;
     color: white;
     height: auto;
     line-height: 0;
@@ -65,7 +63,7 @@ html[data-bs-theme="light"] .content {
 
 
 .seconda-riga .data-ora #ora{
-    font-size: 6dvw;
+    font-size: 6vw;
     color: white;
     height: auto;
     line-height: normal;
@@ -89,7 +87,7 @@ html[data-bs-theme="light"] .content {
 
 .seconda-riga .icona-meteo #descrizione{
     color:white;
-    font-size: 2dvw;
+    font-size: 2vw;
     position: absolute;
     /* top:0%; */
     bottom: 4.5%;
@@ -119,13 +117,13 @@ html[data-bs-theme="light"] .content {
     border: 8px solid rgba(0, 0, 0, 0.199);
 }
 
-.meteo, .mappa{
+.meteo, #map{
     background-color: blue;
 }
 
-.mappa{
+#map{
     width: 1648px;
-    height: 800px;
+    height: 450px;
     min-width:calc(1648/2)px;
 }
 
@@ -134,14 +132,17 @@ html[data-bs-theme="light"] .content {
     flex-shrink: 1;
     border:2px solid khaki;
     color:white;
-    font-size: 2vw;
+    font-size: 1.5em;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-
 
 /*inizio sezione icone*/
 
 .fa-light{
-    font-size: 3dvw;
+    font-size: 3em;
     flex-grow: 1;
     max-width: 100px;
     flex-shrink: 4;
@@ -149,17 +150,36 @@ html[data-bs-theme="light"] .content {
     color:white;
 }
 
+@media (max-width: 768px) {
+    .terza-riga{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .terza-riga > * {
+        flex: 1 1 50%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 576px) {
+    .fa-light{
+        font-size: 2em;
+    }
+
+    .terza-riga > * {
+        flex: 1 1 100%;
+    }
+}
 
 .box-icone-temperatura{
     display: flex;
-    gap:20px;
+    gap: 20px;
 }
 
 .fa-up{
     flex-grow: 1;
-
     color:red;
-
 }
 
 .fa-down{
@@ -169,7 +189,7 @@ html[data-bs-theme="light"] .content {
 }
 
 #temperatura{
-    font-size: 6dvw;
+    font-size: 6vw;
     color: white;
     height: auto;
     line-height: 100%;
@@ -178,12 +198,12 @@ html[data-bs-theme="light"] .content {
 #massimo{
 
     color:white;
-    font-size: 2dvw;
+    font-size: 2vw;
 }
 
 #minimo{
     color:white;
-    font-size: 2dvw;
+    font-size: 2vw;
 }
 
 .temperatura{
