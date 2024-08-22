@@ -2,15 +2,22 @@
 
 {% block title %}Dashboard meteo{% endblock %}
 
+{% block script %}
+    <script src="{{ url_for('static', filename='js/dashboard_meteo.js') }}"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-gesture-handling"></script>
+{% endblock %}
+
 {% block style %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_meteo.css') }}">
-        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_meteo.css') }}">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
 {% endblock %}
 
 {% block content %}
 <div id="map"></div>
-<div class="meteo"> 
+<div class="meteo" style="display: none;"> 
     <div class="prima-riga">
         <div id="citta"></div>
     </div>
@@ -21,14 +28,14 @@
             <div id="ora"></div>
         </div>
         <div class="icona-meteo">
-            <img id="icona" src="http://openweathermap.org/img/wn/10d@4x.png" alt="Weather Icon">
+            <img id="icona" src="" alt="Weather Icon">
             <div id="descrizione"></div>
         </div>
         <div class="temperatura">
             <div id="temperatura"></div>
             <div class="box-icone-temperatura">
-                <div id="massimo"><i class="fa-solid fa-up"></i><strong>30°</strong></div>
-                <div id="minimo"><i class="fa-solid fa-down"></i><strong>20°</strong></div>
+                <div id="massimo"><i class="fa-solid fa-up"></i><strong></strong></div>
+                <div id="minimo"><i class="fa-solid fa-down"></i><strong></strong></div>
             </div>
 
 
@@ -42,15 +49,9 @@
         <div class="umidita"><i class="fa-light fa-droplet"></i><div id="umidita"></div></div>  <!--esprime l'umidità in percentuale-->
         <div class="visibilita"><i class="fa-light fa-eye-slash"></i><div id="visibilita"></div></div>  <!--esprime la visibilità in metri-->
         <div class="nuvolosita"><i class="fa-light fa-clouds"></i><div id="nuvolosita"></div></div> <!--esprime la copertura delle nuvole in percentuale-->
-        <div class="altitudine"><i class="fa-light fa-ruler-vertical"></i><div id="altitudine">3.16mm</div></div>  <!--esprime l'altitudine in metri-->
+        <div class="altitudine"><i class="fa-light fa-ruler-vertical"></i><div id="altitudine"></div></div>  <!--esprime l'altitudine in metri-->
         <div class="alba"><i class="fa-light fa-sunrise"></i><div id="alba"></div></div>  <!--esprime l'orario dell'alba-->
         <div class="tramonto"><i class="fa-light fa-sunset"></i><div id="tramonto"></div></div> <!--esprime l'orario del tramonto-->
     </div>
 </div>
-{% endblock %}
-
-{% block script %}
-    <script src="{{ url_for('static', filename='js/meteo/richiestaOpenweather.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/meteo/mappazione.js') }}"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 {% endblock %}
