@@ -1,10 +1,16 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request, jsonify
 from livereload import Server
+import os
+import requests
 
 app = Flask(__name__)
 app.debug = True
 server = Server(app.wsgi_app)
 server.watch('**\*.*')
+
+OPENWEATHER_API_KEY = os.environ.get('OPENWEATHER_API_KEY', None)
+if OPENWEATHER_API_KEY is None:
+    raise Exception('OPENWEATHER_API_KEY not found in environment variables')
 
 @app.route('/')
 def index():
@@ -13,6 +19,33 @@ def index():
 @app.route('/dashboard')
 def dashboard():
     return redirect('/dashboard/meteo')
+
+@app.route('/api/openweather', methods=['POST'])
+def openweather():
+    body = request.get_json()
+    lat = body.get('lat', None)
+    lon = body.get('lon', None)
+    if lat is None or lon is None:
+        return 'Error: lat and lon are required', 400
+    openWeatherURL = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={OPENWEATHER_API_KEY}&lang=it'
+    openWeatherGeoReverseURL = f'http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit=1&appid={OPENWEATHER_API_KEY}'
+    openElevationURL = f'https://api.open-elevation.com/api/v1/lookup?locations={lat},{lon}'
+    try:
+        response = requests.get(openWeatherURL)
+        response.raise_for_status()
+        weather = response.json()
+        response = requests.get(openWeatherGeoReverseURL)
+        response.raise_for_status()
+        geo = response.json()
+        response = requests.get(openElevationURL)
+        response.raise_for_status()
+        elevation = response.json()
+        weather['elevation'] = elevation['results'][0]['elevation']
+        if len(geo) > 0:
+            weather['name'] = geo[0]['name']
+        return jsonify(weather), 200
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
 
 @app.route('/dashboard/meteo')
 def meteo():

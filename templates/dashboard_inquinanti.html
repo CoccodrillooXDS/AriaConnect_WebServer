@@ -6,12 +6,29 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_inquinanti.css') }}">
 {% endblock %}
 
+{% block script %}
+<!-- grafici -->
+<script src="{{ url_for('static', filename='js/inquinanti/grafici.js') }}"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
 
 {% block content %}
 <div class="box">
+
     <div class="row">
-        <div class="col-8" id="grafico_NO2">col-8</div>
-        <div class="col-4" id="parametri_NO2">
+        <div class="col-8">
+            <h4>Biossido di azoto</h4>
+            <div class="row">
+                <div class="col-2">
+                    <div id="switch">z qua ci sarà lo switch per mostrare se il sensore è attivo</div>
+                </div>
+                <div class="col-10">
+                    <canvas id="grafico_NO2"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
             <h3>parametri biossido di azoto</h3>
             <div class="row">
                 <div class="col">biossido di azoto</div>
@@ -31,8 +48,9 @@
             </div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-4" id="parametri_PM10">
+        <div class="col-4">
             <h3>parametri biossido di PM10</h3>
             <div class="row">
                 <div class="col">biossido di azoto</div>
@@ -51,13 +69,34 @@
                 <div class="col">valore bresciano...</div>
             </div>
         </div>
-        <div class="col-8" id="grafico_PM10">col-8</div>
+        <div class="col-8"> 
+            <h4>PM10</h4>
+            <div class="row">
+                <div class="col-10">
+                    qua ci sarà il grafico
+                </div>
+                <div class="col-2">
+                    <div id="switch">z qua ci sarà lo switch per mostrare se il sensore è attivo</div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="row">
-        <div class="col-8" id="grafico_NH3">col-8</div>
-        <div class="col-4" id="parametri_NH3">
+        <div class="col-8">
+            <h4>Biossido di ammoniaca</h4>
+            <div class="row">
+                <div class="col-2">
+                    <div id="switch">z qua ci sarà lo switch per mostrare se il sensore è attivo</div>
+                </div>
+                <div class="col-10">
+                    qua ci sarà il grafico
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
             <h3>parametri ammoniaca</h3>
-            <<div class="row">
+            <div class="row">
                 <div class="col">biossido di azoto</div>
                 <div class="col">valore attuale</div>
             </div>
@@ -75,8 +114,9 @@
             </div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-4" id="parametri_CO">
+        <div class="col-4">
             <h3>parametri ossido di carbonio</h3>
             <div class="row">
                 <div class="col">biossido di azoto</div>
@@ -95,11 +135,32 @@
                 <div class="col">valore bresciano...</div>
             </div>
         </div>
-        <div class="col-8" id="grafico_CO">col-8</div>
+        <div class="col-8">
+            <h4>Biossido di azoto</h4>
+            <div class="row">
+                <div class="col-10">
+                    qua ci sarà il grafico
+                </div>
+                <div class="col-2">
+                    <div id="switch">z qua ci sarà lo switch per mostrare se il sensore è attivo</div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="row">
-        <div class="col-8" id="grafico_CO2">col-8</div>
-        <div class="col-4" id="parametri_CO2">
+        <div class="col-8">
+            <h4>Biossido di azoto</h4>
+            <div class="row">
+                <div class="col-2">
+                    <div id="switch">z qua ci sarà lo switch per mostrare se il sensore è attivo</div>
+                </div>
+                <div class="col-10">
+                    qua ci sarà il grafico
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
             <h3>parametri anidride carbonica</h3>
             <div class="row">
                 <div class="col">biossido di azoto</div>
@@ -119,8 +180,9 @@
             </div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-4" id="parametri_TVOC">
+        <div class="col-4">
             <h3>parametri composti organici volatili</h3>
             <div class="row">
                 <div class="col">biossido di azoto</div>
@@ -139,12 +201,17 @@
                 <div class="col">valore bresciano...</div>
             </div>
         </div>
-        <div class="col-8" id="grafico_TVOC">col-8</div>
+        <div class="col-8">
+            <h4>Biossido di azoto</h4>
+            <div class="row">
+                <div class="col-10">
+                    qua ci sarà il grafico
+                </div>
+                <div class="col-2">
+                    <div id="switch">z qua ci sarà lo switch per mostrare se il sensore è attivo</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-{% endblock %}
-
-
-{% block script %}
-<!-- <script src="{{ url_for('static', filename='js/meteo/.js') }}"></script> -->
 {% endblock %}
