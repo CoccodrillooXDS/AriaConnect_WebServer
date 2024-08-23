@@ -32,7 +32,7 @@
 }
 
 .seconda-riga .data-ora{
-    display:flex;
+    display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
@@ -100,7 +100,7 @@ html[data-bs-theme="light"] .prima-riga > div, html[data-bs-theme="light"] .seco
     border-radius: 10px;
 }
 
-.vento, .direzione-vento, .pressione, .umidita, .visibilita, .nuvolosita, .altitudine, .alba, .tramonto {
+.terza-riga > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,14 +112,36 @@ html[data-bs-theme="light"] .prima-riga > div, html[data-bs-theme="light"] .seco
     width: 100%;
 }
 
+@media (max-width: 350px) {
+    .prima-riga, .seconda-riga, .terza-riga {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .seconda-riga .data-ora #ora {
+        font-size: 4em !important;
+    }
+
+    .seconda-riga .icona-meteo #descrizione {
+        font-size: 1.5em !important;
+    }
+
+    #temperatura {
+        font-size: 4em !important;
+    }
+
+    #massimo, #minimo {
+        font-size: 1.5em !important;
+    }
+}
+
 #map {
-    width: 1648px;
-    height: 450px;
-    min-width: calc(1648/2)px;
+    width: 100%;
+    height: 350px;
     border-radius: 10px;
 }
 
-#vento, #direzione-vento, #pressione, #umidita, #visibilita, #nuvolosita, #altitudine, #alba, #tramonto {
+.terza-riga > div > div {
     flex-grow: 1;
     flex-shrink: 1;
     font-size: 1.5em;
@@ -183,6 +205,16 @@ html[data-bs-theme="dark"] .leaflet-control, html[data-bs-theme="dark"] .leaflet
 
     .fa-light{
         font-size: 2em;
+    }
+
+    #map {
+        height: 300px;
+    }
+}
+
+@media (max-height: 500px) {
+    #map {
+        height: 300px;
     }
 }
 

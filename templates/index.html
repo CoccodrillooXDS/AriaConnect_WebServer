@@ -6,14 +6,14 @@
 <!-- Welcoming users -->
 <div class="py-5 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
-        <div class="order-1">
+        <div class="order-1" id="welcomeUsers">
             <h1 class="display-4 bold">Aria Connect</h1>
             <p class="lead italic">Connecting the world through innovative air quality solutions.</p>
             <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">Inizia ora</a>
             <a href="{{ url_for('project') }}" class="btn btn-link">Scopri di più</a>
         </div>
         <img src="{{ url_for('static', filename='img/Logo_Aria_Connect.jpg') }}" alt="Aria Connect"
-            class="img-right img-biggestimg rounded">
+            class="img-right img-biggestimg rounded" id="projectLogoIndex">
     </div>
 </div>
 <!-- Horizontal Line -->
@@ -55,12 +55,12 @@
             <p>Il progetto è stato supportato dalle scuole partecipanti, dai loro insegnanti, dall'associazione
                 VET4Africa, dall'Institut Mistral e dal programma Erasmus+ dell'Unione Europea.</p>
         </div>
-        <div class="img-right img-biggerimg d-flex flex-column align-items-center">
+        <div class="img-right d-flex align-items-center" id="germanSponsor">
             <img src="{{ url_for('static', filename='img/Logo_Staatliche_Berufsschule_Kempten_Allgau.png') }}"
                 alt="Solar Kit Project BS1 Kempten (Germany) Erasmus Project"
-                class="img-biggerimg img-addbg rounded mb-4">
+                class="logo-kempten img-addbg rounded">
             <img src="{{ url_for('static', filename='img/Logo_Erasmus+.png') }}" alt="Erasmus+"
-                class="img-bigimg img-addbg rounded">
+                class="logo-erasmus img-addbg rounded">
         </div>
     </div>
 
