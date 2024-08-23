@@ -20,6 +20,23 @@ h3{
     font-size: 1.6dvw;
 }
 
-#switch{
-    background-color: red;
+.col-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#switch_NO2, #switch_PM10, #switch_TVOC, #switch_NH3, #switch_CO, #switch_CO2{
+    background-color: aqua;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+#map{
+    background-color: blue;
+    width: 100%;
+    height: 450px;
+    min-width: calc(1648/2)px;
+    border-radius: 10px;
 }
