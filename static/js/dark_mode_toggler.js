@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {
         console.error('Error adding event listeners to theme toggler buttons:', e);
     }
+    
+    try {
+        document.getElementById('dropdownThemeDiv').removeAttribute('style');
+    } catch (e) {}
 });
 
 // create an event sender so that the main page can listen to the event
