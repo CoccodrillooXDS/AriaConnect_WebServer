@@ -43,13 +43,49 @@ html[data-bs-theme="light"] .footerBorder {
     flex-direction: column !important;
 }
 
-@media (max-width: 610px) or (max-height: 410px) {
-    #iiscastelli {
+@media (max-width: 620px) {
+    #iiscastelli > a > img {
+        height: 45px !important;
+    }
+
+    #iiscastelli > div {
         display: none !important;
     }
 
     #projectLogo {
         height: 45px !important;
+    }
+
+    #realBody {
+        margin-top: 81px !important;
+    }
+}
+
+@media (max-height: 550px) {
+    #iiscastelli > a > img {
+        height: 45px !important;
+    }
+
+    #projectLogo {
+        height: 45px !important;
+    }
+
+    #realBody {
+        margin-top: 81px !important;
+    }
+}
+
+@supports (-ms-ime-align: auto) {
+    #openOffcanvas {
+        display: none !important;
+    }
+
+    #iiscastelli > a > img {
+        height: 45px !important;
+    }
+
+    #iiscastelli > div {
+        display: none !important;
     }
 }
 
@@ -68,8 +104,12 @@ html[data-bs-theme="dark"] a:hover {
     color: #bbbbbb !important;
 }
 
-html[data-bs-theme="light"] a {
-    color: #000000 !important;
+html[data-bs-theme="light"] a.btn-primary  {
+    color: #ffffff !important;
+}
+
+html[data-bs-theme="light"] a.btn-primary:hover {
+    color: #bbbbbb !important;
 }
 
 html[data-bs-theme="light"] a:hover {
@@ -218,6 +258,10 @@ html[data-bs-theme="dark"] .img-addbg {
     max-width: 250px !important;
     width: auto;
     object-fit: contain;
+}
+
+#realBody {
+    margin-top: 111px;
 }
 
 @media (max-width: 1100px) {

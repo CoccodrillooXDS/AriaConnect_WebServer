@@ -62,7 +62,7 @@
 }
 
 .seconda-riga .icona-meteo img{
-    height: auto;
+    height: 150px;
     margin-top: -2.5em;
 }
 
@@ -139,6 +139,7 @@ html[data-bs-theme="light"] .prima-riga > div, html[data-bs-theme="light"] .seco
     width: 100%;
     height: 350px;
     border-radius: 10px;
+    margin-top: 10px;
 }
 
 .terza-riga > div > div {
@@ -179,6 +180,23 @@ html[data-bs-theme="dark"] .leaflet-control, html[data-bs-theme="dark"] .leaflet
     color: #ffffff; /* Lighter color for dark mode */
 }
 
+.seconda-riga > div {
+    height: 160px !important;
+}
+
+@supports (-ms-ime-align: auto) {
+    .seconda-riga > div {
+        margin-bottom: 10px !important;
+    }
+
+    .seconda-riga .temperatura {
+        margin-bottom: 0px !important;
+    }
+    
+    .terza-riga > div {
+        margin-bottom: 5px !important;
+    }
+}
 
 @media (max-width: 768px) {
     .terza-riga {
@@ -209,12 +227,7 @@ html[data-bs-theme="dark"] .leaflet-control, html[data-bs-theme="dark"] .leaflet
 
     #map {
         height: 300px;
-    }
-}
-
-@media (max-height: 500px) {
-    #map {
-        height: 300px;
+        margin-bottom: 10px;
     }
 }
 
