@@ -5,14 +5,64 @@
 {% block script %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const components = document.querySelectorAll('.component-container');
+        var components = document.querySelectorAll('.component-container');
 
-        components.forEach(component => {
+        Array.prototype.forEach.call(components, function (component) {
             component.addEventListener('touchstart', function () {
                 // Toggle the 'active' class on touch
-                component.classList.toggle('active');
+                if (component.classList.contains('active')) {
+                    component.classList.remove('active');
+                } else {
+                    component.classList.add('active');
+                }
             });
         });
+
+        var offCanvas = document.getElementById('offcanvasSidebar');
+        // Obtain the sections, sections' titles from the page and add them to the offcanvas
+        var sections = ['sez1', 'sez2', 'sez3', 'sezTeam'];
+        var currentPageLink = document.querySelector('.offcanvas a[href="' + window.location.pathname + '"]');
+
+        if (currentPageLink) {
+            var ul = document.createElement('ul');
+            ul.className = 'nested-sections';
+
+            for (var i = 0; i < sections.length; i++) {
+                var section = document.getElementById(sections[i]);
+                var title = section.textContent;
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = '#' + sections[i];
+                a.className = 'd-block';
+                a.textContent = title;
+                li.appendChild(a);
+                ul.appendChild(li);
+            }
+
+            currentPageLink.parentElement.appendChild(ul);
+        }
+
+        // Add sections to the footer "Link rapidi"
+        var footerLinksContainer = document.querySelector('#footer-links');
+        var footerCurrentPageLink = document.querySelector('#footer-links a[href="' + window.location.pathname + '"]');
+        if (footerCurrentPageLink) {
+            var ul = document.createElement('ul');
+            ul.className = 'list-unstyled ms-3';
+
+            for (var i = 0; i < sections.length; i++) {
+                var section = document.getElementById(sections[i]);
+                var title = section.textContent;
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = '#' + sections[i];
+                a.className = 'text-decoration-none';
+                a.textContent = title;
+                li.appendChild(a);
+                ul.appendChild(li);
+            }
+
+            footerCurrentPageLink.appendChild(ul);
+        }
     });
 </script>
 {% endblock %}
@@ -87,7 +137,7 @@
 <div class="py-5 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1">
-            <h1 class="display-4 bold">Aria Connect</h1>
+            <h1 class="display-4 bold" id="sez1">Aria Connect</h1>
             <p class="lead italic">Monitoraggio della qualità dell'aria da remoto con uno zaino intelligente.</p>
             <p>
                 "Aria Connect" è un innovativo progetto di monitoraggio dell'aria da remoto, ideato e realizzato da un
@@ -111,7 +161,9 @@
                 che
                 i dati sulla qualità dell'aria siano sempre disponibili, contribuendo così a una maggiore consapevolezza
                 e
-                controllo della qualità dell'aria nelle nostre comunità. Per garantire l'attendibilità dei dati acquisiti sono state effettuate misure di confronto con il nostro prototipo presso la centralina dell'ARPA situata presso Piazza Loggia a Brescia, dimostrando un ottimo accordo.
+                controllo della qualità dell'aria nelle nostre comunità. Per garantire l'attendibilità dei dati
+                acquisiti sono state effettuate misure di confronto con il nostro prototipo presso la centralina
+                dell'ARPA situata presso Piazza Loggia a Brescia, dimostrando un ottimo accordo.
             </p>
             <p>Tutta la documentazione sulla realizzazione del progetto è disponibile <a
                     href="{{ url_for('documentation') }}">qui</a> e potrà essere utilizzata da altre scuole tecniche per
@@ -136,7 +188,7 @@
 
 <!-- Originality -->
 <div class="py-5 boxino border border-3">
-    <h2 class="text-center mb-4 bold">Perché questo progetto è originale?</h2>
+    <h2 class="text-center mb-4 bold" id="sez2">Perché questo progetto è originale?</h2>
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
@@ -156,8 +208,7 @@
             <h3 class="bold">Aspetto 2</h3>
             <p>Testo</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}"
-            alt="Placeholder"
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
             class="img-right img-bigimg img-addbg rounded">
     </div>
 
@@ -215,7 +266,7 @@
 
 <!-- Impatto sociale -->
 <div class="py-5 boxino border border-3">
-    <h2 class="text-center mb-4 bold">Impatto sociale</h2>
+    <h2 class="text-center mb-4 bold" id="sez3">Impatto sociale</h2>
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
@@ -235,8 +286,7 @@
             <h3 class="bold">Aspetto 2</h3>
             <p>Testo</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}"
-            alt="Placeholder"
+        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
             class="img-right img-bigimg img-addbg rounded">
     </div>
 
@@ -288,4 +338,7 @@
             class="img-right img-bigimg img-addbg rounded">
     </div>
 </div>
+
+<!-- Our Team -->
+{% include 'layout_team.html' %}
 {% endblock %}

@@ -59,6 +59,10 @@ html[data-bs-theme="light"] .footerBorder {
     #realBody {
         margin-top: 81px !important;
     }
+
+    html {
+        scroll-padding-top: 145px !important;
+    }
 }
 
 @media (max-height: 550px) {
@@ -73,6 +77,24 @@ html[data-bs-theme="light"] .footerBorder {
     #realBody {
         margin-top: 81px !important;
     }
+
+    html {
+        scroll-padding-top: 145px !important;
+    }
+
+    @supports (-ms-ime-align: auto) {
+        #openOffcanvas {
+            display: none !important;
+        }
+    
+        #iiscastelli > a > img {
+            height: 45px !important;
+        }
+    
+        #iiscastelli > div {
+            display: none !important;
+        }
+    }
 }
 
 @supports (-ms-ime-align: auto) {
@@ -80,16 +102,12 @@ html[data-bs-theme="light"] .footerBorder {
         display: none !important;
     }
 
-    #iiscastelli > a > img {
-        height: 45px !important;
-    }
-
-    #iiscastelli > div {
+    #dropdownThemeDiv {
         display: none !important;
     }
 }
 
-/* Switch to horizontal layout for devices wider than 768px */
+/* Switch to horizontal layout for devices wider than 610px */
 @media (min-width: 610px) {
     .navbar .d-flex {
         flex-direction: row !important;
@@ -104,12 +122,17 @@ html[data-bs-theme="dark"] a:hover {
     color: #bbbbbb !important;
 }
 
+
 html[data-bs-theme="light"] a.btn-primary  {
     color: #ffffff !important;
 }
 
 html[data-bs-theme="light"] a.btn-primary:hover {
     color: #bbbbbb !important;
+}
+
+html[data-bs-theme="light"] a {
+    color: #3d3d3d !important;
 }
 
 html[data-bs-theme="light"] a:hover {
@@ -262,6 +285,10 @@ html[data-bs-theme="dark"] .img-addbg {
 
 #realBody {
     margin-top: 111px;
+}
+
+html {
+    scroll-padding-top: 175px;
 }
 
 @media (max-width: 1100px) {
