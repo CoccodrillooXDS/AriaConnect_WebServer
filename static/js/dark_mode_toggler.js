@@ -51,14 +51,18 @@ const getCurrentTheme = () => document.documentElement.getAttribute('data-bs-the
 
 setTheme(getPreferredTheme())
 
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    const storedTheme = getStoredTheme()
-    if (storedTheme !== 'light' && storedTheme !== 'dark') {
-        setTheme(getPreferredTheme())
-        updateThemeSelection(getPreferredTheme())
-    }
-    document.dispatchEvent(new Event('themeChange'))
-})
+try {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        const storedTheme = getStoredTheme()
+        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+            setTheme(getPreferredTheme())
+            updateThemeSelection(getPreferredTheme())
+        }
+        document.dispatchEvent(new Event('themeChange'))
+    })
+} catch (e) {
+    console.error('Error adding event listener to matchMedia:', e)
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
