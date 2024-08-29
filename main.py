@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, jsonify
 from livereload import Server
 import os
+import fetchInquinante
 import requests
 
 app = Flask(__name__)
@@ -50,6 +51,24 @@ def openweather():
 @app.route('/dashboard/meteo')
 def meteo():
     return render_template('dashboard_meteo.html')
+
+@app.route('/api/inquinanti', methods=['POST'])
+def inquinantiDataBase():
+    body = request.get_json()
+    nomeInquinante = body.get('inquinante', None)
+    valoreIntervallo = body.get('valoreIntervallo', None)
+    tempoIntervallo = body.get('tempoIntervallo', None)
+
+    if nomeInquinante is None or valoreIntervallo is None or tempoIntervallo is None:
+        return 'Error: lat and lon are required', 400
+    try:
+        
+        response = fetchInquinante.getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo)
+
+        return jsonify(response), 200
+    
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
 
 @app.route('/dashboard/inquinanti')
 def inquinanti():

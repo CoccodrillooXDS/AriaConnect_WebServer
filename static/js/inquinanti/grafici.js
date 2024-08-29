@@ -1,57 +1,67 @@
-document.addEventListener("DOMContentLoaded", async function () {
-
-    const ctx = document.getElementById("grafico_NO2");
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-
-        datasets: [{
-          data: [
-            {x: '2024-08-20 08:00:00', y: 23},
-            {x: '2024-08-20 09:00:00', y: 25},
-            {x: '2024-08-20 10:00:00', y: 27},
-            {x: '2024-08-20 11:00:00', y: 26},
-            {x: '2024-08-20 12:00:00', y: 29},
-            {x: '2024-08-20 13:00:00', y: 31},
-            {x: '2024-08-20 14:00:00', y: 30},
-            {x: '2024-08-20 15:00:00', y: 32},
-            {x: '2024-08-20 16:00:00', y: 33},
-            {x: '2024-08-20 17:00:00', y: 35},
-            {x: '2024-08-20 18:00:00', y: 34},
-            {x: '2024-08-20 19:00:00', y: 32},
-            {x: '2024-08-20 20:00:00', y: 30},
-            {x: '2024-08-20 21:00:00', y: 28},
-            {x: '2024-08-20 22:00:00', y: 27},
-            {x: '2024-08-20 23:00:00', y: 25},
-            {x: '2024-08-21 00:00:00', y: 23},
-            {x: '2024-08-21 01:00:00', y: 22},
-            {x: '2024-08-21 02:00:00', y: 21},
-            {x: '2024-08-21 03:00:00', y: 20}
-          ],  
-          borderWidth: 1,
-          backgroundColor: '#000000',
-          borderColor: '#ffffff',
-          labels: ["valore", "data"]
-        }]
+async function fetchInquinanti(inquinante, valoreIntervallo, tempoIntervallo) {
+  // Fare la richiesta utilizzando fetch
+  await fetch('/api/inquinanti', {
+      // Impostare il metodo HTTP
+      method: 'POST',
+      // Impostare l'intestazione
+      headers: {
+          'Content-Type': 'application/json',
       },
+      // Impostare il corpo della richiesta
+      body: JSON.stringify({ inquinante: inquinante, valoreIntervallo: valoreIntervallo, tempoIntervallo:tempoIntervallo})
+  }
+  ).then(response => {
+      // Controlla se la risposta è stata corretta
+      if (!response.ok) {throw new Error('Errore nella richiesta');}
+      return response.json(); // Convertire la risposta in JSON
+      })
+
+      .then(data => {
+
+        let inquinanteValori = data.map(item => item[1]); //array he andrà messo sull'asse delle y
+        let inquinanteDate = data.map(item => item[0]); //array he andrà messo sull'asse delle x
 
 
-      
-      options: {
-        scales: {
-          y: {
-            beginAtZero: false
+        let ctx = document.getElementById(`grafico_${inquinante}`);
+
+        const graficoUmidita = new Chart(ctx, {
+          type: 'line', // Tipo di grafico
+          data: {
+            labels: inquinanteDate, // Asse X - Date
+            datasets: [{
+              label: 'Umidità',
+              data: inquinanteValori, // Asse Y - Valori di umidità
+            }]
+          },
+          options: {
+            scales: {
+              x: {
+                display: true,
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              },
+              y: {
+                display: true,
+              }
+            }
           }
-        }
-      }
-    });
+      });
 
 
-});
+      })
+
+      .catch(error => {
+          console.error('Errore:', error); // Gestisci gli errori
+      });
+}
 
 
-// myChart.data.datasets[0].data.push(40);
 
-// // Aggiornare il grafico
-// myChart.update();
+fetchInquinanti("CO2", 2, "HOUR");
+fetchInquinanti("CO", 2, "HOUR");
+fetchInquinanti("NH3", 2, "HOUR");
+fetchInquinanti("NO2", 2, "HOUR");
+fetchInquinanti("TVOC", 2, "HOUR");
+fetchInquinanti("PM10", 10, "HOUR");
