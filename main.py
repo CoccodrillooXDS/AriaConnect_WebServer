@@ -17,6 +17,10 @@ if OPENWEATHER_API_KEY is None:
 def index():
     return render_template('index.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return redirect('/static/img/favicon.ico')
+
 @app.route('/dashboard')
 def dashboard():
     return redirect('/dashboard/meteo')
