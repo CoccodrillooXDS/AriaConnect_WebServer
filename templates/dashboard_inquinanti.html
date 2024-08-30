@@ -4,22 +4,33 @@
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_inquinanti.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.4/leaflet.awesome-markers.css">
 {% endblock %}
 
 {% block script %}
+<!--icone-->
+
 <!-- grafici -->
 <script src="{{ url_for('static', filename='js/inquinanti/grafici.js') }}"></script>
+<!--mappa-->
+<script src="{{ url_for('static', filename='js/inquinanti/mappazione.js') }}"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-gesture-handling"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.min.js"></script>
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
 {% block content %}
 <div class="pulsanti">
-    <button id="ora" onclick="setOra()"></dibuttonv>
-    <button id="giorno" onclick="setGiorno()"></button>
-    <button id="settimana" onclick="setSettimana()"></button>
-    <button id="mese" onclick="setMese()"></button>
-    <button id="anno" onclick="setAnno()"></button>
+    <button id="ora" onclick="setOra()">1 h</dibuttonv>
+    <button id="giorno" onclick="setGiorno()"> 1 d</button>
+    <button id="settimana" onclick="setSettimana()"> 1 w</button>
+    <button id="mese" onclick="setMese()">1 m</button>
+    <button id="anno" onclick="setAnno()">1 y</button>
 </div>
 <div class="box">
 
@@ -203,11 +214,26 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-4">
+            <canvas id="grafico_humidity"></canvas>
+        </div>
+        <div class="col-4">
+            <canvas id="grafico_temperature"></canvas>
+        </div>
+        <div class="col-4">
+            <canvas id="grafico_pressure"></canvas>
+        </div>
+    </div>
+
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-11">
             <div id="map">
             </div>
+        </div>
+        <div class="col-1">
+            <button onclick="aggiungiMarker()">aggiungi marker</button>
         </div>
     </div>
 

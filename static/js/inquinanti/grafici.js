@@ -1,3 +1,9 @@
+let tempoIntervallo = "WEEK";
+const nomiValori = ["CO", "CO2", "PM10", "NH3", "NO2", "TVOC", "humidity", "temperature", "pressure"];
+
+//array per memorizzare i grafici
+const grafici = {graficoCO:null, graficoCO2:null, graficoPM10:null, graficoNH3:null, graficoNO2:null, graficoTVOC:null};
+
 async function fetchInquinanti(inquinante, valoreIntervallo, tempoIntervallo) {
   // Fare la richiesta utilizzando fetch
   await fetch('/api/inquinanti', {
@@ -21,10 +27,16 @@ async function fetchInquinanti(inquinante, valoreIntervallo, tempoIntervallo) {
         let inquinanteValori = data.map(item => item[1]); //array he andrà messo sull'asse delle y
         let inquinanteDate = data.map(item => item[0]); //array he andrà messo sull'asse delle x
 
-
         let ctx = document.getElementById(`grafico_${inquinante}`);
+      
+        nomeGrafico = `grafico${inquinante}`;
 
-        const graficoUmidita = new Chart(ctx, {
+        // se il grafico esiste già viene smantellato
+        if (grafici[nomeGrafico]){
+          grafici[nomeGrafico].destroy()
+        }
+
+        grafici[nomeGrafico] = new Chart(ctx, {
           type: 'line', // Tipo di grafico
           data: {
             labels: inquinanteDate, // Asse X - Date
@@ -37,10 +49,6 @@ async function fetchInquinanti(inquinante, valoreIntervallo, tempoIntervallo) {
             scales: {
               x: {
                 display: true,
-                title: {
-                  display: true,
-                  text: 'Date'
-                }
               },
               y: {
                 display: true,
@@ -57,11 +65,32 @@ async function fetchInquinanti(inquinante, valoreIntervallo, tempoIntervallo) {
       });
 }
 
+async function setGrafici(){
+  nomiValori.forEach((inquinante) => fetchInquinanti(inquinante, 1, tempoIntervallo));
+}
 
 
-fetchInquinanti("CO2", 2, "HOUR");
-fetchInquinanti("CO", 2, "HOUR");
-fetchInquinanti("NH3", 2, "HOUR");
-fetchInquinanti("NO2", 2, "HOUR");
-fetchInquinanti("TVOC", 2, "HOUR");
-fetchInquinanti("PM10", 10, "HOUR");
+function setOra(){
+  tempoIntervallo = "HOUR";
+  setGrafici();
+}
+function setGiorno(){
+  tempoIntervallo = "DAY";
+  setGrafici();
+}
+function setSettimana(){
+  tempoIntervallo = "WEEK";
+  setGrafici();
+}
+function setMese(){
+  tempoIntervallo = "MONTH";
+  setGrafici();
+}
+function setAnno(){
+  tempoIntervallo = "YEAR";
+  setGrafici();
+}
+
+
+
+setGrafici();
