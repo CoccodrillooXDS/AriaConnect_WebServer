@@ -56,4 +56,33 @@ function aggiungiMarker(){
 
 document.addEventListener("DOMContentLoaded", async function () {
     await caricaMappa();
+    await fetchPosizione(1);
 });
+
+//parametro: 1 per anche la qualità dell'aria, qualsiasi altro valore per solo la posizione
+async function fetchPosizione(parametro) {
+    // Fare la richiesta utilizzando fetch
+    await fetch('/api/GPS', {
+        // Impostare il metodo HTTP
+        method: 'POST',
+        // Impostare l'intestazione
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // Impostare il corpo della richiesta
+        body: JSON.stringify({ parametro: parametro})
+    }
+    ).then(response => {
+        // Controlla se la risposta è stata corretta
+        if (!response.ok) {throw new Error('Errore nella richiesta');}
+        return response.json(); // Convertire la risposta in JSON
+        })
+  
+        .then(data => {
+            console.log(data)
+        })
+  
+        .catch(error => {
+            console.error('Errore:', error); // Gestisci gli errori
+        });
+  }

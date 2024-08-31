@@ -8,7 +8,7 @@ def getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo):
         host="",
         user="",
         password="",
-        port=3306,
+        port=1 ,
         database="defaultdb"
     )
 

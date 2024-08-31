@@ -1,3 +1,27 @@
+elementi = {
+    valoreAttuale_NO2:null,
+    valoreAttuale_PM10:null,
+    valoreAttuale_NH3:null,
+    valoreAttuale_CO:null,
+    valoreAttuale_TVOC:null,
+    valoreAttuale_CO2:null,
+    valoreAttuale_humidity:null,
+    valoreAttuale_TVOC:null,
+    valoreAttuale_CO2:null
+}
+
+listaParametri = [
+    "CO2",
+    "NH3",
+    "CO",
+    "NO2",
+    "TVOC",
+    "PM10",
+    "humidity",
+    "pressure",
+    "temperature"
+]
+
 async function fetchValoriAttualiInquinanti(nomeInquinante) {
     // Fare la richiesta utilizzando fetch
     await fetch('/api/valoriAttualiInquinanti', {
@@ -17,9 +41,19 @@ async function fetchValoriAttualiInquinanti(nomeInquinante) {
         })
   
         .then(data => {
-            console.log(data)
+            //console.log(data)
 
-        //TODO: fare funzioni che aggiornano il valore attuale
+            nomeElemento = `valoreAttuale_${nomeInquinante}`;
+
+            elementi[nomeElemento] = document.getElementById(`valore_attuale_${nomeInquinante}`);
+
+            if(data!=null){
+                elementi[nomeElemento].innerText = data;
+            }else{
+                elementi[nomeElemento].innerText = "sensore spento";
+            }
+
+
         })
   
         .catch(error => {
@@ -29,6 +63,6 @@ async function fetchValoriAttualiInquinanti(nomeInquinante) {
 
 
 
+listaParametri.forEach((parametro) => fetchValoriAttualiInquinanti(parametro));
 
-fetchValoriAttualiInquinanti("CO2")
 

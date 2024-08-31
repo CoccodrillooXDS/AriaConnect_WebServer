@@ -47,7 +47,7 @@
             <h3>parametri biossido di azoto</h3>
             <div class="row">
                 <div class="col">biossido di azoto</div>
-                <div class="col">valore attuale</div>
+                <div class="col" id="valore_attuale_NO2">valore attuale</div>
             </div>
             <div class="row">
                 <div class="col">valore per legge</div>
@@ -68,8 +68,8 @@
         <div class="col-4">
             <h3>parametri PM10</h3>
             <div class="row">
-                <div class="col">biossido di azoto</div>
-                <div class="col">valore attuale</div>
+                <div class="col">PM10</div>
+                <div class="col" id="valore_attuale_PM10">valore attuale</div>
             </div>
             <div class="row">
                 <div class="col">valore per legge</div>
@@ -106,8 +106,8 @@
         <div class="col-4">
             <h3>parametri ammoniaca</h3>
             <div class="row">
-                <div class="col">biossido di azoto</div>
-                <div class="col">valore attuale</div>
+                <div class="col">parametri ammoniaca</div>
+                <div class="col" id="valore_attuale_NH3">valore attuale</div>
             </div>
             <div class="row">
                 <div class="col">valore per legge</div>
@@ -128,8 +128,8 @@
         <div class="col-4">
             <h3>parametri ossido di carbonio</h3>
             <div class="row">
-                <div class="col">biossido di azoto</div>
-                <div class="col">valore attuale</div>
+                <div class="col">ossido di carbonio</div>
+                <div class="col" id="valore_attuale_CO">valore </div>
             </div>
             <div class="row">
                 <div class="col">valore per legge</div>
@@ -164,10 +164,10 @@
             </div>
         </div>
         <div class="col-4">
-            <h3>parametri anidride carbonica</h3>
+            <h3>parametri composti organici volatili</h3>
             <div class="row">
-                <div class="col">biossido di azoto</div>
-                <div class="col">valore attuale</div>
+                <div class="col">anidride carbonica</div>
+                <div class="col" id="valore_attuale_TVOC">valore attuale</div>
             </div>
             <div class="row">
                 <div class="col">valore per legge</div>
@@ -188,8 +188,8 @@
         <div class="col-4">
             <h3>parametri CO2</h3>
             <div class="row">
-                <div class="col">biossido di azoto</div>
-                <div class="col">valore attuale</div>
+                <div class="col">parametri CO2</div>
+                <div class="col"  id="valore_attuale_CO2">valore attuale</div>
             </div>
             <div class="row">
                 <div class="col">valore per legge</div>
@@ -216,13 +216,28 @@
 
     <div class="row">
         <div class="col-4">
-            <canvas id="grafico_humidity"></canvas>
+            <div class="row">
+                <canvas id="grafico_humidity"></canvas>
+            </div>
+            <div class="row">
+                <div class="col" id="valore_attuale_humidity"></div>
+            </div>
         </div>
         <div class="col-4">
-            <canvas id="grafico_temperature"></canvas>
+            <div class="row">
+                <canvas id="grafico_temperature"></canvas>
+            </div>
+            <div class="row">
+                <div class="col" id="valore_attuale_temperature"></div>
+            </div>
         </div>
         <div class="col-4">
-            <canvas id="grafico_pressure"></canvas>
+            <div class="row">
+                <canvas id="grafico_pressure"></canvas>
+            </div>
+            <div class="row">
+                <div class="col" id="valore_attuale_pressure"></div>
+            </div>
         </div>
     </div>
 

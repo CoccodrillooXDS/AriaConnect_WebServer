@@ -53,9 +53,90 @@ def openweather():
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 
+
+
 @app.route('/dashboard/meteo')
 def meteo():
     return render_template('dashboard_meteo.html')
+
+@app.route('/api/GPS', methods=['POST'])
+def GPS():
+    body = request.get_json()
+    parametro = body.get("parametro", None)
+
+    if parametro is None :
+        return 'Error: parametro is required', 400
+    try:
+        conn = mysql.connector.connect(
+            host="",
+            user="",
+            password="",
+            port = 1,
+            database="defaultdb"
+        )
+
+        cursor = conn.cursor()
+        response = {}
+        #se la data differisce troppo da quella locale viene scartata
+
+        if(parametro == 1):
+            query = f"""
+                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality')) AS air_quality_value
+                    FROM json_values
+                    WHERE JSON_EXTRACT(value, '$.air_quality') IS NOT NULL
+                    AND data >= NOW() - INTERVAL 2 DAY
+                    ORDER BY data DESC
+                    LIMIT 1;
+                    """
+            cursor.execute(query)
+            response["air_quality"] = cursor.fetchone()
+
+            query = f"""
+                        SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality_level')) AS air_quality_level_value
+                        FROM json_values
+                        WHERE JSON_EXTRACT(value, '$.air_quality_level') IS NOT NULL
+                        AND data >= NOW() - INTERVAL 2 DAY
+                        ORDER BY data DESC
+                        LIMIT 1;
+                        """
+            cursor.execute(query)
+            response["air_quality_level"] = cursor.fetchone()
+        
+
+        query = f"""
+                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.long')) AS long_value
+                    FROM json_values
+                    WHERE JSON_EXTRACT(value, '$.long') IS NOT NULL
+                    AND data >= NOW() - INTERVAL 2 DAY
+                    ORDER BY data DESC
+                    LIMIT 1;
+        """
+
+        cursor.execute(query)
+
+        response["longitudine"] = cursor.fetchone()
+
+        query = f"""
+                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.lat')) AS lat_value
+                    FROM json_values
+                    WHERE JSON_EXTRACT(value, '$.lat') IS NOT NULL
+                    AND data >= NOW() - INTERVAL 2 DAY
+                    ORDER BY data DESC
+                    LIMIT 1;
+        """
+
+        cursor.execute(query)
+
+        response["latitudine"] = cursor.fetchone()
+        
+        cursor.close()
+        conn.close()
+
+        return jsonify(response), 200
+    
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500    
+
 
 @app.route('/api/inquinanti', methods=['POST'])
 def inquinantiDataBase():
@@ -65,7 +146,7 @@ def inquinantiDataBase():
     tempoIntervallo = body.get('tempoIntervallo', None)
 
     if nomeInquinante is None or valoreIntervallo is None or tempoIntervallo is None:
-        return 'Error: lat and lon are required', 400
+        return 'Error: nomeInquinante and valoreIntervallo and tempoIntervallo are required', 400
     try:
         
         response = fetchInquinante.getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo)
@@ -90,7 +171,7 @@ def valoriAttualiInquinanti():
             host="",
             user="",
             password="",
-            port=3306,
+            port = 1,
             database="defaultdb"
         )
 
@@ -101,7 +182,7 @@ def valoriAttualiInquinanti():
                     SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.{nomeInquinante}')) AS {nomeInquinante}_value
                     FROM json_values
                     WHERE JSON_EXTRACT(value, '$.{nomeInquinante}') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 1 DAY
+                    AND data >= NOW() - INTERVAL 2 DAY
                     ORDER BY data DESC
                     LIMIT 1;
         """
