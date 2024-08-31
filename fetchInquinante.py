@@ -14,9 +14,7 @@ def getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo):
 
     # Creazione di un cursore
     cursor = conn.cursor()
-    # Query SQL per estrarre solo i valori di CO2 dal campo JSON
-
-#SELECT data, JSON_UNQUOTE(JSON_EXTRACT(value, '$.{nomeInquinante}')) AS {nomeInquinante}_value FROM json_values WHERE data >= '{dataIniziale}';
+    
 
     query = f"""
                 SELECT data, JSON_UNQUOTE(JSON_EXTRACT(value, '$.{nomeInquinante}')) AS {nomeInquinante}_value

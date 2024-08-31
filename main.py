@@ -3,6 +3,7 @@ from livereload import Server
 import os
 import fetchInquinante
 import requests
+import mysql.connector
 
 app = Flask(__name__)
 app.debug = True
@@ -73,6 +74,54 @@ def inquinantiDataBase():
     
     except Exception as e:
         return jsonify({'message': str(e)}), 500
+
+
+
+
+@app.route('/api/valoriAttualiInquinanti', methods=['POST'])
+def valoriAttualiInquinanti():
+    body = request.get_json()
+    nomeInquinante = body.get('nomeInquinante', None)
+
+    if nomeInquinante is None :
+        return 'Error: lat and lon are required', 400
+    try:
+        conn = mysql.connector.connect(
+            host="",
+            user="",
+            password="",
+            port=3306,
+            database="defaultdb"
+        )
+
+        cursor = conn.cursor()
+
+        #se la data differisce troppo da quella locale viene scartata
+        query = f"""
+                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.{nomeInquinante}')) AS {nomeInquinante}_value
+                    FROM json_values
+                    WHERE JSON_EXTRACT(value, '$.{nomeInquinante}') IS NOT NULL
+                    AND data >= NOW() - INTERVAL 1 DAY
+                    ORDER BY data DESC
+                    LIMIT 1;
+        """
+
+        cursor.execute(query)
+
+        response = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        return jsonify(response), 200
+    
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500    
+
+
+
+
+
 
 @app.route('/dashboard/inquinanti')
 def inquinanti():
