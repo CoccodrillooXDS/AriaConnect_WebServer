@@ -53,8 +53,6 @@ def openweather():
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 
-
-
 @app.route('/dashboard/meteo')
 def meteo():
     return render_template('dashboard_meteo.html')
@@ -71,8 +69,8 @@ def GPS():
             host="",
             user="",
             password="",
-            port = 1,
-            database="defaultdb"
+            port = 3306,
+            database=""
         )
 
         cursor = conn.cursor()
@@ -171,8 +169,8 @@ def valoriAttualiInquinanti():
             host="",
             user="",
             password="",
-            port = 1,
-            database="defaultdb"
+            port =  ,
+            database=""
         )
 
         cursor = conn.cursor()
@@ -229,5 +227,5 @@ def contacts():
     return render_template('contacts.html')
 
 if __name__ == '__main__':
-    # app.run(debug=True)
-    server.serve(debug=True, host='0.0.0.0', port=5500)
+    app.run(debug=True, host='0.0.0.0', port=5500)
+    # server.serve(debug=True, host='0.0.0.0', port=5500)

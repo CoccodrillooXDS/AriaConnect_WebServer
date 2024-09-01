@@ -8,8 +8,8 @@ def getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo):
         host="",
         user="",
         password="",
-        port=1 ,
-        database="defaultdb"
+        port=3306 ,
+        database=""
     )
 
     # Creazione di un cursore

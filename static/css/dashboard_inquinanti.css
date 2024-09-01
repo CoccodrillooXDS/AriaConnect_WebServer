@@ -1,13 +1,23 @@
 html[data-bs-theme="dark"] .content {
-    background-color: #d3d316d0;
+    color: #e1e1e1;
+}
+
+html[data-bs-theme="dark"] .content > .grid > .row > .col-4, html[data-bs-theme="dark"] .content > .grid > .row > .col-8{
+    border: 4px solid #343a40 !important;
+    border-radius: 10px;
 }
 
 html[data-bs-theme="light"] .content {
-    background-color: #273668;
+    color: #343a40;
+}
+
+html[data-bs-theme="light"] .content > .grid > .row > .col-4 , html[data-bs-theme="light"] .content > .grid > .row > .col-8{
+    border: 4px solid #cfc9c9 !important;
+    border-radius: 10px;
 }
 
 .col-8, .col-4{
-    border: 4px solid magenta !important;
+    border-radius: 10px;
 }
 
 #realBody > .box > .row {
@@ -15,8 +25,14 @@ html[data-bs-theme="light"] .content {
     margin-left: 0 !important;
 }
 
+.grid{
+    display:grid;
+    gap: 20px;
+}
+
+
+
 h3{
-    color:#666666;
     font-size: 1.6dvw;
 }
 
@@ -34,9 +50,9 @@ h3{
 }
 
 #map{
-    background-color: blue;
     width: 100%;
     height: 450px;
     min-width: calc(1648/2)px;
     border-radius: 10px;
 }
+

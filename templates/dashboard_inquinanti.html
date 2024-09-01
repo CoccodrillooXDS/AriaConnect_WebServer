@@ -4,10 +4,8 @@
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_inquinanti.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.4/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css" type="text/css">
 {% endblock %}
 
 {% block script %}
@@ -17,24 +15,23 @@
 <script src="{{ url_for('static', filename='js/inquinanti/grafici.js') }}"></script>
 <!--mappa-->
 <script src="{{ url_for('static', filename='js/inquinanti/mappazione.js') }}"></script>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-gesture-handling"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.js"></script>
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@latest"></script>
 {% endblock %}
 
 {% block content %}
 <div class="pulsanti">
-    <button id="ora" onclick="setOra()">1 h</dibuttonv>
+    <button id="ora" onclick="setOra()">1 h</button>
     <button id="giorno" onclick="setGiorno()"> 1 d</button>
     <button id="settimana" onclick="setSettimana()"> 1 w</button>
     <button id="mese" onclick="setMese()">1 m</button>
     <button id="anno" onclick="setAnno()">1 y</button>
 </div>
-<div class="box">
-
-    <div class="row">
+<div class="grid">
+    <div class="row column-gap-300">
         <div class="col-8">
             <h4>Biossido di azoto</h4>
             <div class="row">
@@ -84,7 +81,7 @@
                 <div class="col">valore bresciano...</div>
             </div>
         </div>
-        <div class="col-8"> 
+        <div class="col-8">
             <h4>PM10</h4>
             <div class="row">
                 <div class="col">
@@ -189,7 +186,7 @@
             <h3>parametri CO2</h3>
             <div class="row">
                 <div class="col">parametri CO2</div>
-                <div class="col"  id="valore_attuale_CO2">valore attuale</div>
+                <div class="col" id="valore_attuale_CO2">valore attuale</div>
             </div>
             <div class="row">
                 <div class="col">valore per legge</div>
@@ -243,13 +240,15 @@
 
 
     <div class="row">
-        <div class="col-11">
+        <div class="col-12">
             <div id="map">
             </div>
         </div>
-        <div class="col-1">
-            <button onclick="aggiungiMarker()">aggiungi marker</button>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div id="statoGPS"></div>
         </div>
     </div>
-
+</div>
 {% endblock %}

@@ -120,6 +120,7 @@ async function caricaMappa() {
 async function caricaTutto() {
     await fetchOpenWeather();
     await caricaMappa();
+    fetchPosition(0);
 }
 
 /* aspetta il caricamento della pagina prima di prendere i vari elementi */
@@ -149,6 +150,45 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await caricaTutto();
 
-    setInterval(caricaTutto, 30000);
+    setInterval(caricaTutto, 20000);
     // TODO: Ricarica tutto automaticamente quando ci sono nuovi dati tramite WebSocket
 });
+
+
+
+// Add a marker to the map with a popup
+function addMarker(latitude, longitude) {
+const customMarker = L.AwesomeMarkers.icon({
+        icon: 'location-dot',
+        iconColor: "cyan",
+        prefix: 'fa'
+    });
+
+    const marker = L.marker([latitude, longitude], { icon: customMarker }).addTo(map);
+    marker.bindPopup(`${airQuality}<br>${latitude}, ${longitude}`);
+}
+
+// Fetch position and air quality data
+async function fetchPosition(param) {
+    try {
+        const response = await fetch('/api/GPS', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ parametro: param })
+        });
+
+        if (!response.ok) {
+            throw new Error('Request error');
+        }
+        const data = await response.json();
+        if (data.long == null && data.lat == null) {
+            text = elementi.nomeCitta.innerText + " - GPS non disponibile";
+            elementi.nomeCitta.innerText = text;
+        }else{
+            addMarker(data.lat, data.long);
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}

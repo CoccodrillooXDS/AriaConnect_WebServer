@@ -1,88 +1,94 @@
-var lat = 45.556943047717084;
-var lon = 10.217275958492516;
-var qualitàAria = 2; //valore temporaneo per simulare il corretto colore del marker
+// Initial coordinates and map settings
+const DEFAULT_LAT = 45.556943047717084;
+const DEFAULT_LON = 10.217275958492516;
+const ZOOM_DEFAULT = 18;
+const ZOOM_NOT_AVAILABLE = 5;
 
 let map;
-let marker;
 let tileLayer;
-
-const zoomDefault = 18;
-const zoomNotAvailable = 5;
 let isCityAvailable = true;
 
-async function caricaMappa() {
-    // Inizializza la mappa e imposta le coordinate iniziali e il livello di zoom
-    const zoomLevel = isCityAvailable ? zoomDefault : zoomNotAvailable;
-    
+// Initialize the map with default or current settings
+async function initializeMap() {
+    const zoomLevel = isCityAvailable ? ZOOM_DEFAULT : ZOOM_NOT_AVAILABLE;
+
     if (!map) {
-        map = L.map('map', {gestureHandling: true}).setView([lat, lon], zoomLevel);
+        map = L.map('map', { gestureHandling: true }).setView([DEFAULT_LAT, DEFAULT_LON], zoomLevel);
     } else {
-        map.setView([lat, lon], zoomLevel);
+        map.setView([DEFAULT_LAT, DEFAULT_LON], zoomLevel);
     }
 
-    // Aggiungi una tile layer (sfondo della mappa) da OpenStreetMap se non già aggiunta
     if (!tileLayer) {
         tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
     }
-
-
-
-    // Aggiungi o sposta un marker alla mappa
-    if (!marker) {
-        marker = L.marker([lat, lon]).addTo(map);
-    } else {
-        marker.setLatLng([lat, lon]);
-    }
-
 }
 
-function aggiungiMarker(){
-    let latitudine = (Math.random() * 180) - 90;  // Latitude range: -90 to +90
-    let longitudine = (Math.random() * 360) - 180; // Longitude range: -180 to +180
+// Get marker color based on air quality level
+function getColorForAirQuality(level) {
+    switch (level) {
+        case 1: return 'green';
+        case 2: return 'yellow';
+        case 3: return 'orange';
+        default: return 'red';
+    }
+}
 
-    console.log(latitudine);
-    console.log(longitudine);
-    //costruzione di un marker custom
-    const customMarker = L.AwesomeMarkers.icon({
-        icon: 'circle',  // Correct FontAwesome icon name
-        iconColor:"red",
-        prefix: 'fa' // 'fa' for FontAwesome
+// Add a marker to the map with a popup
+function addMarker(airQualityLevel, airQuality, latitude, longitude) {
+    const color = getColorForAirQuality(airQualityLevel);
+
+    const customMarker = L.icon({
+        iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
     });
 
-    L.marker([latitudine, longitudine], { icon: customMarker }).addTo(map);
+    const marker = L.marker([latitude, longitude], { icon: customMarker }).addTo(map);
+    marker.bindPopup(`${airQuality}<br>${latitude}, ${longitude}`);
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
-    await caricaMappa();
-    await fetchPosizione(1);
-});
-
-//parametro: 1 per anche la qualità dell'aria, qualsiasi altro valore per solo la posizione
-async function fetchPosizione(parametro) {
-    // Fare la richiesta utilizzando fetch
-    await fetch('/api/GPS', {
-        // Impostare il metodo HTTP
-        method: 'POST',
-        // Impostare l'intestazione
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        // Impostare il corpo della richiesta
-        body: JSON.stringify({ parametro: parametro})
-    }
-    ).then(response => {
-        // Controlla se la risposta è stata corretta
-        if (!response.ok) {throw new Error('Errore nella richiesta');}
-        return response.json(); // Convertire la risposta in JSON
-        })
-  
-        .then(data => {
-            console.log(data)
-        })
-  
-        .catch(error => {
-            console.error('Errore:', error); // Gestisci gli errori
+// Fetch position and air quality data
+async function fetchPosition(param) {
+    try {
+        const response = await fetch('/api/GPS', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ parametro: param })
         });
-  }
+
+        if (!response.ok) {
+            throw new Error('Request error');
+        }
+
+        const data = await response.json();
+
+        if (data.longitudine == null && data.latitudine == null) {
+            text = "GPS spento";
+            elementi.statoGPS.innerText = text;
+            document.getElementById("map").style.display = "none";
+        }else{
+            console.log(data.longitudine, data.latitudine);
+            addMarker(air_quality_level, air_quality, latitudine, longitudine);
+            elementi.statoGPS.innerText = "GPS attivo";
+            try {
+                document.getElementById("map").removeAttribute("style");
+            } catch (error) {}
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Set up periodic data fetching and map initialization
+document.addEventListener("DOMContentLoaded", async function () {
+    elementi = {
+        statoGPS: document.getElementById("statoGPS"),
+    }
+    await initializeMap();
+    await fetchPosition(1);
+    setInterval(() => fetchPosition(1), 10000); // Fetch position every 10 seconds
+});
