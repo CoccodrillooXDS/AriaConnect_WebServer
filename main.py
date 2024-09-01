@@ -1,18 +1,76 @@
 from flask import Flask, render_template, redirect, request, jsonify
-from livereload import Server
-import os
-import fetchInquinante
 import requests
 import mysql.connector
 
-app = Flask(__name__)
-app.debug = True
-server = Server(app.wsgi_app)
-server.watch('**\*.*')
+try:
+    import config
+except ImportError:
+    with open('config.py', 'w') as f:
+        f.write('database = {\n')
+        f.write('    "host": "",\n')
+        f.write('    "user": "",\n')
+        f.write('    "password": "",\n')
+        f.write('    "port": 3306,\n')
+        f.write('    "database": ""\n')
+        f.write('}\n')
+        f.write('openweatherapi = ""\n')
+        f.close()
+    print("Please fill the config.py file with the correct values")
+    exit(1)
 
-OPENWEATHER_API_KEY = os.environ.get('OPENWEATHER_API_KEY', None)
-if OPENWEATHER_API_KEY is None:
-    raise Exception('OPENWEATHER_API_KEY not found in environment variables')
+app = Flask(__name__)
+
+# Database connection
+def database_connection():
+    conn = mysql.connector.connect(
+        host=config.database['host'],
+        user=config.database['user'],
+        password=config.database['password'],
+        port=config.database['port'],
+        database=config.database['database']
+    )
+    return conn
+
+#tempoIntervallo: MICROSECOND SECOND MINUTE HOUR DAY WEEK MONTH QUARTER YEAR
+def getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo):
+    # Connessione al database MySQL
+    conn = database_connection()
+
+    # Creazione di un cursore
+    cursor = conn.cursor()
+
+    query = f"""
+                SELECT data, JSON_UNQUOTE(JSON_EXTRACT(value, '$.{nomeInquinante}')) AS {nomeInquinante}_value
+                FROM defaultdb.json_values 
+                WHERE `data` BETWEEN (
+                    DATE_SUB((
+                        SELECT `data` 
+                        FROM defaultdb.json_values 
+                        ORDER BY id DESC 
+                        LIMIT 1
+                    ), INTERVAL {valoreIntervallo} {tempoIntervallo})  -- Replace 2 with the number of hours to subtract 
+                ) AND (
+                    SELECT `data` 
+                    FROM defaultdb.json_values 
+                    ORDER BY id DESC 
+                    LIMIT 1
+                )
+                AND JSON_EXTRACT(value, '$.{nomeInquinante}') IS NOT NULL;
+            """
+    
+    # Esecuzione della query
+    cursor.execute(query)
+    
+    # Recupero dei risultati
+    results = cursor.fetchall()
+    
+    # Converti i risultati in una lista di valori di CO2
+    valoriInquinanti = [riga for riga in results if riga[1] is not None]
+    
+    cursor.close()
+    conn.close()
+
+    return valoriInquinanti
 
 @app.route('/')
 def index():
@@ -33,8 +91,8 @@ def openweather():
     lon = body.get('lon', None)
     if lat is None or lon is None:
         return 'Error: lat and lon are required', 400
-    openWeatherURL = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={OPENWEATHER_API_KEY}&lang=it'
-    openWeatherGeoReverseURL = f'http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit=1&appid={OPENWEATHER_API_KEY}'
+    openWeatherURL = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={config.openweatherapi}&lang=it'
+    openWeatherGeoReverseURL = f'http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit=1&appid={config.openweatherapi}'
     openElevationURL = f'https://api.open-elevation.com/api/v1/lookup?locations={lat},{lon}'
     try:
         response = requests.get(openWeatherURL)
@@ -65,17 +123,10 @@ def GPS():
     if parametro is None :
         return 'Error: parametro is required', 400
     try:
-        conn = mysql.connector.connect(
-            host="",
-            user="",
-            password="",
-            port = 3306,
-            database=""
-        )
+        conn = database_connection()
 
         cursor = conn.cursor()
         response = {}
-        #se la data differisce troppo da quella locale viene scartata
 
         if(parametro == 1):
             query = f"""
@@ -147,15 +198,12 @@ def inquinantiDataBase():
         return 'Error: nomeInquinante and valoreIntervallo and tempoIntervallo are required', 400
     try:
         
-        response = fetchInquinante.getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo)
+        response = getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo)
 
         return jsonify(response), 200
     
     except Exception as e:
         return jsonify({'message': str(e)}), 500
-
-
-
 
 @app.route('/api/valoriAttualiInquinanti', methods=['POST'])
 def valoriAttualiInquinanti():
@@ -165,13 +213,7 @@ def valoriAttualiInquinanti():
     if nomeInquinante is None :
         return 'Error: lat and lon are required', 400
     try:
-        conn = mysql.connector.connect(
-            host="",
-            user="",
-            password="",
-            port =  ,
-            database=""
-        )
+        conn = database_connection()
 
         cursor = conn.cursor()
 
@@ -195,12 +237,7 @@ def valoriAttualiInquinanti():
         return jsonify(response), 200
     
     except Exception as e:
-        return jsonify({'message': str(e)}), 500    
-
-
-
-
-
+        return jsonify({'message': str(e)}), 500
 
 @app.route('/dashboard/inquinanti')
 def inquinanti():
@@ -228,4 +265,3 @@ def contacts():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5500)
-    # server.serve(debug=True, host='0.0.0.0', port=5500)
