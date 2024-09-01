@@ -90,7 +90,7 @@ def openweather():
     lat = body.get('lat', None)
     lon = body.get('lon', None)
     if lat is None or lon is None:
-        return 'Error: lat and lon are required', 400
+        return jsonify({'message': 'Error: lat and lon are required'}), 400
     openWeatherURL = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={config.openweatherapi}&lang=it'
     openWeatherGeoReverseURL = f'http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit=1&appid={config.openweatherapi}'
     openElevationURL = f'https://api.open-elevation.com/api/v1/lookup?locations={lat},{lon}'
@@ -121,7 +121,7 @@ def GPS():
     parametro = body.get("parametro", None)
 
     if parametro is None :
-        return 'Error: parametro is required', 400
+        return jsonify({'message': 'Error: parametro is required'}), 400
     try:
         conn = database_connection()
 
@@ -195,7 +195,7 @@ def inquinantiDataBase():
     tempoIntervallo = body.get('tempoIntervallo', None)
 
     if nomeInquinante is None or valoreIntervallo is None or tempoIntervallo is None:
-        return 'Error: nomeInquinante and valoreIntervallo and tempoIntervallo are required', 400
+        return jsonify({'message': 'Error: inquinante, valoreIntervallo and tempoIntervallo are required'}), 400
     try:
         
         response = getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo)
@@ -211,7 +211,7 @@ def valoriAttualiInquinanti():
     nomeInquinante = body.get('nomeInquinante', None)
 
     if nomeInquinante is None :
-        return 'Error: lat and lon are required', 400
+        return jsonify({'message': 'Error: nomeInquinante is required'}), 400
     try:
         conn = database_connection()
 
