@@ -57,7 +57,14 @@ async function fetchValoriAttualiInquinanti() {
         });
 
     } catch (error) {
-        console.error('Errore:', error); // Gestisci gli errori
+       // console.error('Errore:', error); // Gestisci gli errori
+       listaParametri.forEach((parametro) => {
+        let nomeElemento = `valoreAttuale_${parametro}`;
+        elementi[nomeElemento] = document.getElementById(`valore_attuale_${parametro}`);
+        // Aggiorna il contenuto dell'elemento DOM con il valore attuale
+        elementi[nomeElemento].innerText = "sensore non disponibile";
+
+    });
     }
 }
 
