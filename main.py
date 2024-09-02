@@ -32,15 +32,22 @@ def database_connection():
     return conn
 
 #tempoIntervallo: MICROSECOND SECOND MINUTE HOUR DAY WEEK MONTH QUARTER YEAR
-def getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo):
+def getInquinanti(valoreIntervallo, tempoIntervallo):
     # Connessione al database MySQL
     conn = database_connection()
-
-    # Creazione di un cursore
-    cursor = conn.cursor()
+    cursor = conn.cursor(dictionary=True)  # Use dictionary=True for dict output
 
     query = f"""
-                SELECT data, JSON_UNQUOTE(JSON_EXTRACT(value, '$.{nomeInquinante}')) AS {nomeInquinante}_value
+                SELECT data, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.CO')) AS CO_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.CO2')) AS CO2_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.PM10')) AS PM10_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.NH3')) AS NH3_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.NO2')) AS NO2_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.TVOC')) AS TVOC_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.humidity')) AS humidity_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.temperature')) AS temperature_value, 
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.pressure')) AS pressure_value
                 FROM defaultdb.json_values 
                 WHERE `data` BETWEEN (
                     DATE_SUB((
@@ -48,29 +55,61 @@ def getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo):
                         FROM defaultdb.json_values 
                         ORDER BY id DESC 
                         LIMIT 1
-                    ), INTERVAL {valoreIntervallo} {tempoIntervallo})  -- Replace 2 with the number of hours to subtract 
+                    ), INTERVAL {valoreIntervallo} {tempoIntervallo})  
                 ) AND (
                     SELECT `data` 
                     FROM defaultdb.json_values 
                     ORDER BY id DESC 
                     LIMIT 1
                 )
-                AND JSON_EXTRACT(value, '$.{nomeInquinante}') IS NOT NULL;
+                AND (
+                    JSON_EXTRACT(value, '$.CO') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.CO2') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.PM10') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.NH3') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.NO2') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.TVOC') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.humidity') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.temperature') IS NOT NULL 
+                    OR JSON_EXTRACT(value, '$.pressure') IS NOT NULL
+                );
             """
-    
-    # Esecuzione della query
-    cursor.execute(query)
-    
-    # Recupero dei risultati
-    results = cursor.fetchall()
-    
-    # Converti i risultati in una lista di valori di CO2
-    valoriInquinanti = [riga for riga in results if riga[1] is not None]
-    
-    cursor.close()
-    conn.close()
+            
+    try:
+        # Esecuzione della query
+        cursor.execute(query)
+        
+        # Recupero dei risultati
+        results = cursor.fetchall()
+        
+        # Lista per salvare i valori degli inquinanti
+        valori_inquinanti = []
 
-    return valoriInquinanti
+        for row in results:
+            # Convert null values to None for consistency
+            valori_inquinanti.append({
+                "data": row["data"].strftime("%a, %d %b %Y %H:%M:%S GMT"),  # RFC 1123 format date string
+                "CO": row["CO_value"] if row["CO_value"] is not None else None,
+                "CO2": row["CO2_value"] if row["CO2_value"] is not None else None,
+                "PM10": row["PM10_value"] if row["PM10_value"] is not None else None,
+                "NH3": row["NH3_value"] if row["NH3_value"] is not None else None,
+                "NO2": row["NO2_value"] if row["NO2_value"] is not None else None,
+                "TVOC": row["TVOC_value"] if row["TVOC_value"] is not None else None,
+                "humidity": row["humidity_value"] if row["humidity_value"] is not None else None,
+                "temperature": row["temperature_value"] if row["temperature_value"] is not None else None,
+                "pressure": row["pressure_value"] if row["pressure_value"] is not None else None
+            })
+    
+    except mysql.connector.Error as err:
+        print(f"Errore: {err}")
+        valori_inquinanti = []
+    
+    finally:
+        # Chiusura del cursore e della connessione
+        cursor.close()
+        conn.close()
+
+    return valori_inquinanti
 
 @app.route('/')
 def index():
@@ -133,7 +172,7 @@ def GPS():
                     SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality')) AS air_quality_value
                     FROM json_values
                     WHERE JSON_EXTRACT(value, '$.air_quality') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 2 DAY
+                    AND data >= NOW() - INTERVAL 30 SECOND
                     ORDER BY data DESC
                     LIMIT 1;
                     """
@@ -144,7 +183,7 @@ def GPS():
                         SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality_level')) AS air_quality_level_value
                         FROM json_values
                         WHERE JSON_EXTRACT(value, '$.air_quality_level') IS NOT NULL
-                        AND data >= NOW() - INTERVAL 2 DAY
+                        AND data >= NOW() - INTERVAL 30 SECOND
                         ORDER BY data DESC
                         LIMIT 1;
                         """
@@ -156,7 +195,7 @@ def GPS():
                     SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.long')) AS long_value
                     FROM json_values
                     WHERE JSON_EXTRACT(value, '$.long') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 2 DAY
+                    AND data >= NOW() - INTERVAL 30 SECOND
                     ORDER BY data DESC
                     LIMIT 1;
         """
@@ -169,7 +208,7 @@ def GPS():
                     SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.lat')) AS lat_value
                     FROM json_values
                     WHERE JSON_EXTRACT(value, '$.lat') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 2 DAY
+                    AND data >= NOW() - INTERVAL 30 SECOND
                     ORDER BY data DESC
                     LIMIT 1;
         """
@@ -190,15 +229,14 @@ def GPS():
 @app.route('/api/inquinanti', methods=['POST'])
 def inquinantiDataBase():
     body = request.get_json()
-    nomeInquinante = body.get('inquinante', None)
     valoreIntervallo = body.get('valoreIntervallo', None)
     tempoIntervallo = body.get('tempoIntervallo', None)
 
-    if nomeInquinante is None or valoreIntervallo is None or tempoIntervallo is None:
-        return jsonify({'message': 'Error: inquinante, valoreIntervallo and tempoIntervallo are required'}), 400
+    if valoreIntervallo is None or tempoIntervallo is None:
+        return jsonify({'message': 'Error: valoreIntervallo and tempoIntervallo are required'}), 400
     try:
         
-        response = getInquinante(nomeInquinante, valoreIntervallo, tempoIntervallo)
+        response = getInquinanti(valoreIntervallo, tempoIntervallo)
 
         return jsonify(response), 200
     
@@ -207,34 +245,38 @@ def inquinantiDataBase():
 
 @app.route('/api/valoriAttualiInquinanti', methods=['POST'])
 def valoriAttualiInquinanti():
-    body = request.get_json()
-    nomeInquinante = body.get('nomeInquinante', None)
-
-    if nomeInquinante is None :
-        return jsonify({'message': 'Error: nomeInquinante is required'}), 400
     try:
         conn = database_connection()
-
         cursor = conn.cursor()
+        
+        # Definire l'elenco degli inquinanti
+        nomi_valori = ["CO", "CO2", "PM10", "NH3", "NO2", "TVOC", "humidity", "temperature", "pressure"]
+        
+        # Costruire la query per ottenere i valori più recenti di tutti gli inquinanti
+        select_clause = ", ".join([f"JSON_UNQUOTE(JSON_EXTRACT(value, '$.{inquinante}')) AS {inquinante}_value" for inquinante in nomi_valori])
 
-        #se la data differisce troppo da quella locale viene scartata
         query = f"""
-                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.{nomeInquinante}')) AS {nomeInquinante}_value
-                    FROM json_values
-                    WHERE JSON_EXTRACT(value, '$.{nomeInquinante}') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 2 DAY
-                    ORDER BY data DESC
-                    LIMIT 1;
+            SELECT {select_clause}
+            FROM json_values
+            WHERE data >= NOW() - INTERVAL 10 SECOND
+            ORDER BY data DESC
+            LIMIT 1;
         """
 
+        # Eseguire la query
         cursor.execute(query)
-
         response = cursor.fetchone()
 
+        # Chiusura del cursore e della connessione
         cursor.close()
         conn.close()
 
-        return jsonify(response), 200
+        # Creare una mappa con i risultati (mappa inquinante -> valore)
+        if response:
+            result = {inquinante: response[idx] for idx, inquinante in enumerate(nomi_valori)}
+            return jsonify(result), 200
+        else:
+            return jsonify({'message': 'No data found'}), 404
     
     except Exception as e:
         return jsonify({'message': str(e)}), 500

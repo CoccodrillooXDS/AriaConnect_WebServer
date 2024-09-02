@@ -1,4 +1,5 @@
-elementi = {
+// Definizione degli elementi inquinanti
+let elementi = {
     valoreAttuale_NO2: null,
     valoreAttuale_PM10: null,
     valoreAttuale_NH3: null,
@@ -6,11 +7,12 @@ elementi = {
     valoreAttuale_TVOC: null,
     valoreAttuale_CO2: null,
     valoreAttuale_humidity: null,
-    valoreAttuale_TVOC: null,
-    valoreAttuale_CO2: null
-}
+    valoreAttuale_pressure: null,
+    valoreAttuale_temperature: null
+};
 
-listaParametri = [
+// Definizione dei parametri (inquinanti)
+let listaParametri = [
     "CO2",
     "NH3",
     "CO",
@@ -20,48 +22,48 @@ listaParametri = [
     "humidity",
     "pressure",
     "temperature"
-]
+];
 
-async function fetchValoriAttualiInquinanti(nomeInquinante) {
-    // Fare la richiesta utilizzando fetch
-    await fetch('/api/valoriAttualiInquinanti', {
-        // Impostare il metodo HTTP
-        method: 'POST',
-        // Impostare l'intestazione
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        // Impostare il corpo della richiesta
-        body: JSON.stringify({ nomeInquinante: nomeInquinante })
-    }
-    ).then(response => {
-        // Controlla se la risposta è stata corretta
-        if (!response.ok) { throw new Error('Errore nella richiesta'); }
-        return response.json(); // Convertire la risposta in JSON
-    })
-
-        .then(data => {
-            //console.log(data)
-
-            nomeElemento = `valoreAttuale_${nomeInquinante}`;
-
-            elementi[nomeElemento] = document.getElementById(`valore_attuale_${nomeInquinante}`);
-
-            if (data != null) {
-                elementi[nomeElemento].innerText = data;
-            } else {
-                elementi[nomeElemento].innerText = "sensore spento";
-            }
-
-
-        })
-
-        .catch(error => {
-            console.error('Errore:', error); // Gestisci gli errori
+// Funzione per recuperare i valori attuali di tutti gli inquinanti in una singola richiesta
+async function fetchValoriAttualiInquinanti() {
+    try {
+        // Fare la richiesta utilizzando fetch
+        const response = await fetch('/api/valoriAttualiInquinanti', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({})
         });
+
+        if (!response.ok) {
+            throw new Error('Errore nella richiesta');
+        }
+
+        const data = await response.json(); // Convertire la risposta in JSON
+
+        // Iterare su ogni parametro e aggiornare gli elementi DOM corrispondenti
+        listaParametri.forEach((parametro) => {
+            let nomeElemento = `valoreAttuale_${parametro}`;
+            elementi[nomeElemento] = document.getElementById(`valore_attuale_${parametro}`);
+
+            if (data[parametro] != null) {
+                // Aggiorna il contenuto dell'elemento DOM con il valore attuale
+                elementi[nomeElemento].innerText = data[parametro];
+            } else {
+                // Se il valore è nullo, mostra che il sensore è spento
+                elementi[nomeElemento].innerText = "Sensore non disponibile";
+            }
+        });
+
+    } catch (error) {
+        console.error('Errore:', error); // Gestisci gli errori
+    }
 }
 
+// Inizializzazione al caricamento della pagina
 document.addEventListener('DOMContentLoaded', async function () {
-    listaParametri.forEach((parametro) => fetchValoriAttualiInquinanti(parametro));
-});
+    await fetchValoriAttualiInquinanti(); // Recupera i valori attuali di tutti gli inquinanti
 
+    setInterval(() => fetchValoriAttualiInquinanti(), 10000);
+});

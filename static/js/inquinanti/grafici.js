@@ -2,111 +2,113 @@ let tempoIntervallo = "WEEK";
 const nomiValori = ["CO", "CO2", "PM10", "NH3", "NO2", "TVOC", "humidity", "temperature", "pressure"];
 
 let unitDisplay = {
-	"HOUR":"minute",
-	"DAY":"hour",
-	"WEEK":"day",
-	"MONTH":"day",
-	"YEAR":"month"
+    "HOUR": "minute",
+    "DAY": "hour",
+    "WEEK": "day",
+    "MONTH": "day",
+    "YEAR": "month"
 }
 //array per memorizzare i grafici
-const grafici = {graficoCO:null, graficoCO2:null, graficoPM10:null, graficoNH3:null, graficoNO2:null, graficoTVOC:null};
+const grafici = { graficoCO: null, graficoCO2: null, graficoPM10: null, graficoNH3: null, graficoNO2: null, graficoTVOC: null };
 
-async function fetchInquinanti(inquinante, valoreIntervallo, tempoIntervallo) {
-  // Fare la richiesta utilizzando fetch
-  await fetch('/api/inquinanti', {
-      // Impostare il metodo HTTP
-      method: 'POST',
-      // Impostare l'intestazione
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      // Impostare il corpo della richiesta
-      body: JSON.stringify({ inquinante: inquinante, valoreIntervallo: valoreIntervallo, tempoIntervallo:tempoIntervallo})
-  }
-  ).then(response => {
-      // Controlla se la risposta è stata corretta
-      if (!response.ok) {throw new Error('Errore nella richiesta');}
-      return response.json(); // Convertire la risposta in JSON
-      })
+// Funzione per richiamare i dati di tutti gli inquinanti
+async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
+    try {
+        const response = await fetch('/api/inquinanti', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ valoreIntervallo: valoreIntervallo, tempoIntervallo: tempoIntervallo })
+        });
 
-      .then(data => {
+        if (!response.ok) {
+            throw new Error('Errore nella richiesta');
+        }
 
-        let inquinanteValori = data.map(item => item[1]); //array he andrà messo sull'asse delle y
-        let inquinanteDate = data.map(item => Date.parse(item[0])); //array he andrà messo sull'asse delle x
+        const data = await response.json();
 
-        let ctx = document.getElementById(`grafico_${inquinante}`);
-      
-        nomeGrafico = `grafico${inquinante}`;
+        nomiValori.forEach((inquinante) => {
+            let inquinanteValori = data
+                .map((item, index) => item[inquinante] !== null && item[inquinante] !== 0 ? { value: parseFloat(item[inquinante]), date: new Date(item.data) } : null)
+                .filter(item => item !== null);
+            let inquinanteDate = inquinanteValori.map(item => item.date);
+            let inquinanteValoriFiltered = inquinanteValori.map(item => item.value);
 
-        // se il grafico esiste già viene smantellato
-        if (grafici[nomeGrafico]){grafici[nomeGrafico].destroy()}
+            let ctx = document.getElementById(`grafico_${inquinante}`);
 
+            let nomeGrafico = `grafico${inquinante}`;
 
-        grafici[nomeGrafico] = new Chart(ctx, {
-          type: 'line', // Tipo di grafico
-          data: {
-            labels: inquinanteDate, // Asse X - Date
-            datasets: [{
-              label: `${inquinante}`,
-              data: inquinanteValori, // Asse Y - Valori di umidità
-            }]
-          },
-		  options: {
-			scales: {
-				x: {
-					type: 'time', // Ensure you're using the time scale
-					time: {
-						unit: unitDisplay[tempoIntervallo], // Adjust to the appropriate unit (e.g., 'month', 'year')
-						displayFormats: {
-							day: 'MMM d'
-						}
-					},
-					ticks: {
-						maxTicksLimit: 12, // Limit the number of ticks displayed
-						autoSkip: true, // Automatically skips some labels to prevent crowding
-						autoSkipPadding: 20, // Adjust spacing for skipped labels
-					}
-				}
-			}
-		}
-      });
+            if (grafici[nomeGrafico]) {
+                grafici[nomeGrafico].data.labels = inquinanteDate;
+                grafici[nomeGrafico].data.datasets[0].data = inquinanteValoriFiltered;
+                grafici[nomeGrafico].update('active');
+                return;
+            }
 
-
-      })
-
-      .catch(error => {
-          console.error('Errore:', error); // Gestisci gli errori
-      });
+            grafici[nomeGrafico] = new Chart(ctx, {
+                type: 'line', // Tipo di grafico
+                data: {
+                    labels: inquinanteDate, // Asse X - Date
+                    datasets: [{
+                        label: `${inquinante}`,
+                        data: inquinanteValoriFiltered, // Asse Y - Valori di umidità
+                        autoSkip: true,
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: unitDisplay[tempoIntervallo],
+                                displayFormats: {
+                                    day: 'MMM d HH:mm'
+                                }
+                            },
+                            ticks: {
+                                maxTicksLimit: 12,
+                                autoSkip: true,
+                                autoSkipPadding: 20
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    } catch (error) {
+        console.error('Errore:', error);
+    }
 }
 
-async function setGrafici(){
-  nomiValori.forEach((inquinante) => fetchInquinanti(inquinante, 1, tempoIntervallo));
+// Funzione per impostare i grafici
+async function setGrafici() {
+    await fetchInquinanti(1, tempoIntervallo);
 }
 
-
-function setOra(){
-  tempoIntervallo = "HOUR";
-  setGrafici();
+function setOra() {
+    tempoIntervallo = "HOUR";
+    setGrafici();
 }
-function setGiorno(){
-  tempoIntervallo = "DAY";
-  setGrafici();
+function setGiorno() {
+    tempoIntervallo = "DAY";
+    setGrafici();
 }
-function setSettimana(){
-  tempoIntervallo = "WEEK";
-  setGrafici();
+function setSettimana() {
+    tempoIntervallo = "WEEK";
+    setGrafici();
 }
-function setMese(){
-  tempoIntervallo = "MONTH";
-  setGrafici();
+function setMese() {
+    tempoIntervallo = "MONTH";
+    setGrafici();
 }
-function setAnno(){
-  tempoIntervallo = "YEAR";
-  setGrafici();
+function setAnno() {
+    tempoIntervallo = "YEAR";
+    setGrafici();
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  setGrafici();
-  setInterval(() => setGrafici(), 10000);
+    setGrafici();
+    setInterval(() => setGrafici(), 20000);
 });
 

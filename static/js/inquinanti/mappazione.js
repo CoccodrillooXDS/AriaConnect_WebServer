@@ -90,5 +90,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     await initializeMap();
     await fetchPosition(1);
-    setInterval(() => fetchPosition(1), 10000); // Fetch position every 10 seconds
+    setInterval(() => fetchPosition(1), 20000); // Fetch position every 10 seconds
 });
