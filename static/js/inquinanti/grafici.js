@@ -15,7 +15,7 @@ const limitiLegge = {
     "NH3": 67,
     "CO": 165,
     "TVOC": 4500,
-    "CO2": 4000,
+    "CO2": 30000,
 }
 // TODO: Sistemare i limiti di legge
 
@@ -37,17 +37,6 @@ function calculateSMA(data, windowSize) {
     }
 
     return sma;
-}
-
-// Function to identify gaps in the data
-function identifyGaps(data, threshold = 30000) { // 30 seconds threshold
-    let gaps = [];
-    for (let i = 1; i < data.length; i++) {
-        if (data[i].date - data[i - 1].date > threshold) {
-            gaps.push({ start: data[i - 1].date, end: data[i].date });
-        }
-    }
-    return gaps;
 }
 
 // Funzione per richiamare i dati di tutti gli inquinanti
@@ -74,100 +63,94 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
 
             let inquinanteDate = inquinanteValori.map(item => item.date);
             let inquinanteValoriFiltered = inquinanteValori.map(item => item.value);
-            inquinanteValoriFiltered = calculateSMA(inquinanteValoriFiltered, 75);
 
-            console.log(inquinanteValori, inquinanteDate, inquinanteValoriFiltered);
-
-            // Identify gaps in the data
-            let gaps = identifyGaps(inquinanteValori);
+            // Skip SMA calculation for low data scenarios
+            if (inquinanteValoriFiltered.length > 40 && tempoIntervallo !== "HOUR" && tempoIntervallo !== "DAY") {
+                inquinanteValoriFiltered = calculateSMA(inquinanteValoriFiltered, 20);
+            }
 
             let ctx = document.getElementById(`grafico_${inquinante}`);
             let nomeGrafico = `grafico${inquinante}`;
 
-            let limite;
+            const limite = {
+                label: 'Limite',
+                data: Array(inquinanteValoriFiltered.length).fill(limitiLegge[inquinante] ?? null),
+                borderDash: [2, 2], // Dashed line style
+                pointRadius: 0,
+                pointHitRadius: 0,
+                pointHoverRadius: 0,
+                borderColor: '#D76F65',
+            };
 
-            if (limitiLegge[inquinante] == null) {
-                limite = {
-                    label: 'Limite',
-                    data: Array(inquinanteValoriFiltered.length).fill(null),
-                    borderDash: [2, 2], // Dashed line style
-                    pointRadius: 0,
-                    pointHitRadius: 0,
-                    pointHoverRadius: 0,
-                    borderColor: '#D76F65',
-                };
-            } else {
-                limite = {
-                    label: 'Limite',
-                    data: Array(inquinanteValoriFiltered.length).fill(limitiLegge[inquinante]),
-                    borderDash: [2, 2], // Dashed line style
-                    pointRadius: 0,
-                    pointHitRadius: 0,
-                    pointHoverRadius: 0,
-                    borderColor: '#D76F65',
+            // Adjust the chart options for better display of low data
+            let chartOptions = {
+                animation: {
+                    duration: 0 // general animation time
+                },
+                hover: {
+                    animationDuration: 0 // duration of animations when hovering an item
+                },
+                responsiveAnimationDuration: 0, // animation duration after a resize
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: unitDisplay[tempoIntervallo],
+                            displayFormats: {
+                                minute: 'HH:mm',
+                                hour: 'HH:mm',
+                                day: 'MMM d',
+                                month: 'MMM yyyy'
+                            }
+                        },
+                        ticks: {
+                            autoSkip: true,
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value, index, values) {
+                                return value.toFixed(2);
+                            }
+                        }
+                    }
                 }
-            }
+            };
 
+            // Update or create chart with these options
             if (grafici[nomeGrafico]) {
-                grafici[nomeGrafico].data.labels = inquinanteDate;
-                grafici[nomeGrafico].data.datasets[0].data = inquinanteValoriFiltered;
-                grafici[nomeGrafico].data.datasets[1] = limite;
-                grafici[nomeGrafico].options.scales.x.time.unit = unitDisplay[tempoIntervallo];
-                grafici[nomeGrafico].update('active');
-                return;
+                grafici[nomeGrafico].destroy();
             }
 
+            // Create new chart with the options
             grafici[nomeGrafico] = new Chart(ctx, {
-                type: 'line', // Tipo di grafico
+                type: 'line',
                 data: {
-                    labels: inquinanteDate, // Asse X - Date
+                    labels: inquinanteDate,
                     datasets: [
                         {
                             label: `${inquinante}`,
-                            data: inquinanteValoriFiltered, // Asse Y - Valori di umidità
-                            borderColor: '#659CD6', // Default color
+                            data: inquinanteValoriFiltered,
+                            borderColor: '#659CD6',
+                            pointRadius: tempoIntervallo === "HOUR" || tempoIntervallo === "DAY" ? 3 : 1,
+                            pointHoverRadius: 5,
                             segment: {
                                 borderColor: ctx => {
                                     let currentIndex = ctx.p0DataIndex;
                                     let nextIndex = ctx.p1DataIndex;
                                     let currentDate = inquinanteDate[currentIndex];
                                     let nextDate = inquinanteDate[nextIndex];
-                                    return nextDate - currentDate > 30000 ? '#665959' : '#659CD6'; // Change color if gap is more than 30 seconds
+                                    return nextDate - currentDate > 30000 ? '#665959' : '#659CD6';
                                 }
                             },
-                            autoSkip: true,
                         },
                         limite
                     ],
                 },
-                options: {
-                    scales: {
-                        x: {
-                            type: 'time',
-                            time: {
-                                unit: unitDisplay[tempoIntervallo],
-                                displayFormats: {
-                                    minute: 'HH:mm',
-                                    hour: 'HH:mm',
-                                    day: 'MMM d',
-                                }
-                            },
-                            ticks: {
-                                // maxTicksLimit: 12,
-                                autoSkip: true,
-                                autoSkipPadding: 20
-                            }
-                        }
-                    }
-                }
+                options: chartOptions
             });
         });
-
-        if (limitiLegge[inquinante] != null) {
-            grafici[nomeGrafico].data.datasets[1] = limite;
-        } else {
-            grafici[nomeGrafico].data.datasets[1] = null;
-        }
     } catch (error) {
         console.error('Errore:', error);
     }
