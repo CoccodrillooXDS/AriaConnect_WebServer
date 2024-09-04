@@ -1,6 +1,11 @@
 from flask import Flask, render_template, redirect, request, jsonify
 import requests
 import mysql.connector
+import json
+
+import mimetypes
+mimetypes.add_type('text/css', '.css')
+mimetypes.add_type('text/javascript', '.js')
 
 try:
     import config
@@ -20,18 +25,196 @@ except ImportError:
 
 app = Flask(__name__)
 
-# Database connection
-def database_connection():
-    conn = mysql.connector.connect(
-        host=config.database['host'],
-        user=config.database['user'],
-        password=config.database['password'],
-        port=config.database['port'],
-        database=config.database['database']
-    )
-    return conn
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-#tempoIntervallo: MICROSECOND SECOND MINUTE HOUR DAY WEEK MONTH QUARTER YEAR
+@app.route('/favicon.ico')
+def favicon():
+    return redirect('/static/img/favicon.ico')
+
+@app.route('/dashboard')
+def dashboard():
+    return redirect('/dashboard/meteo')
+
+@app.route('/dashboard/meteo')
+def meteo():
+    return render_template('dashboard_meteo.html')
+
+@app.route('/dashboard/inquinanti')
+def inquinanti():
+    return render_template('dashboard_inquinanti.html')
+
+@app.route('/about-school')
+def about_school():
+    return render_template('about_school.html')
+
+@app.route('/project')
+def project():
+    return render_template('project.html')
+
+@app.route('/documentation')
+def documentation():
+    return render_template('documentation.html')
+
+@app.route('/objectives')
+def objectives():
+    return render_template('objectives.html')
+
+@app.route('/contacts')
+def contacts():
+    return render_template('contacts.html')
+
+# ------------------------
+#           API
+# ------------------------
+
+@app.route('/api/valoriAttualiInquinanti', methods=['POST'])
+def valoriAttualiInquinanti():
+    try:
+        conn = database_connection()
+        cursor = conn.cursor(dictionary=True)
+       
+        # Definire l'elenco degli inquinanti
+        nomi_valori = ["CO", "CO2", "PM10", "NH3", "NO2", "TVOC", "humidity", "temperature", "pressure"]
+       
+        # Costruire la query per ottenere i valori più recenti di tutti gli inquinanti
+        query = """
+            SELECT id, data, value
+            FROM json_values
+            WHERE data >= NOW() - INTERVAL 10 MINUTE
+            ORDER BY data DESC
+            LIMIT 10;
+        """
+        
+        # Eseguire la query
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+        # Chiusura del cursore e della connessione
+        cursor.close()
+        conn.close()
+
+        # Processare i dati
+        result = {inquinante: None for inquinante in nomi_valori}
+        for row in rows:
+            value_dict = json.loads(row['value'])
+            for key, value in value_dict.items():
+                if key in nomi_valori and result[key] is None:
+                    result[key] = value
+
+        # Check if we have any data
+        if any(result.values()):
+            return jsonify(result), 200
+        else:
+            return jsonify({'message': 'No data found'}), 404
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+    
+@app.route('/api/GPS', methods=['POST'])
+def GPS():
+    body = request.get_json()
+    parametro = body.get("parametro", None)
+
+    if parametro is None:
+        return jsonify({'message': 'Error: parametro is required'}), 400
+
+    try:
+        conn = database_connection()
+        cursor = conn.cursor()
+        response = {
+            "air_quality": None,
+            "air_quality_level": None,
+            "latitudine": None,
+            "longitudine": None
+        }
+
+        if parametro == 1:
+            query = """
+                SELECT
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality')) AS air_quality_value,
+                    JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality_level')) AS air_quality_level_value
+                FROM json_values
+                WHERE (JSON_EXTRACT(value, '$.air_quality') IS NOT NULL OR JSON_EXTRACT(value, '$.air_quality_level') IS NOT NULL)
+                AND data >= NOW() - INTERVAL 30 SECOND
+                ORDER BY data DESC
+                LIMIT 1;
+            """
+            cursor.execute(query)
+            result = cursor.fetchone()
+            response["air_quality"] = result[0] if result and result[0] else None
+            response["air_quality_level"] = result[1] if result and result[1] else None
+
+        query = """
+            SELECT
+                JSON_UNQUOTE(JSON_EXTRACT(value, '$.long')) AS long_value,
+                JSON_UNQUOTE(JSON_EXTRACT(value, '$.lat')) AS lat_value
+            FROM json_values
+            WHERE (JSON_EXTRACT(value, '$.long') IS NOT NULL OR JSON_EXTRACT(value, '$.lat') IS NOT NULL)
+            AND data >= NOW() - INTERVAL 30 SECOND
+            ORDER BY data DESC
+            LIMIT 1;
+        """
+        cursor.execute(query)
+        result = cursor.fetchone()
+        response["longitudine"] = result[0] if result and result[0] else None
+        response["latitudine"] = result[1] if result and result[1] else None
+
+        cursor.close()
+        conn.close()
+
+        if any(response.values()):
+            return jsonify(response), 200
+        else:
+            return jsonify({'message': 'No data found'}), 404
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+    
+@app.route('/api/inquinanti', methods=['POST'])
+def inquinantiDataBase():
+    body = request.get_json()
+    valoreIntervallo = body.get('valoreIntervallo', None)
+    tempoIntervallo = body.get('tempoIntervallo', None)
+
+    if valoreIntervallo is None or tempoIntervallo is None:
+        return jsonify({'message': 'Error: valoreIntervallo and tempoIntervallo are required'}), 400
+    try:
+        response = getInquinanti(valoreIntervallo, tempoIntervallo)
+        return jsonify(response), 200
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+    
+@app.route('/api/openweather', methods=['POST'])
+def openweather():
+    body = request.get_json()
+    lat = body.get('lat', None)
+    lon = body.get('lon', None)
+    if lat is None or lon is None:
+        return jsonify({'message': 'Error: lat and lon are required'}), 400
+    openWeatherURL = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={config.openweatherapi}&lang=it'
+    openWeatherGeoReverseURL = f'http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit=1&appid={config.openweatherapi}'
+    openElevationURL = f'https://api.open-elevation.com/api/v1/lookup?locations={lat},{lon}'
+    try:
+        response = requests.get(openWeatherURL)
+        response.raise_for_status()
+        weather = response.json()
+        response = requests.get(openWeatherGeoReverseURL)
+        response.raise_for_status()
+        geo = response.json()
+        response = requests.get(openElevationURL)
+        response.raise_for_status()
+        elevation = response.json()
+        weather['elevation'] = elevation['results'][0]['elevation']
+        if len(geo) > 0:
+            weather['name'] = geo[0]['name']
+        return jsonify(weather), 200
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+
+# ------------------------
+#    Internal functions
+# ------------------------
+
 def getInquinanti(valoreIntervallo, tempoIntervallo):
     # Connessione al database MySQL
     conn = database_connection()
@@ -61,8 +244,7 @@ def getInquinanti(valoreIntervallo, tempoIntervallo):
                     FROM defaultdb.json_values 
                     ORDER BY id DESC 
                     LIMIT 1
-                )
-                AND (
+                ) AND (
                     JSON_EXTRACT(value, '$.CO') IS NOT NULL 
                     OR JSON_EXTRACT(value, '$.CO2') IS NOT NULL 
                     OR JSON_EXTRACT(value, '$.PM10') IS NOT NULL 
@@ -111,199 +293,16 @@ def getInquinanti(valoreIntervallo, tempoIntervallo):
 
     return valori_inquinanti
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/favicon.ico')
-def favicon():
-    return redirect('/static/img/favicon.ico')
-
-@app.route('/dashboard')
-def dashboard():
-    return redirect('/dashboard/meteo')
-
-@app.route('/api/openweather', methods=['POST'])
-def openweather():
-    body = request.get_json()
-    lat = body.get('lat', None)
-    lon = body.get('lon', None)
-    if lat is None or lon is None:
-        return jsonify({'message': 'Error: lat and lon are required'}), 400
-    openWeatherURL = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={config.openweatherapi}&lang=it'
-    openWeatherGeoReverseURL = f'http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit=1&appid={config.openweatherapi}'
-    openElevationURL = f'https://api.open-elevation.com/api/v1/lookup?locations={lat},{lon}'
-    try:
-        response = requests.get(openWeatherURL)
-        response.raise_for_status()
-        weather = response.json()
-        response = requests.get(openWeatherGeoReverseURL)
-        response.raise_for_status()
-        geo = response.json()
-        response = requests.get(openElevationURL)
-        response.raise_for_status()
-        elevation = response.json()
-        weather['elevation'] = elevation['results'][0]['elevation']
-        if len(geo) > 0:
-            weather['name'] = geo[0]['name']
-        return jsonify(weather), 200
-    except Exception as e:
-        return jsonify({'message': str(e)}), 500
-
-@app.route('/dashboard/meteo')
-def meteo():
-    return render_template('dashboard_meteo.html')
-
-@app.route('/api/GPS', methods=['POST'])
-def GPS():
-    body = request.get_json()
-    parametro = body.get("parametro", None)
-
-    if parametro is None :
-        return jsonify({'message': 'Error: parametro is required'}), 400
-    try:
-        conn = database_connection()
-
-        cursor = conn.cursor()
-        response = {}
-
-        if(parametro == 1):
-            query = f"""
-                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality')) AS air_quality_value
-                    FROM json_values
-                    WHERE JSON_EXTRACT(value, '$.air_quality') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 30 SECOND
-                    ORDER BY data DESC
-                    LIMIT 1;
-                    """
-            cursor.execute(query)
-            response["air_quality"] = cursor.fetchone()
-
-            query = f"""
-                        SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.air_quality_level')) AS air_quality_level_value
-                        FROM json_values
-                        WHERE JSON_EXTRACT(value, '$.air_quality_level') IS NOT NULL
-                        AND data >= NOW() - INTERVAL 30 SECOND
-                        ORDER BY data DESC
-                        LIMIT 1;
-                        """
-            cursor.execute(query)
-            response["air_quality_level"] = cursor.fetchone()
-        
-
-        query = f"""
-                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.long')) AS long_value
-                    FROM json_values
-                    WHERE JSON_EXTRACT(value, '$.long') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 30 SECOND
-                    ORDER BY data DESC
-                    LIMIT 1;
-        """
-
-        cursor.execute(query)
-
-        response["longitudine"] = cursor.fetchone()
-
-        query = f"""
-                    SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$.lat')) AS lat_value
-                    FROM json_values
-                    WHERE JSON_EXTRACT(value, '$.lat') IS NOT NULL
-                    AND data >= NOW() - INTERVAL 30 SECOND
-                    ORDER BY data DESC
-                    LIMIT 1;
-        """
-
-        cursor.execute(query)
-
-        response["latitudine"] = cursor.fetchone()
-        
-        cursor.close()
-        conn.close()
-
-        return jsonify(response), 200
-    
-    except Exception as e:
-        return jsonify({'message': str(e)}), 500    
-
-
-@app.route('/api/inquinanti', methods=['POST'])
-def inquinantiDataBase():
-    body = request.get_json()
-    valoreIntervallo = body.get('valoreIntervallo', None)
-    tempoIntervallo = body.get('tempoIntervallo', None)
-
-    if valoreIntervallo is None or tempoIntervallo is None:
-        return jsonify({'message': 'Error: valoreIntervallo and tempoIntervallo are required'}), 400
-    try:
-        
-        response = getInquinanti(valoreIntervallo, tempoIntervallo)
-
-        return jsonify(response), 200
-    
-    except Exception as e:
-        return jsonify({'message': str(e)}), 500
-
-@app.route('/api/valoriAttualiInquinanti', methods=['POST'])
-def valoriAttualiInquinanti():
-    try:
-        conn = database_connection()
-        cursor = conn.cursor()
-        
-        # Definire l'elenco degli inquinanti
-        nomi_valori = ["CO", "CO2", "PM10", "NH3", "NO2", "TVOC", "humidity", "temperature", "pressure"]
-        
-        # Costruire la query per ottenere i valori più recenti di tutti gli inquinanti
-        select_clause = ", ".join([f"JSON_UNQUOTE(JSON_EXTRACT(value, '$.{inquinante}')) AS {inquinante}_value" for inquinante in nomi_valori])
-
-        query = f"""
-            SELECT {select_clause}
-            FROM json_values
-            WHERE data >= NOW() - INTERVAL 10 SECOND
-            ORDER BY data DESC
-            LIMIT 1;
-        """
-
-        # Eseguire la query
-        cursor.execute(query)
-        response = cursor.fetchone()
-
-        # Chiusura del cursore e della connessione
-        cursor.close()
-        conn.close()
-
-        # Creare una mappa con i risultati (mappa inquinante -> valore)
-        if response:
-            result = {inquinante: response[idx] for idx, inquinante in enumerate(nomi_valori)}
-            return jsonify(result), 200
-        else:
-            return jsonify({'message': 'No data found'}), 404
-    
-    except Exception as e:
-        return jsonify({'message': str(e)}), 500
-
-@app.route('/dashboard/inquinanti')
-def inquinanti():
-    return render_template('dashboard_inquinanti.html')
-
-@app.route('/about-school')
-def about_school():
-    return render_template('about_school.html')
-
-@app.route('/project')
-def project():
-    return render_template('project.html')
-
-@app.route('/documentation')
-def documentation():
-    return render_template('documentation.html')
-
-@app.route('/objectives')
-def objectives():
-    return render_template('objectives.html')
-
-@app.route('/contacts')
-def contacts():
-    return render_template('contacts.html')
+# Database connection
+def database_connection():
+    conn = mysql.connector.connect(
+        host=config.database['host'],
+        user=config.database['user'],
+        password=config.database['password'],
+        port=config.database['port'],
+        database=config.database['database']
+    )
+    return conn
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5500)

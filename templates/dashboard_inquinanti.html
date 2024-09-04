@@ -24,53 +24,45 @@
 
 {% block content %}
 <div class="pulsanti">
-    <button id="ora" onclick="setOra()">1 h</button>
-    <button id="giorno" onclick="setGiorno()"> 1 d</button>
-    <button id="settimana" onclick="setSettimana()"> 1 w</button>
-    <button id="mese" onclick="setMese()">1 m</button>
-    <button id="anno" onclick="setAnno()">1 y</button>
+    <button class="btn btn-secondary" id="ora" onclick="setOra()">1 ora</button>
+    <button class="btn btn-secondary" id="giorno" onclick="setGiorno()"> 1 giorno</button>
+    <button class="btn btn-secondary" id="settimana" onclick="setSettimana()"> 1 settimana</button>
+    <button class="btn btn-secondary" id="mese" onclick="setMese()">1 mese</button>
+    <button class="btn btn-secondary" id="anno" onclick="setAnno()">1 anno</button>
 </div>
 <div class="grid">
-    <div class="row column-gap-300">
+    <div class="row justify-content-around">
         <div class="col-8">
-            <h4>Biossido di azoto</h4>
+            <h4>Biossido di azoto (\(NO_2\))</h4>
             <div class="row">
                 <div class="col">
                     <canvas id="grafico_NO2"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-4">
-            <h3>parametri biossido di azoto</h3>
+        <div class="col-3">
+            <h3>Parametri \(NO_2\)</h3>
             <div class="row">
-                <div class="col">biossido di azoto</div>
-                <div class="col" id="valore_attuale_NO2">valore attuale</div>
+                <div class="col">Dati sensore</div>
+                <div class="col" id="valore_attuale_NO2">NaN</div>
             </div>
             <div class="row">
-                <div class="col">valore per legge</div>
-                <div class="col">valore 0,1 ppm</div>
-            </div>
-            <div class="row">
-                <div class="col">valore consigliato per la salute</div>
-                <div class="col">valore per la salute...</div>
-            </div>
-            <div class="row">
-                <div class="col">valore bresciano</div>
-                <div class="col">valore bresciano...</div>
+                <div class="col">Valore limite per legge</div>
+                <div class="col">\(0,1 \ \text{ppm}\)</div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-4">
-            <h3>parametri PM10</h3>
+    <div class="row justify-content-around">
+        <div class="col-3">
+            <h3>Parametri PM10</h3>
             <div class="row">
-                <div class="col">PM10</div>
-                <div class="col" id="valore_attuale_PM10">valore attuale</div>
+                <div class="col">Dati sensore</div>
+                <div class="col" id="valore_attuale_PM10">NaN</div>
             </div>
             <div class="row">
-                <div class="col">valore per legge</div>
-                <div class="col">50 mg/m^3</div>
+                <div class="col">Valore limite per legge</div>
+                <div class="col">\(50 \ \mu g/m^3\)</div>
             </div>
         </div>
         <div class="col-8">
@@ -83,42 +75,42 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-around">
         <div class="col-8">
-            <h4>ammoniaca</h4>
+            <h4>Ammoniaca (\(NH_3\))</h4>
             <div class="row">
                 <div class="col">
                     <canvas id="grafico_NH3"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-4">
-            <h3>parametri ammoniaca</h3>
+        <div class="col-3">
+            <h3>Parametri \(NH_3\)</h3>
             <div class="row">
-                <div class="col">parametri ammoniaca</div>
-                <div class="col" id="valore_attuale_NH3"></div>
+                <div class="col">Dati sensore</div>
+                <div class="col" id="valore_attuale_NH3">NaN</div>
             </div>
             <div class="row">
-                <div class="col">valore per legge</div>
-                <div class="col">300 ppm</div>
+                <div class="col">Valore limite per legge</div>
+                <div class="col">\(300 \ \text{ppm}\)</div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-4">
-            <h3>parametri ossido di carbonio</h3>
+    <div class="row justify-content-around">
+        <div class="col-3">
+            <h3>Parametri \(CO\)</h3>
             <div class="row">
-                <div class="col">ossido di carbonio</div>
-                <div class="col" id="valore_attuale_CO"></div>
+                <div class="col">Dati sensore</div>
+                <div class="col" id="valore_attuale_CO">NaN</div>
             </div>
             <div class="row">
-                <div class="col">valore per legge</div>
-                <div class="col">9 ppm</div>
+                <div class="col">Valore limite per legge</div>
+                <div class="col">\(9 \ \text{ppm}\)</div>
             </div>
         </div>
         <div class="col-8">
-            <h4>ossido di carbonio</h4>
+            <h4>Monossido di carbonio (\(CO\))</h4>
             <div class="row">
                 <div class="col">
                     <canvas id="grafico_CO"></canvas>
@@ -127,52 +119,53 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-around">
         <div class="col-8">
-            <h4>Composti Organici volatili</h4>
+            <h4>Composti Organici Volatili (TVOC)</h4>
             <div class="row">
                 <div class="col">
                     <canvas id="grafico_TVOC"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-4">
-            <h3>parametri composti organici volatili</h3>
+        <div class="col-3">
+            <h3>Parametri TVOC</h3>
             <div class="row">
-                <div class="col">anidride carbonica</div>
-                <div class="col" id="valore_attuale_TVOC">valore attuale</div>
+                <div class="col">Dati sensore</div>
+                <div class="col" id="valore_attuale_TVOC">NaN</div>
             </div>
             <div class="row">
-                <div class="col">valore per legge</div>
-                <div class="col">1</div>
+                <div class="col">Valore limite per legge</div>
+                <div class="col">\(1000 \ \text{ppm}\)</div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-4">
-            <h3>parametri CO2</h3>
+    <div class="row justify-content-around">
+        <div class="col-3">
+            <h3>Parametri \(CO_2\)</h3>
             <div class="row">
-                <div class="col">parametri CO2</div>
-                <div class="col" id="valore_attuale_CO2">valore attuale</div>
+                <div class="col">Dati sensore</div>
+                <div class="col" id="valore_attuale_CO2">NaN</div>
             </div>
             <div class="row">
-                <div class="col">valore per legge</div>
-                <div class="col">30000 ppm</div>
+                <div class="col">Valore limite per legge</div>
+                <div class="col">\(30000 \ \text{ppm}\)</div>
             </div>
         </div>
         <div class="col-8">
-            <h4>CO2</h4>
+            <h4>Anidride Carbonica (\(CO_2\))</h4>
             <div class="row">
-                <div class="col-10">
+                <div class="col">
                     <canvas id="grafico_CO2"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-around">
         <div class="col-4">
+            <h4>Umidità</h4>
             <div class="row">
                 <canvas id="grafico_humidity"></canvas>
             </div>
@@ -181,6 +174,7 @@
             </div>
         </div>
         <div class="col-4">
+            <h4>Temperatura (°C)</h4>
             <div class="row">
                 <canvas id="grafico_temperature"></canvas>
             </div>
@@ -189,6 +183,7 @@
             </div>
         </div>
         <div class="col-4">
+            <h4>Pressione (hPa)</h4>
             <div class="row">
                 <canvas id="grafico_pressure"></canvas>
             </div>

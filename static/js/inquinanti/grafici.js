@@ -16,7 +16,22 @@ const limitiLegge = {
     "CO": 165,
     "TVOC": 4500,
     "CO2": 30000,
+    "humidity": 60,
+    "temperature": 27
 }
+
+const unitaAsseY = {
+    "NO2": "ppm",
+    "PM10": "ppm",
+    "NH3": "ppm",
+    "CO": "ppm",
+    "TVOC": "ppm",
+    "CO2": "ppm",
+    "humidity": "%",
+    "temperature": "°C",
+    "pressure": "hPa"
+}
+
 // TODO: Sistemare i limiti di legge
 
 let limiti = {}
@@ -111,9 +126,9 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
                         beginAtZero: true,
                         ticks: {
                             callback: function (value, index, values) {
-                                return value.toFixed(2);
+                                return `${value.toFixed(2)} ${unitaAsseY[inquinante]}`;
                             }
-                        }
+                        },
                     }
                 }
             };
@@ -141,7 +156,7 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
                                     let nextIndex = ctx.p1DataIndex;
                                     let currentDate = inquinanteDate[currentIndex];
                                     let nextDate = inquinanteDate[nextIndex];
-                                    return nextDate - currentDate > 30000 ? '#665959' : '#659CD6';
+                                    return nextDate - currentDate > 90000 ? '#665959' : '#659CD6';
                                 }
                             },
                         },
