@@ -193,7 +193,7 @@ def openweather():
         return jsonify({'message': 'Error: lat and lon are required'}), 400
     openWeatherURL = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={config.openweatherapi}&lang=it'
     openWeatherGeoReverseURL = f'http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit=1&appid={config.openweatherapi}'
-    openElevationURL = f'https://api.open-elevation.com/api/v1/lookup?locations={lat},{lon}'
+    openElevationURL = f'https://api.open-elevation.com/api/v1/lookup?locations={lat:.3f},{lon:.3f}'
     try:
         response = requests.get(openWeatherURL)
         response.raise_for_status()
