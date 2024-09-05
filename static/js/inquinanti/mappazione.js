@@ -67,22 +67,17 @@ async function fetchPosition(param) {
         const data = await response.json();
 
         if ((data.longitudine == null || data.longitudine == "Dati GPS non validi") && (data.latitudine == null || data.latitudine == "Dati GPS non validi")) {
-            text = "GPS spento";
+            text = "Dati GPS non disponibili";
             elementi.statoGPS.innerText = text;
-            document.getElementById("map").style.display = "none";
         } else {
             console.log(data.longitudine, data.latitudine);
             addMarker(data.air_quality_level, data.air_quality, data.latitudine, data.longitudine);
             elementi.statoGPS.innerText = "LAT: " + data.latitudine + " LON: " + data.longitudine;
-            try {
-                document.getElementById("map").removeAttribute("style");
-            } catch (error) { }
         }
     } catch (error) {
         //console.error('Error:', error);
         text = "Dati GPS non disponibili";
         elementi.statoGPS.innerText = text;
-        document.getElementById("map").style.display = "none";
     }
 }
 

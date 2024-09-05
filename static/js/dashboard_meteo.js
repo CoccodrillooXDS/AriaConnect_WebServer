@@ -189,6 +189,8 @@ async function fetchPosition(param) {
         }
 
     } catch (error) {
-        console.error('Error:', error);
+        text = elementi.nomeCitta.innerText + " - GPS non disponibile";
+        elementi.nomeCitta.innerText = text;
+        // console.error('Error:', error);
     }
 }
