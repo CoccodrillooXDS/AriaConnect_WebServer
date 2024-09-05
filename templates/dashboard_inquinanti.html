@@ -30,17 +30,14 @@
     <button class="btn btn-secondary" id="mese" onclick="setMese()">1 mese</button>
     <button class="btn btn-secondary" id="anno" onclick="setAnno()">1 anno</button>
 </div>
-<div class="grid">
-    <div class="row justify-content-around">
-        <div class="col-8">
+<div class="box">
+
+    <div class="riga">
+        <div class="parteGrafica">
             <h4>Biossido di azoto (\(NO_2\))</h4>
-            <div class="row">
-                <div class="col">
-                    <canvas id="grafico_NO2"></canvas>
-                </div>
-            </div>
+            <canvas id="grafico_NO2"></canvas>
         </div>
-        <div class="col-3">
+        <div class="parteParametri">
             <h3>Parametri \(NO_2\)</h3>
             <div class="row">
                 <div class="col">Dati sensore</div>
@@ -53,8 +50,8 @@
         </div>
     </div>
 
-    <div class="row justify-content-around">
-        <div class="col-3">
+    <div class="riga">
+        <div class="parteParametri">
             <h3>Parametri PM10</h3>
             <div class="row">
                 <div class="col">Dati sensore</div>
@@ -65,26 +62,19 @@
                 <div class="col">\(50 \ \mu g/m^3\)</div>
             </div>
         </div>
-        <div class="col-8">
+
+        <div class="parteGrafica">
             <h4>PM10</h4>
-            <div class="row">
-                <div class="col">
-                    <canvas id="grafico_PM10"></canvas>
-                </div>
-            </div>
+            <canvas id="grafico_PM10"></canvas>
         </div>
     </div>
 
-    <div class="row justify-content-around">
-        <div class="col-8">
+    <div class="riga">
+        <div class="parteGrafica">
             <h4>Ammoniaca (\(NH_3\))</h4>
-            <div class="row">
-                <div class="col">
-                    <canvas id="grafico_NH3"></canvas>
-                </div>
-            </div>
+            <canvas id="grafico_NH3"></canvas>
         </div>
-        <div class="col-3">
+        <div class="parteParametri">
             <h3>Parametri \(NH_3\)</h3>
             <div class="row">
                 <div class="col">Dati sensore</div>
@@ -97,8 +87,8 @@
         </div>
     </div>
 
-    <div class="row justify-content-around">
-        <div class="col-3">
+    <div class="riga">
+        <div class="parteParametri">
             <h3>Parametri \(CO\)</h3>
             <div class="row">
                 <div class="col">Dati sensore</div>
@@ -109,26 +99,20 @@
                 <div class="col">\(9 \ \text{ppm}\)</div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="parteGrafica">
             <h4>Monossido di carbonio (\(CO\))</h4>
-            <div class="row">
-                <div class="col">
-                    <canvas id="grafico_CO"></canvas>
-                </div>
-            </div>
+            <canvas id="grafico_CO"></canvas>
         </div>
     </div>
 
-    <div class="row justify-content-around">
-        <div class="col-8">
+    <div class="riga">
+
+        <div class="parteGrafica">
             <h4>Composti Organici Volatili (TVOC)</h4>
-            <div class="row">
-                <div class="col">
-                    <canvas id="grafico_TVOC"></canvas>
-                </div>
-            </div>
+            <canvas id="grafico_TVOC"></canvas>
         </div>
-        <div class="col-3">
+
+        <div class="parteParametri">
             <h3>Parametri TVOC</h3>
             <div class="row">
                 <div class="col">Dati sensore</div>
@@ -141,8 +125,8 @@
         </div>
     </div>
 
-    <div class="row justify-content-around">
-        <div class="col-3">
+    <div class="riga">
+        <div class="parteParametri">
             <h3>Parametri \(CO_2\)</h3>
             <div class="row">
                 <div class="col">Dati sensore</div>
@@ -153,52 +137,36 @@
                 <div class="col">\(30000 \ \text{ppm}\)</div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="parteGrafica">
             <h4>Anidride Carbonica (\(CO_2\))</h4>
-            <div class="row">
-                <div class="col">
-                    <canvas id="grafico_CO2"></canvas>
-                </div>
-            </div>
+            <canvas id="grafico_CO2"></canvas>
         </div>
     </div>
 
-    <div class="row justify-content-around">
-        <div class="col-4">
+    <div class="riga">
+        <div class="parteParametriAmbientali">
             <h4>Umidità</h4>
-            <div class="row">
-                <canvas id="grafico_humidity"></canvas>
-            </div>
-            <div class="row">
-                <div class="col" id="valore_attuale_humidity"></div>
-            </div>
+            <canvas id="grafico_humidity"></canvas>
+            <div class="col" id="valore_attuale_humidity" style="text-align: center;"></div>
         </div>
-        <div class="col-4">
+        <div class="parteParametriAmbientali">
             <h4>Temperatura (°C)</h4>
-            <div class="row">
-                <canvas id="grafico_temperature"></canvas>
-            </div>
-            <div class="row">
-                <div class="col" id="valore_attuale_temperature"></div>
-            </div>
+            <canvas id="grafico_temperature"></canvas>
+            <div class="col" id="valore_attuale_temperature" style="text-align: center;"></div>
         </div>
-        <div class="col-4">
+        <div class="parteParametriAmbientali">
             <h4>Pressione (hPa)</h4>
-            <div class="row">
-                <canvas id="grafico_pressure"></canvas>
-            </div>
-            <div class="row">
-                <div class="col" id="valore_attuale_pressure"></div>
-            </div>
+            <canvas id="grafico_pressure"></canvas>
+            <div id="valore_attuale_pressure" style="text-align: center;"></div>
         </div>
     </div>
 
-
-    <div class="row justify-content-around">
-        <div class="col-12">
+    <div class="riga">
+        <div class="parteMappa">
             <div id="map"></div>
-            <div id="statoGPS"></div>
+            <div id="statoGPS" style="text-align: center;"></div>
         </div>
     </div>
+
 </div>
 {% endblock %}
