@@ -151,7 +151,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     await caricaTutto();
 
     setInterval(caricaTutto, 20000);
-    // TODO: Ricarica tutto automaticamente quando ci sono nuovi dati tramite WebSocket
 });
 
 
