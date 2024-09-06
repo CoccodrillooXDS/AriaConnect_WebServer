@@ -10,12 +10,12 @@ const unitDisplay = {
 }
 
 const limitiLegge = {
-    "NO2": 2.5,
+    "NO2": 3.5,
     "PM10": 1350,
-    "NH3": 67,
-    "CO": 165,
-    "TVOC": 4500,
-    "CO2": 30000,
+    "NH3": 50,
+    "CO": 100,
+    "TVOC": 17000,
+    "CO2": 5000,
     "humidity": 60,
     "temperature": 27
 }
