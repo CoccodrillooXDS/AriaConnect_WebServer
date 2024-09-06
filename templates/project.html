@@ -3,6 +3,10 @@
 {% block title %}Il progetto{% endblock %}
 
 {% block script %}
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/modello3D.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var components = document.querySelectorAll('.component-container');
@@ -69,6 +73,8 @@
 
 {% block style %}
 <style>
+
+
     .component-container {
         overflow: hidden;
         position: relative;
@@ -126,6 +132,24 @@
             /* Full width on smaller screens */
         }
     }
+
+        /* Responsive design */
+    @media (max-width: 1100px) {
+        canvas{
+            aspect-ratio: 16/9;
+            max-width: 100%;
+        }
+    }
+
+    @media (min-width: 1100px) {
+        canvas{
+        aspect-ratio: 5 / 10;
+        height: 100%;
+        max-height: 600px;
+        max-width: 30%;
+        }
+    }
+</style
 </style>
 {% endblock %}
 
@@ -175,8 +199,7 @@
 
         </div>
         <!-- TODO: Rimpiazzare con zaino finito -->
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-right img-biggerimg rounded">
+        <canvas id="renderModel"></canvas>
     </div>
 </div>
 
