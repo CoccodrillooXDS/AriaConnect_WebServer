@@ -44,6 +44,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+try {
+    MathJax = {
+        options: {
+            enableMenu: false,
+        }
+    };    
+} catch (error) {
+    console.error('An error occurred while setting MathJax options:', error);
+}
+
 function fixNav() {
     let navHeight = document.querySelector('#supBar').offsetHeight;
 

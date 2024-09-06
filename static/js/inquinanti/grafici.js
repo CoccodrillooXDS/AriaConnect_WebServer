@@ -106,6 +106,8 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
                     animationDuration: 0 // duration of animations when hovering an item
                 },
                 responsiveAnimationDuration: 0, // animation duration after a resize
+                responsive: true,
+                maintainAspectRatio: true,
                 scales: {
                     x: {
                         type: 'time',

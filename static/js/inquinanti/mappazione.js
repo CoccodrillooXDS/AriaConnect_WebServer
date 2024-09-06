@@ -66,13 +66,13 @@ async function fetchPosition(param) {
 
         const data = await response.json();
 
-        if ((data.longitudine == null || data.longitudine == "Dati GPS non validi") && (data.latitudine == null || data.latitudine == "Dati GPS non validi")) {
+        if ((data.longitudine == null || data.longitudine == "Dati GPS non validi" || data.longitudine == 0) && (data.latitudine == null || data.latitudine == "Dati GPS non validi" || data.latitudine == 0)) {
             text = "Dati GPS non disponibili";
             elementi.statoGPS.innerText = text;
         } else {
             console.log(data.longitudine, data.latitudine);
             addMarker(data.air_quality_level, data.air_quality, data.latitudine, data.longitudine);
-            elementi.statoGPS.innerText = "LAT: " + data.latitudine + " LON: " + data.longitudine;
+            elementi.statoGPS.innerText = "Latitudine: " + data.latitudine + "\nLongitudine: " + data.longitudine;
         }
     } catch (error) {
         //console.error('Error:', error);

@@ -25,6 +25,20 @@ html[data-bs-theme="light"] .content > .box > .riga > .parteParametri , html[dat
     flex-direction: row;
     flex-wrap: nowrap;
     gap:20px;
+    max-width: 100%;
+}
+
+canvas {
+    max-width: 100% !important;
+}
+
+html[data-bs-theme="dark"] .leaflet-layer {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+html[data-bs-theme="dark"] .leaflet-control, html[data-bs-theme="dark"] .leaflet-control > a {
+    background-color: #343a40; /* Lighter color for dark mode */
+    color: #ffffff; /* Lighter color for dark mode */
 }
 
 /* .parteGrafica, .parteParametri, .parteParametriAmbientali {
@@ -33,16 +47,19 @@ html[data-bs-theme="light"] .content > .box > .riga > .parteParametri , html[dat
 
 .parteGrafica{
     flex: 2;
-    flex-shrink: 1;
+    flex-shrink: 3;
+    padding: 20px;
 }
 
 .parteParametri{
     flex: 1;
     flex-shrink: 1;
+    padding: 20px;
 }
 
 .parteParametriAmbientali{
     flex: 1 1;
+    padding: 20px;
 }
 
 .box{
@@ -52,9 +69,8 @@ html[data-bs-theme="light"] .content > .box > .riga > .parteParametri , html[dat
     flex-wrap: wrap;
 }
 
-
-h3{
-    font-size: 1.6dvw;
+h4 {
+    font-weight: 700;
 }
 
 .col-2{
@@ -76,6 +92,7 @@ h3{
     gap: 20px;
     margin: 30px;
 }
+
 .map{
     flex-basis: 100%;
 }
@@ -86,7 +103,7 @@ h3{
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
     .riga {
         flex-wrap: wrap !important;
         max-width: 100%;

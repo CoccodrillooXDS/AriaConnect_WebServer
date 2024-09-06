@@ -49,7 +49,12 @@ async function fetchValoriAttualiInquinanti() {
 
             if (data[parametro] != null) {
                 // Aggiorna il contenuto dell'elemento DOM con il valore attuale
-                elementi[nomeElemento].innerText = data[parametro];
+                // check if parent class is parteParametriAmbientali and do something
+                if (elementi[nomeElemento].parentElement.className == "parteParametriAmbientali") {
+                    elementi[nomeElemento].innerText = "Dati sensore: " + data[parametro];
+                } else {
+                    elementi[nomeElemento].innerText = data[parametro];
+                }
             } else {
                 // Se il valore è nullo, mostra che il sensore è spento
                 elementi[nomeElemento].innerText = "Sensore non disponibile";
