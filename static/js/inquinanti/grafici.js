@@ -87,9 +87,16 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
             let ctx = document.getElementById(`grafico_${inquinante}`);
             let nomeGrafico = `grafico${inquinante}`;
 
+            let limiteArray;
+            if (limitiLegge[inquinante] != null) {
+                limiteArray = Array(inquinanteValoriFiltered.length).fill(limitiLegge[inquinante]);
+            } else {
+                limiteArray = Array(inquinanteValoriFiltered.length).fill(null);
+            }
+
             const limite = {
                 label: 'Limite',
-                data: Array(inquinanteValoriFiltered.length).fill(limitiLegge[inquinante] ?? null),
+                data: limiteArray,
                 borderDash: [2, 2], // Dashed line style
                 pointRadius: 0,
                 pointHitRadius: 0,

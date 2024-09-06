@@ -41,6 +41,33 @@ html[data-bs-theme="dark"] .leaflet-control, html[data-bs-theme="dark"] .leaflet
     color: #ffffff; /* Lighter color for dark mode */
 }
 
+@supports (-ms-ime-align: auto) {
+    .parteGrafica {
+        display: none !important;
+    }
+
+    .parteParametriAmbientali > canvas {
+        display: none !important;
+    }
+
+    .riga {
+        margin-bottom: 15px;
+    }
+
+    .riga > .parteParametriAmbientali {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .riga > .parteParametriAmbientali:first-child {
+        margin-left: 0 !important;
+    }
+
+    .riga > .parteParametriAmbientali:last-child {
+        margin-right: 0 !important;
+    }
+}
+
 /* .parteGrafica, .parteParametri, .parteParametriAmbientali {
     background-color: greenyellow !important;
 } */
