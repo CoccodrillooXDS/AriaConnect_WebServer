@@ -79,6 +79,9 @@ html[data-bs-theme="dark"] .leaflet-control, html[data-bs-theme="dark"] .leaflet
 }
 
 .parteParametri{
+    display:flex;
+    justify-content: space-evenly;
+    flex-direction: column;
     flex: 1;
     flex-shrink: 1;
     padding: 20px;
