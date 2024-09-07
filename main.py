@@ -211,18 +211,10 @@ def openweather():
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 
-@app.route('/api/media', methods=['POST'])
-def media():
-    body = request.get_json()
-    valoreIntervallo = body.get('valoreIntervallo', None)
-    inquinante = body.get('inquinante', None)
-    if valoreIntervallo is None or inquinante is None:
-        return jsonify({'message': 'Error: lat and lon are required'}), 400
-    try:
-        media = getMedia(valoreIntervallo, inquinante)
-        return jsonify(media), 200
-    except Exception as e:
-        return jsonify({'message': str(e)}), 500
+@app.route('/api/all_averages', methods=['GET'])
+def all_averages():
+    result = get_all_averages()
+    return jsonify(result)
 
 # ------------------------
 #    Internal functions
@@ -306,55 +298,39 @@ def getInquinanti(valoreIntervallo, tempoIntervallo):
 
     return valori_inquinanti
 
-#funzione per prendere le medie degli inquinanti
-def getMedia(valoreIntervallo, inquinante):
-    # Connessione al database MySQL
+def get_all_averages():
     conn = database_connection()
-    cursor = conn.cursor(dictionary=True)  # Use dictionary=True for dict output
-
-    query = f"""
-                SELECT 
-                TRUNCATE(AVG({inquinante}),2) AS media_{inquinante}
-                FROM (
-                SELECT 
-                    JSON_EXTRACT(value, '$.{inquinante}') AS {inquinante}
-                    FROM 
-                        json_values
-                    WHERE 
-                        JSON_EXTRACT(value, '$.{inquinante}') IS NOT NULL
-                        AND data BETWEEN 
-                            (SELECT MAX(data) FROM  json_values WHERE JSON_EXTRACT(value, '$.{inquinante}') IS NOT NULL) - INTERVAL 1 {valoreIntervallo}
-                            AND (SELECT MAX(data) FROM json_values WHERE JSON_EXTRACT(value, '$.{inquinante}') IS NOT NULL)
-                    ORDER BY data DESC
-                ) AS sottoquery;
-            """
+    cursor = conn.cursor(dictionary=True)
+    
+    pollutants = ['CO', 'CO2', 'PM10', 'NH3', 'NO2', 'TVOC']
+    intervals = ['HOUR', 'DAY', 'WEEK', 'MONTH', 'YEAR']
+    
+    query_parts = []
+    
+    for pollutant in pollutants:
+        for interval in intervals:
+            query_parts.append(f"""
+            TRUNCATE(AVG(CASE 
+                WHEN data >= (SELECT MAX(data) FROM json_values) - INTERVAL 1 {interval}
+                THEN CAST(JSON_EXTRACT(value, '$.{pollutant}') AS DECIMAL(10,2))
+                END), 2) AS {pollutant}_{interval}
+            """)
+    
+    query = "SELECT " + ",\n".join(query_parts) + """
+    FROM json_values
+    WHERE """ + " OR ".join([f"JSON_EXTRACT(value, '$.{p}') IS NOT NULL" for p in pollutants])
+    
     try:
-        # Esecuzione della query
         cursor.execute(query)
-        
-        # Recupero dei risultati
         result = cursor.fetchone()
-        
-        
-
-    
     except mysql.connector.Error as err:
-        print(f"Errore: {err}")
-    
+        print(f"Error: {err}")
+        result = None
     finally:
-        # Chiusura del cursore e della connessione
         cursor.close()
         conn.close()
-
+    
     return result
-
-
-
-
-
-
-
-
 
 # Database connection
 def database_connection():
