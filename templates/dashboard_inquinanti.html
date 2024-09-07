@@ -24,12 +24,16 @@
 {% endblock %}
 
 {% block content %}
-<div class="pulsanti">
-    <button class="btn btn-secondary" id="ora" onclick="setOra()">1 ora</button>
-    <button class="btn btn-secondary" id="giorno" onclick="setGiorno()"> 1 giorno</button>
-    <button class="btn btn-secondary" id="settimana" onclick="setSettimana()"> 1 settimana</button>
-    <button class="btn btn-secondary" id="mese" onclick="setMese()">1 mese</button>
-    <button class="btn btn-secondary" id="anno" onclick="setAnno()">1 anno</button>
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">intervalli</button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#" onclick="setOra()">1 ora</a></li>
+        <li><a class="dropdown-item" href="#" onclick="setGiorno()">1 giorno</a></li>
+        <li><a class="dropdown-item" href="#" onclick="setSettimana()">1 settimana</a></li>
+        <li><a class="dropdown-item" href="#" onclick="setMese()">1 mese</a></li>
+        <li><a class="dropdown-item" href="#" onclick="setAnno()">1 mese</a></li>
+    </ul>
 </div>
 <div class="box">
 

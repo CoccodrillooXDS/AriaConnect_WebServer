@@ -130,11 +130,13 @@ h4 {
 }
 
 
-@media (max-width: 1400px) {
+@media (max-width: 1000px) {
     .riga {
-        flex-wrap: wrap !important;
+        flex-wrap: nowrap !important;
         max-width: 100%;
+        flex-direction: column !important; 
     }
+
     .parteParametri{
         order: 2
     }
