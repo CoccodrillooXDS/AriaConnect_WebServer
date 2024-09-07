@@ -211,6 +211,19 @@ def openweather():
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 
+@app.route('/api/media', methods=['POST'])
+def media():
+    body = request.get_json()
+    valoreIntervallo = body.get('valoreIntervallo', None)
+    inquinante = body.get('inquinante', None)
+    if valoreIntervallo is None or inquinante is None:
+        return jsonify({'message': 'Error: lat and lon are required'}), 400
+    try:
+        media = getMedia(valoreIntervallo, inquinante)
+        return jsonify(media), 200
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+
 # ------------------------
 #    Internal functions
 # ------------------------
@@ -292,6 +305,56 @@ def getInquinanti(valoreIntervallo, tempoIntervallo):
         conn.close()
 
     return valori_inquinanti
+
+#funzione per prendere le medie degli inquinanti
+def getMedia(valoreIntervallo, inquinante):
+    # Connessione al database MySQL
+    conn = database_connection()
+    cursor = conn.cursor(dictionary=True)  # Use dictionary=True for dict output
+
+    query = f"""
+                SELECT 
+                TRUNCATE(AVG({inquinante}),2) AS media_{inquinante}
+                FROM (
+                SELECT 
+                    JSON_EXTRACT(value, '$.{inquinante}') AS {inquinante}
+                    FROM 
+                        json_values
+                    WHERE 
+                        JSON_EXTRACT(value, '$.{inquinante}') IS NOT NULL
+                        AND data BETWEEN 
+                            (SELECT MAX(data) FROM  json_values WHERE JSON_EXTRACT(value, '$.{inquinante}') IS NOT NULL) - INTERVAL 1 {valoreIntervallo}
+                            AND (SELECT MAX(data) FROM json_values WHERE JSON_EXTRACT(value, '$.{inquinante}') IS NOT NULL)
+                    ORDER BY data DESC
+                ) AS sottoquery;
+            """
+    try:
+        # Esecuzione della query
+        cursor.execute(query)
+        
+        # Recupero dei risultati
+        result = cursor.fetchone()
+        
+        
+
+    
+    except mysql.connector.Error as err:
+        print(f"Errore: {err}")
+    
+    finally:
+        # Chiusura del cursore e della connessione
+        cursor.close()
+        conn.close()
+
+    return result
+
+
+
+
+
+
+
+
 
 # Database connection
 def database_connection():

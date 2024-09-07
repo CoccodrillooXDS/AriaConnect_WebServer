@@ -11,6 +11,7 @@
 {% block script %}
 <!--valori-->
 <script src="{{ url_for('static', filename='js/inquinanti/valoriAttualiInquinanti.js') }}"></script>
+<script src="{{ url_for('static', filename='js/inquinanti/media.js') }}"></script>
 <!-- grafici -->
 <script src="{{ url_for('static', filename='js/inquinanti/grafici.js') }}"></script>
 <!--mappa-->
@@ -47,6 +48,26 @@
                 <div class="col">Valore limite per legge</div>
                 <div class="col">\(1 \ \text{ppm}\)</div>
             </div>
+            <div class="row">
+                <div class="col">Media oraria</div>
+                <div class="col" id="media_oraria_NO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media giornaliera</div>
+                <div class="col"  id="media_giornaliera_NO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media settimanale</div>
+                <div class="col"  id="media_settimanale_NO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media mensile</div>
+                <div class="col"  id="media_mensile_NO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media annuale</div>
+                <div class="col"  id="media_annuale_NO2"></div>
+            </div>
         </div>
     </div>
 
@@ -59,7 +80,31 @@
             </div>
             <div class="row">
                 <div class="col">Valore limite per legge</div>
-                <div class="col">\(50 \ \mu g/m^3\)</div>
+                <div class="col" >\(50 \ \mu g/m^3\)</div>
+            </div>
+            <div class="row">
+                <div class="col">Valore limite per legge</div>
+                <div class="col">\(1 \ \text{ppm}\)</div>
+            </div>
+            <div class="row">
+                <div class="col">Media oraria</div>
+                <div class="col" id="media_oraria_PM10"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media giornaliera</div>
+                <div class="col"  id="media_giornaliera_PM10"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media settimanale</div>
+                <div class="col"  id="media_settimanale_PM10"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media mensile</div>
+                <div class="col"  id="media_mensile_PM10"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media annuale</div>
+                <div class="col"  id="media_annuale_PM10"></div>
             </div>
         </div>
 
@@ -84,6 +129,26 @@
                 <div class="col">Valore limite per legge</div>
                 <div class="col">\(50 \ \text{ppm}\)</div>
             </div>
+            <div class="row">
+                <div class="col">Media oraria</div>
+                <div class="col" id="media_oraria_NH3"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media giornaliera</div>
+                <div class="col"  id="media_giornaliera_NH3"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media settimanale</div>
+                <div class="col"  id="media_settimanale_NH3"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media mensile</div>
+                <div class="col"  id="media_mensile_NH3"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media annuale</div>
+                <div class="col"  id="media_annuale_NH3"></div>
+            </div>
         </div>
     </div>
 
@@ -97,6 +162,26 @@
             <div class="row">
                 <div class="col">Valore limite per legge</div>
                 <div class="col">\(100 \ \text{ppm}\)</div>
+            </div>
+            <div class="row">
+                <div class="col">Media oraria</div>
+                <div class="col" id="media_oraria_CO"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media giornaliera</div>
+                <div class="col"  id="media_giornaliera_CO"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media settimanale</div>
+                <div class="col"  id="media_settimanale_CO"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media mensile</div>
+                <div class="col"  id="media_mensile_CO"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media annuale</div>
+                <div class="col"  id="media_annuale_CO"></div>
             </div>
         </div>
         <div class="parteGrafica">
@@ -122,6 +207,26 @@
                 <div class="col">Valore limite per legge</div>
                 <div class="col">\(1000 \ \text{ppm}\)</div>
             </div>
+            <div class="row">
+                <div class="col">Media oraria</div>
+                <div class="col" id="media_oraria_TVOC"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media giornaliera</div>
+                <div class="col"  id="media_giornaliera_TVOC"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media settimanale</div>
+                <div class="col"  id="media_settimanale_TVOC"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media mensile</div>
+                <div class="col" id="media_mensile_TVOC"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media annuale</div>
+                <div class="col"  id="media_annuale_TVOC"></div>
+            </div>
         </div>
     </div>
 
@@ -136,7 +241,28 @@
                 <div class="col">Valore limite per legge</div>
                 <div class="col">\(5000 \ \text{ppm}\)</div>
             </div>
+            <div class="row">
+                <div class="col">Media oraria</div>
+                <div class="col" id="media_oraria_CO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media giornaliera</div>
+                <div class="col"  id="media_giornaliera_CO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media settimanale</div>
+                <div class="col"  id="media_settimanale_CO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media mensile</div>
+                <div class="col"  id="media_mensile_CO2"></div>
+            </div>
+            <div class="row">
+                <div class="col">Media annuale</div>
+                <div class="col"  id="media_annuale_CO2"></div>
+            </div>
         </div>
+
         <div class="parteGrafica">
             <h4>Anidride Carbonica (\(CO_2\))</h4>
             <canvas id="grafico_CO2"></canvas>
