@@ -12,17 +12,17 @@ let elementi = {
 };
 
 // Definizione dei parametri (inquinanti)
-let listaParametri = [
-    "CO2",
-    "NH3",
-    "CO",
-    "NO2",
-    "TVOC",
-    "PM10",
-    "humidity",
-    "pressure",
-    "temperature"
-];
+let listaParametri = {
+    "CO2": "ppm",
+    "NH3": "ppm",
+    "CO": "ppm",
+    "NO2": "ppm",
+    "TVOC": "ppm",
+    "PM10": "1/cu. ft.",
+    "humidity": "%",
+    "pressure": "hPa",
+    "temperature": "°C"
+};
 
 // Funzione per recuperare i valori attuali di tutti gli inquinanti in una singola richiesta
 async function fetchValoriAttualiInquinanti() {
@@ -43,7 +43,7 @@ async function fetchValoriAttualiInquinanti() {
         const data = await response.json(); // Convertire la risposta in JSON
 
         // Iterare su ogni parametro e aggiornare gli elementi DOM corrispondenti
-        listaParametri.forEach((parametro) => {
+        Object.keys(listaParametri).forEach((parametro) => {
             let nomeElemento = `valoreAttuale_${parametro}`;
             elementi[nomeElemento] = document.getElementById(`valore_attuale_${parametro}`);
 
@@ -51,9 +51,9 @@ async function fetchValoriAttualiInquinanti() {
                 // Aggiorna il contenuto dell'elemento DOM con il valore attuale
                 // check if parent class is parteParametriAmbientali and do something
                 if (elementi[nomeElemento].parentElement.className == "parteParametriAmbientali") {
-                    elementi[nomeElemento].innerText = "Dati sensore: " + data[parametro];
+                    elementi[nomeElemento].innerText = "Dati sensore: " + data[parametro] + " " + listaParametri[parametro];
                 } else {
-                    elementi[nomeElemento].innerText = data[parametro];
+                    elementi[nomeElemento].innerText = data[parametro] + " " + listaParametri[parametro];
                 }
             } else {
                 // Se il valore è nullo, mostra che il sensore è spento
@@ -62,8 +62,8 @@ async function fetchValoriAttualiInquinanti() {
         });
 
     } catch (error) {
-        // console.error('Errore:', error); // Gestisci gli errori
-        listaParametri.forEach((parametro) => {
+        // Gestisci gli errori
+        Object.keys(listaParametri).forEach((parametro) => {
             let nomeElemento = `valoreAttuale_${parametro}`;
             elementi[nomeElemento] = document.getElementById(`valore_attuale_${parametro}`);
             // Aggiorna il contenuto dell'elemento DOM con il valore attuale

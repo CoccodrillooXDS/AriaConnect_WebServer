@@ -11,7 +11,7 @@ const unitDisplay = {
 
 const limitiLegge = {
     "NO2": 3.5,
-    "PM10": 1350,
+    "PM10": 1637,
     "NH3": 50,
     "CO": 100,
     "TVOC": 17000,
@@ -22,7 +22,7 @@ const limitiLegge = {
 
 const unitaAsseY = {
     "NO2": "ppm",
-    "PM10": "ppm",
+    "PM10": "1/cu. ft.",
     "NH3": "ppm",
     "CO": "ppm",
     "TVOC": "ppm",
@@ -31,8 +31,6 @@ const unitaAsseY = {
     "temperature": "°C",
     "pressure": "hPa"
 }
-
-// TODO: Sistemare i limiti di legge
 
 let limiti = {}
 
@@ -113,8 +111,9 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
                     animationDuration: 0 // duration of animations when hovering an item
                 },
                 responsiveAnimationDuration: 0, // animation duration after a resize
+                resizeDelay: 0,
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 scales: {
                     x: {
                         type: 'time',
@@ -132,7 +131,7 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
                         }
                     },
                     y: {
-                        beginAtZero: true,
+                        // beginAtZero: true,
                         ticks: {
                             callback: function (value, index, values) {
                                 return `${value.toFixed(2)} ${unitaAsseY[inquinante]}`;

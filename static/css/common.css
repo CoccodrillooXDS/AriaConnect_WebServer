@@ -83,10 +83,6 @@ html[data-bs-theme="light"] .footerBorder {
     }
 
     @supports (-ms-ime-align: auto) {
-        #openOffcanvas {
-            display: none !important;
-        }
-    
         #iiscastelli > a > img {
             height: 45px !important;
         }
@@ -104,6 +100,22 @@ html[data-bs-theme="light"] .footerBorder {
 
     #dropdownThemeDiv {
         display: none !important;
+    }
+
+    #iiscastelli > a > img {
+        height: 45px !important;
+    }
+
+    #projectLogo {
+        height: 45px !important;
+    }
+
+    #realBody {
+        margin-top: 81px !important;
+    }
+
+    html {
+        scroll-padding-top: 145px !important;
     }
 }
 

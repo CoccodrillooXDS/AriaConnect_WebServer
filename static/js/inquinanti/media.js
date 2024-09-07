@@ -73,7 +73,8 @@ addEventListener("DOMContentLoaded", (event)=>{
                 const nomeElemento = `media${valoreIntervallo}`;
                 const value = data[`${inquinante}_${valoreIntervallo}`];
                 if (elementi[inquinante][nomeElemento]) {
-                    elementi[inquinante][nomeElemento].innerText = value ? value + " ppm" : "N/A";
+                    let unit = inquinante === 'PM10' ? '1/cu. ft.' : 'ppm';
+                    elementi[inquinante][nomeElemento].innerText = value ? value + " " + unit : "N/A";
                 }
             });
         });

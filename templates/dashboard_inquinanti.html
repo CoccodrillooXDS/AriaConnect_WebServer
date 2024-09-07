@@ -4,17 +4,18 @@
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_inquinanti.css') }}">
+<!-- Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css" type="text/css">
 {% endblock %}
 
 {% block script %}
-<!--valori-->
+<!-- Valori -->
 <script src="{{ url_for('static', filename='js/inquinanti/valoriAttualiInquinanti.js') }}"></script>
 <script src="{{ url_for('static', filename='js/inquinanti/media.js') }}"></script>
-<!-- grafici -->
+<!-- Grafici -->
 <script src="{{ url_for('static', filename='js/inquinanti/grafici.js') }}"></script>
-<!--mappa-->
+<!-- Leaflet -->
 <script src="{{ url_for('static', filename='js/inquinanti/mappazione.js') }}"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.js"></script>
@@ -24,9 +25,9 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">intervalli</button>
+<div class="dropdown dropdown-center">
+    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
+        aria-expanded="false" id="buttIntervalli">Seleziona intervallo</button>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="#" onclick="setOra()">1 ora</a></li>
         <li><a class="dropdown-item" href="#" onclick="setGiorno()">1 giorno</a></li>
@@ -35,8 +36,8 @@
         <li><a class="dropdown-item" href="#" onclick="setAnno()">1 mese</a></li>
     </ul>
 </div>
-<div class="box">
 
+<div class="box">
     <div class="riga">
         <div class="parteGrafica">
             <h4>Biossido di azoto (\(NO_2\))</h4>
@@ -44,33 +45,35 @@
         </div>
         <div class="parteParametri">
             <h4>Parametri \(NO_2\)</h4>
-            <div class="row">
-                <div class="col">Dati sensore</div>
-                <div class="col" id="valore_attuale_NO2">NaN</div>
-            </div>
-            <div class="row">
-                <div class="col">Valore limite per legge</div>
-                <div class="col">\(1 \ \text{ppm}\)</div>
-            </div>
-            <div class="row">
-                <div class="col">Media oraria</div>
-                <div class="col" id="media_oraria_NO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media giornaliera</div>
-                <div class="col"  id="media_giornaliera_NO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media settimanale</div>
-                <div class="col"  id="media_settimanale_NO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media mensile</div>
-                <div class="col"  id="media_mensile_NO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media annuale</div>
-                <div class="col"  id="media_annuale_NO2"></div>
+            <div class="contenutoParametri">
+                <div class="row">
+                    <div class="col valueName">Dati sensore</div>
+                    <div class="col" id="valore_attuale_NO2">NaN</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Valore limite per legge</div>
+                    <div class="col">\(1 \ \text{ppm}\)</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media oraria</div>
+                    <div class="col" id="media_oraria_NO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media giornaliera</div>
+                    <div class="col" id="media_giornaliera_NO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media settimanale</div>
+                    <div class="col" id="media_settimanale_NO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media mensile</div>
+                    <div class="col" id="media_mensile_NO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media annuale</div>
+                    <div class="col" id="media_annuale_NO2"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -78,37 +81,39 @@
     <div class="riga">
         <div class="parteParametri">
             <h4>Parametri PM10</h4>
-            <div class="row">
-                <div class="col">Dati sensore</div>
-                <div class="col" id="valore_attuale_PM10">NaN</div>
-            </div>
-            <div class="row">
-                <div class="col">Valore limite per legge</div>
-                <div class="col" >\(50 \ \mu g/m^3\)</div>
-            </div>
-            <div class="row">
-                <div class="col">Valore limite per legge</div>
-                <div class="col">\(1 \ \text{ppm}\)</div>
-            </div>
-            <div class="row">
-                <div class="col">Media oraria</div>
-                <div class="col" id="media_oraria_PM10"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media giornaliera</div>
-                <div class="col"  id="media_giornaliera_PM10"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media settimanale</div>
-                <div class="col"  id="media_settimanale_PM10"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media mensile</div>
-                <div class="col"  id="media_mensile_PM10"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media annuale</div>
-                <div class="col"  id="media_annuale_PM10"></div>
+            <div class="contenutoParametri">
+                <div class="row">
+                    <div class="col valueName">Dati sensore</div>
+                    <div class="col" id="valore_attuale_PM10">NaN</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Valore limite per legge</div>
+                    <div class="col">\(50 \ \mu g/m^3\)</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Valore limite per legge</div>
+                    <div class="col">\(1637 \ \text{1/cu. ft.}\)</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media oraria</div>
+                    <div class="col" id="media_oraria_PM10"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media giornaliera</div>
+                    <div class="col" id="media_giornaliera_PM10"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media settimanale</div>
+                    <div class="col" id="media_settimanale_PM10"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media mensile</div>
+                    <div class="col" id="media_mensile_PM10"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media annuale</div>
+                    <div class="col" id="media_annuale_PM10"></div>
+                </div>
             </div>
         </div>
 
@@ -125,33 +130,35 @@
         </div>
         <div class="parteParametri">
             <h4>Parametri \(NH_3\)</h4>
-            <div class="row">
-                <div class="col">Dati sensore</div>
-                <div class="col" id="valore_attuale_NH3">NaN</div>
-            </div>
-            <div class="row">
-                <div class="col">Valore limite per legge</div>
-                <div class="col">\(50 \ \text{ppm}\)</div>
-            </div>
-            <div class="row">
-                <div class="col">Media oraria</div>
-                <div class="col" id="media_oraria_NH3"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media giornaliera</div>
-                <div class="col"  id="media_giornaliera_NH3"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media settimanale</div>
-                <div class="col"  id="media_settimanale_NH3"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media mensile</div>
-                <div class="col"  id="media_mensile_NH3"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media annuale</div>
-                <div class="col"  id="media_annuale_NH3"></div>
+            <div class="contenutoParametri">
+                <div class="row">
+                    <div class="col valueName">Dati sensore</div>
+                    <div class="col" id="valore_attuale_NH3">NaN</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Valore limite per legge</div>
+                    <div class="col">\(50 \ \text{ppm}\)</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media oraria</div>
+                    <div class="col" id="media_oraria_NH3"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media giornaliera</div>
+                    <div class="col" id="media_giornaliera_NH3"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media settimanale</div>
+                    <div class="col" id="media_settimanale_NH3"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media mensile</div>
+                    <div class="col" id="media_mensile_NH3"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media annuale</div>
+                    <div class="col" id="media_annuale_NH3"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -159,33 +166,35 @@
     <div class="riga">
         <div class="parteParametri">
             <h4>Parametri \(CO\)</h4>
-            <div class="row">
-                <div class="col">Dati sensore</div>
-                <div class="col" id="valore_attuale_CO">NaN</div>
-            </div>
-            <div class="row">
-                <div class="col">Valore limite per legge</div>
-                <div class="col">\(100 \ \text{ppm}\)</div>
-            </div>
-            <div class="row">
-                <div class="col">Media oraria</div>
-                <div class="col" id="media_oraria_CO"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media giornaliera</div>
-                <div class="col"  id="media_giornaliera_CO"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media settimanale</div>
-                <div class="col"  id="media_settimanale_CO"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media mensile</div>
-                <div class="col"  id="media_mensile_CO"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media annuale</div>
-                <div class="col"  id="media_annuale_CO"></div>
+            <div class="contenutoParametri">
+                <div class="row">
+                    <div class="col valueName">Dati sensore</div>
+                    <div class="col" id="valore_attuale_CO">NaN</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Valore limite per legge</div>
+                    <div class="col">\(100 \ \text{ppm}\)</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media oraria</div>
+                    <div class="col" id="media_oraria_CO"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media giornaliera</div>
+                    <div class="col" id="media_giornaliera_CO"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media settimanale</div>
+                    <div class="col" id="media_settimanale_CO"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media mensile</div>
+                    <div class="col" id="media_mensile_CO"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media annuale</div>
+                    <div class="col" id="media_annuale_CO"></div>
+                </div>
             </div>
         </div>
         <div class="parteGrafica">
@@ -195,41 +204,41 @@
     </div>
 
     <div class="riga">
-
         <div class="parteGrafica">
             <h4>Composti Organici Volatili (TVOC)</h4>
             <canvas id="grafico_TVOC"></canvas>
         </div>
-
         <div class="parteParametri">
             <h4>Parametri TVOC</h4>
-            <div class="row">
-                <div class="col">Dati sensore</div>
-                <div class="col" id="valore_attuale_TVOC">NaN</div>
-            </div>
-            <div class="row">
-                <div class="col">Valore limite per legge</div>
-                <div class="col">\(1000 \ \text{ppm}\)</div>
-            </div>
-            <div class="row">
-                <div class="col">Media oraria</div>
-                <div class="col" id="media_oraria_TVOC"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media giornaliera</div>
-                <div class="col"  id="media_giornaliera_TVOC"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media settimanale</div>
-                <div class="col"  id="media_settimanale_TVOC"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media mensile</div>
-                <div class="col" id="media_mensile_TVOC"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media annuale</div>
-                <div class="col"  id="media_annuale_TVOC"></div>
+            <div class="contenutoParametri">
+                <div class="row">
+                    <div class="col valueName">Dati sensore</div>
+                    <div class="col" id="valore_attuale_TVOC">NaN</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Valore limite per legge</div>
+                    <div class="col">\(1000 \ \text{ppm}\)</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media oraria</div>
+                    <div class="col" id="media_oraria_TVOC"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media giornaliera</div>
+                    <div class="col" id="media_giornaliera_TVOC"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media settimanale</div>
+                    <div class="col" id="media_settimanale_TVOC"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media mensile</div>
+                    <div class="col" id="media_mensile_TVOC"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media annuale</div>
+                    <div class="col" id="media_annuale_TVOC"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -237,33 +246,35 @@
     <div class="riga">
         <div class="parteParametri">
             <h4>Parametri \(CO_2\)</h4>
-            <div class="row">
-                <div class="col">Dati sensore</div>
-                <div class="col" id="valore_attuale_CO2">NaN</div>
-            </div>
-            <div class="row">
-                <div class="col">Valore limite per legge</div>
-                <div class="col">\(5000 \ \text{ppm}\)</div>
-            </div>
-            <div class="row">
-                <div class="col">Media oraria</div>
-                <div class="col" id="media_oraria_CO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media giornaliera</div>
-                <div class="col"  id="media_giornaliera_CO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media settimanale</div>
-                <div class="col"  id="media_settimanale_CO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media mensile</div>
-                <div class="col"  id="media_mensile_CO2"></div>
-            </div>
-            <div class="row">
-                <div class="col">Media annuale</div>
-                <div class="col"  id="media_annuale_CO2"></div>
+            <div class="contenutoParametri">
+                <div class="row">
+                    <div class="col valueName">Dati sensore</div>
+                    <div class="col" id="valore_attuale_CO2">NaN</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Valore limite per legge</div>
+                    <div class="col">\(5000 \ \text{ppm}\)</div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media oraria</div>
+                    <div class="col" id="media_oraria_CO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media giornaliera</div>
+                    <div class="col" id="media_giornaliera_CO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media settimanale</div>
+                    <div class="col" id="media_settimanale_CO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media mensile</div>
+                    <div class="col" id="media_mensile_CO2"></div>
+                </div>
+                <div class="row">
+                    <div class="col valueName">Media annuale</div>
+                    <div class="col" id="media_annuale_CO2"></div>
+                </div>
             </div>
         </div>
 
