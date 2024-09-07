@@ -48,44 +48,37 @@ addEventListener("DOMContentLoaded", (event)=>{
     }
 
 
-    // Funzione per richiamare i dati di tutti gli inquinanti
-    async function fetchInquinanti(valoreIntervallo, inquinante) {
+    async function fetchAllAverages() {
         try {
-            const response = await fetch('/api/media', {
-                method: 'POST',
+            const response = await fetch('/api/all_averages', {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ valoreIntervallo: valoreIntervallo, inquinante: inquinante })
             });
-
-            if (!response.ok) {throw new Error('Errore nella richiesta');}
-
+            if (!response.ok) {
+                throw new Error('Error in request');
+            }
             const data = await response.json();
-
-            console.log(data)
-            nomeElemento = `media${valoreIntervallo}`;
-
-            elementi[inquinante][nomeElemento].innerText = data[`media_${inquinante}`] + " ppm";
-
+            console.log(data);
+            updateAllElements(data);
         } catch (error) {
-            console.error('Errore:', error);
+            console.error('Error:', error);
         }
     }
 
-
-
-    //possibili valori per l'intervallo: HOUR, DAY, WEEK, MONTH, YEAR
-
-
-
-    function SetAllMeans(){
-        nomiValori.forEach((inquinante)=>{
-            possibiliIntervalli.forEach((valoreIntervallo)=>{
-                fetchInquinanti(valoreIntervallo, inquinante)
-            })
-        })
+    function updateAllElements(data) {
+        nomiValori.forEach((inquinante) => {
+            possibiliIntervalli.forEach((valoreIntervallo) => {
+                const nomeElemento = `media${valoreIntervallo}`;
+                const value = data[`${inquinante}_${valoreIntervallo}`];
+                if (elementi[inquinante][nomeElemento]) {
+                    elementi[inquinante][nomeElemento].innerText = value ? value + " ppm" : "N/A";
+                }
+            });
+        });
     }
-    SetAllMeans()
+
+    fetchAllAverages();
 })
 
