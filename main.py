@@ -201,10 +201,13 @@ def openweather():
         response = requests.get(openWeatherGeoReverseURL)
         response.raise_for_status()
         geo = response.json()
-        response = requests.get(openElevationURL)
-        response.raise_for_status()
-        elevation = response.json()
-        weather['elevation'] = elevation['results'][0]['elevation']
+        try:
+            response = requests.get(openElevationURL)
+            response.raise_for_status()
+            elevation = response.json()
+            weather['elevation'] = elevation['results'][0]['elevation']
+        except Exception:
+            weather['elevation'] = "NaN"
         if len(geo) > 0:
             weather['name'] = geo[0]['name']
         return jsonify(weather), 200
