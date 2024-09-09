@@ -10,7 +10,7 @@ const unitDisplay = {
 }
 
 const limitiLegge = {
-    "NO2": 3.5,
+    "NO2": 1,
     "PM10": 1637,
     "NH3": 50,
     "CO": 100,
