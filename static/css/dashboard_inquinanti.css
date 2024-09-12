@@ -32,7 +32,7 @@ canvas {
     max-height: 100% !important;
     width: 100% !important;
     height: 100% !important;
-    margin-bottom: 30px !important;
+    /* margin-bottom: 30px !important; */
 }
 
 .parteGrafica {
