@@ -34,6 +34,8 @@ const unitaAsseY = {
 
 let limiti = {}
 
+var isChromium = !!window.chrome;
+
 //array per memorizzare i grafici
 const grafici = { graficoCO: null, graficoCO2: null, graficoPM10: null, graficoNH3: null, graficoNO2: null, graficoTVOC: null };
 
@@ -173,6 +175,15 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
                 },
                 options: chartOptions
             });
+
+            if (isChromium) {
+                if (ctx.parentElement.classList.contains("parteParametriAmbientali")) {
+                    ctx.style.marginBottom = "60px";
+                    ctx.nextElementSibling.style.marginTop = "-60px";
+                } else {
+                    ctx.style.marginBottom = "30px";
+                }
+            }
         });
     } catch (error) {
         console.error('Errore:', error);
