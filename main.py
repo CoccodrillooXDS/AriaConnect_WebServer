@@ -61,10 +61,6 @@ def documentation():
 def objectives():
     return render_template('objectives.html')
 
-@app.route('/contacts')
-def contacts():
-    return render_template('contacts.html')
-
 # ------------------------
 #           API
 # ------------------------
@@ -74,10 +70,10 @@ def valoriAttualiInquinanti():
     try:
         conn = database_connection()
         cursor = conn.cursor(dictionary=True)
-       
+        
         # Definire l'elenco degli inquinanti
         nomi_valori = ["CO", "CO2", "PM10", "NH3", "NO2", "TVOC", "humidity", "temperature", "pressure"]
-       
+        
         # Costruire la query per ottenere i valori più recenti di tutti gli inquinanti
         query = """
             SELECT id, data, value
