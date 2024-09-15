@@ -170,7 +170,7 @@
                 dell'inquinamento atmosferico e trasmetterli a un server centrale.
             </p>
             <p>
-                Il collegamento principale avviene tramite moduli radio a 868 MHz, che consentono una trasmissione
+                Il collegamento principale avviene tramite moduli radio a 900 MHz, che consentono una trasmissione
                 affidabile
                 dei dati fino a una distanza di 5 km. I dati raccolti vengono quindi pubblicati su un server cloud,
                 rendendoli accessibili a chiunque desideri consultarli attraverso questo sito INTERNET.
@@ -198,8 +198,10 @@
                 simili per monitorare e migliorare la qualità dell'aria che respiriamo.</p>
 
         </div>
-        <!-- TODO: Rimpiazzare con zaino finito -->
-        <canvas id="renderModel"></canvas>
+        <video autoplay loop muted class="img-right img-biggestimg rounded">
+            <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
+            Il tuo browser non supporta la riproduzione di video.
+        </video>
     </div>
 </div>
 
