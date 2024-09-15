@@ -35,6 +35,7 @@ const unitaAsseY = {
 let limiti = {}
 
 var isChromium = !!window.chrome;
+var isSafari = !!window.safari;
 
 //array per memorizzare i grafici
 const grafici = { graficoCO: null, graficoCO2: null, graficoPM10: null, graficoNH3: null, graficoNO2: null, graficoTVOC: null };
@@ -176,7 +177,7 @@ async function fetchInquinanti(valoreIntervallo, tempoIntervallo) {
                 options: chartOptions
             });
 
-            if (isChromium) {
+            if (isChromium || isSafari) {
                 if (ctx.parentElement.classList.contains("parteParametriAmbientali")) {
                     ctx.style.marginBottom = "60px";
                     ctx.nextElementSibling.style.marginTop = "-60px";
