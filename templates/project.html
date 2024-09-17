@@ -3,10 +3,6 @@
 {% block title %}Il progetto{% endblock %}
 
 {% block script %}
-<script src="https://cdn.babylonjs.com/babylon.js"></script>
-<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-
-<script src="{{ url_for('static', filename='js/modello3D.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var components = document.querySelectorAll('.component-container');
@@ -214,11 +210,11 @@
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-left img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/orig1.png') }}"
+            class="img-left rounded">
         <div class="order-1">
-            <h3 class="bold">Aspetto 1</h3>
-            <p>Testo</p>
+            <h3 class="bold">Integrazione di Tecnologia e Mobilità</h3>
+            <p>Il progetto utilizza uno zaino intelligente come veicolo mobile per la stazione di monitoraggio dell'aria, combinando la praticità del trasporto con la tecnologia avanzata. Questa soluzione permette di raccogliere dati in tempo reale da diverse località anche difficilmente raggiungibili, rendendo il monitoraggio dell'aria più dinamico e versatile.</p>
         </div>
     </div>
 
@@ -227,22 +223,22 @@
     <!-- Aspect 2 -->
     <div class="sponsor d-flex align-items-center" id="sponsor2">
         <div class="order-1">
-            <h3 class="bold">Aspetto 2</h3>
-            <p>Testo</p>
+            <h3 class="bold">Accesso ai Dati tramite Cloud</h3>
+            <p>La pubblicazione dei dati su un server Cloud permette una facile accessibilità e consultazione da parte di chiunque, promuovendo la trasparenza e la diffusione delle informazioni. Questa scelta tecnologica facilita anche la collaborazione tra diverse scuole e comunità.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-right img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/orig2.png') }}"
+            class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 3 -->
     <div class="sponsor d-flex align-items-center" id="sponsor3">
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-left img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/orig3.png') }}"
+            class="img-left rounded">
         <div class="order-1">
-            <h3 class="bold">Aspetto 3</h3>
-            <p>Testo</p>
+            <h3 class="bold">Partecipazione e Collaborazione Educativa</h3>
+            <p>Coinvolgere le scuole nella raccolta e confronto dei dati crea una rete di collaborazione educativa, stimolando l'interesse degli studenti verso la tecnologia e l'ambiente. Questo approccio favorisce l'apprendimento pratico e la consapevolezza ambientale.</p>
         </div>
     </div>
 
@@ -251,22 +247,22 @@
     <!-- Aspect 4 -->
     <div class="sponsor d-flex align-items-center" id="sponsor4">
         <div class="order-1">
-            <h3 class="bold">Aspetto 4</h3>
-            <p>Testo</p>
+            <h3 class="bold">Documentazione e Replicabilità</h3>
+            <p>La fornitura di documentazione dettagliata attraverso il sito INTERNET del progetto consente ad altre scuole e istituzioni di replicare e adattare il sistema. Questo aspetto promuove l'adozione di pratiche simili e amplifica l'impatto del progetto.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-right img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/orig4.png') }}"
+            class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 5 -->
     <div class="sponsor d-flex align-items-center" id="sponsor5">
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-left img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/orig5.png') }}"
+            class="img-left rounded">
         <div class="order-1">
-            <h3 class="bold">Aspetto 5</h3>
-            <p>Testo</p>
+            <h3 class="bold">Focus sulle Competenze Green</h3>
+            <p>L'integrazione di competenze Green Comp nel progetto, come la gestione ambientale e l'innovazione tecnologica sostenibile, sottolinea l'impegno verso un monitoraggio ecologico e responsabile della qualità dell'aria.</p>
         </div>
     </div>
 
@@ -275,11 +271,11 @@
     <!-- Aspect 6 -->
     <div class="sponsor d-flex align-items-center" id="sponsor6">
         <div class="order-1">
-            <h3 class="bold">Aspetto 6</h3>
-            <p>Testo</p>
+            <h3 class="bold">Approccio Innovativo alla Sensibilizzazione</h3>
+            <p>L'uso di tecnologie moderne per monitorare e visualizzare i dati ambientali contribuisce a una maggiore sensibilizzazione pubblica e educativa, rendendo il tema della qualità dell'aria più accessibile e coinvolgente per le comunità.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-right img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/orig6.png') }}"
+            class="img-right rounded">
     </div>
 </div>
 
@@ -292,11 +288,11 @@
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-left img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/imp1.jpg') }}"
+            class="img-left rounded">
         <div class="order-1">
-            <h3 class="bold">Aspetto 1</h3>
-            <p>Testo</p>
+            <h3 class="bold">Sensibilizzazione Ambientale</h3>
+            <p>"ARIA Connect" contribuisce a una maggiore consapevolezza riguardo alla qualità dell'aria e ai suoi effetti sulla salute pubblica. I dati raccolti e pubblicati accessibili al pubblico aiutano a informare i cittadini sui livelli di inquinamento atmosferico e promuovono comportamenti più responsabili verso l'ambiente.</p>
         </div>
     </div>
 
@@ -305,22 +301,22 @@
     <!-- Aspect 2 -->
     <div class="sponsor d-flex align-items-center" id="sponsor2">
         <div class="order-1">
-            <h3 class="bold">Aspetto 2</h3>
-            <p>Testo</p>
+            <h3 class="bold">Cittadinanza Attiva</h3>
+            <p>Il progetto incoraggia la partecipazione attiva degli studenti e delle scuole nella raccolta e analisi dei dati sulla qualità dell'aria. Coinvolgendo le comunità educative nel monitoraggio ambientale, "ARIA Connect" promuove un senso di responsabilità civica e incoraggia i giovani a diventare cittadini più consapevoli e impegnati nella tutela dell'ambiente.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-right img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/imp2.jpg') }}"
+            class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 3 -->
     <div class="sponsor d-flex align-items-center" id="sponsor3">
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-left img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/imp3.jpg') }}"
+            class="img-left rounded">
         <div class="order-1">
-            <h3 class="bold">Aspetto 3</h3>
-            <p>Testo</p>
+            <h3 class="bold">Educazione e Formazione</h3>
+            <p>Attraverso l'implementazione e l'uso dello zaino intelligente, gli studenti acquisiscono competenze pratiche in scienze ambientali, tecnologia e ingegneria. Questo approccio educativo stimola l'interesse per le STEM (scienze, tecnologia, ingegneria e matematica) e prepara i giovani a carriere future in campi legati all'ambiente e alla sostenibilità.</p>
         </div>
     </div>
 
@@ -329,22 +325,22 @@
     <!-- Aspect 4 -->
     <div class="sponsor d-flex align-items-center" id="sponsor4">
         <div class="order-1">
-            <h3 class="bold">Aspetto 4</h3>
-            <p>Testo</p>
+            <h3 class="bold">Collaborazione e Comunità</h3>
+            <p>Il progetto facilita la collaborazione tra diverse scuole e comunità, creando una rete di monitoraggio condivisa. Questa cooperazione non solo amplifica l'impatto del progetto, ma promuove anche un senso di comunità e di azione collettiva per il miglioramento della qualità dell'aria.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-right img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/imp4.jpg') }}"
+            class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 5 -->
     <div class="sponsor d-flex align-items-center" id="sponsor5">
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-left img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/imp5.jpg') }}"
+            class="img-left rounded">
         <div class="order-1">
-            <h3 class="bold">Aspetto 5</h3>
-            <p>Testo</p>
+            <h3 class="bold">Trasparenza e Accessibilità</h3>
+            <p>La pubblicazione dei dati su un server Cloud rende le informazioni sulla qualità dell'aria facilmente accessibili a tutti. Questa trasparenza contribuisce a una gestione più informata e partecipativa dei problemi ambientali, permettendo ai cittadini di prendere decisioni più consapevoli riguardo alla loro salute e al loro ambiente.</p>
         </div>
     </div>
 
@@ -353,13 +349,28 @@
     <!-- Aspect 6 -->
     <div class="sponsor d-flex align-items-center" id="sponsor6">
         <div class="order-1">
-            <h3 class="bold">Aspetto 6</h3>
-            <p>Testo</p>
+            <h3 class="bold">Innovazione Sociale</h3>
+            <p>"ARIA Connect" dimostra come l'innovazione tecnologica possa essere utilizzata per affrontare sfide sociali e ambientali. La combinazione di tecnologie avanzate e partecipazione comunitaria rappresenta un modello di come la tecnologia possa essere integrata nella vita quotidiana per migliorare il benessere collettivo.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
-            class="img-right img-bigimg img-addbg rounded">
+        <img src="{{ url_for('static', filename='img/imp6.jpg') }}"
+            class="img-right rounded">
+    </div>
+
+    <hr class="my-2">
+
+    <!-- Aspect 7 -->
+    <div class="sponsor d-flex align-items-center" id="sponsor7">
+        <img src="{{ url_for('static', filename='img/imp7.jpg') }}"
+            class="img-left rounded">
+        <div class="order-1">
+            <h3 class="bold">Promozione della Sostenibilità</h3>
+            <p>Il progetto enfatizza l'importanza della sostenibilità ambientale attraverso l'uso di tecnologie verdi e pratiche ecologiche. Educando i cittadini e promuovendo l'adozione di soluzioni tecnologiche sostenibili, "ARIA Connect" contribuisce a una cultura di rispetto e protezione dell'ambiente.</p>
+        </div>
     </div>
 </div>
+
+<!-- Horizontal Line -->
+<hr class="my-4">
 
 <!-- Our Team -->
 {% include 'layout_team.html' %}

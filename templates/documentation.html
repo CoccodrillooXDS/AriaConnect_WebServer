@@ -81,7 +81,7 @@
 <div class="py-5 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1">
-            <h1 class="display-4 bold">Aria Connect</h1>
+            <h1 class="bold">Aria Connect</h1>
             <p class="lead italic">Monitoraggio della qualità dell'aria da remoto con uno zaino intelligente.</p>
             <p>
                 "Aria Connect" è un innovativo progetto di monitoraggio dell'aria da remoto, ideato e realizzato da un
@@ -107,7 +107,7 @@
             </p>
 
         </div>
-        <video autoplay loop muted class="img-right img-biggestimg rounded">
+        <video autoplay loop muted class="img-right img-biggerimg rounded">
             <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
             Il tuo browser non supporta la riproduzione di video.
         </video>
@@ -117,18 +117,33 @@
 <!-- Horizontal Line -->
 <hr class="my-4">
 
-<!-- Aspetti tecnici del progetto -->
+<!-- Codice sorgente -->
 <div class="py-5 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1">
-            <h1 class="display-4 bold">Aspetti tecnici del progetto</h1>
-            <p>
-                Testo
-            </p>
-            
+            <h1 class="bold">Codice sorgente</h1>
+            <ul>
+                <li>Il codice sorgente del sito web "Aria Connect" è disponibile su GitHub al seguente <a href="https://github.com/CoccodrillooXDS/AriaConnect_WebServer" target="_blank">link</a>.</li>
+                <li>Il codice sorgente del software montato a bordo di Arduino è disponibile al seguente <a href="{{ url_for('static', filename='Arduino_Source_Code.zip') }}" download="Arduino_Source_Code.zip">link</a>.</li>
+                <!-- TODO: Inserire codice proveniente dai Raspberry Pi -->
+                <li>Il codice sorgente del software per i mini computer (Raspberry Pi 4) è disponibile al seguente <a href="{{ url_for('static', filename='RaspberryPi_Source_Code.zip') }}" download="RaspberryPi_Source_Code.zip">link</a>.</li>
+                <li>È possibile scaricare il circuito elettrico <a href="{{ url_for('static', filename='img/Circuito_bb.jpg') }}" target="_blank">qui</a> e la versione in formato Fritzing <a href="{{ url_for('static', filename='img/Circuito.fzz') }}" target="_blank">qui</a>.</li>
+            </ul>
+            <p class="bold">Alcuni dettagli sul codice sorgente:</p>
+            <ul>
+                <li>Il codice sorgente è rilasciato sotto licenza MIT, il che significa che è possibile utilizzarlo, modificarlo e distribuirlo liberamente.</li>
+                <li>Se desideri contribuire al progetto, puoi farlo inviando una richiesta di pull su GitHub. Siamo sempre alla ricerca di nuove idee e suggerimenti per migliorare il progetto.</li>
+                <li>Se hai domande o dubbi sul codice sorgente, non esitare a contattarci. Saremo lieti di aiutarti a risolvere qualsiasi problema tu possa avere.</li>
+            </ul>
+            <p class="bold">Linguaggi di programmazione utilizzati:</p>
+            <ul>
+                <li>Il software di Arduino è stato scritto in C++ utilizzando l'IDE di Arduino.</li>
+                <li>Il sito web è stato sviluppato utilizzando il framework Flask, un framework web leggero e flessibile per Python.</li>
+                <li>I mini computer (Raspberry Pi 4) utilizzati per la trasmissione e la ricezione dei dati utilizzano la distribuzione Raspbian, basata su Debian, come sistema operativo.</li>
+                <li>La comunicazione tra i due moduli LoRA è stata implementata con script Python e la piattaforma Node-Red, in esecuzione su entrambi i Raspberry Pi.</li>
+            </ul>
         </div>
-        
-        <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Placeholder"
+        <img src="{{ url_for('static', filename='img/AspettiTecniciProgetto.png') }}"
             class="img-right img-biggestimg rounded">
     </div>
 </div>
@@ -136,81 +151,85 @@
 <!-- Horizontal Line -->
 <hr class="my-4">
 
-<!-- Components Section -->
-<section class="container mt-5">
-    <div class="row">
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component A">
-            <div class="component-detail" id="componentA">
-                <h5>Component A</h5>
-                <p>Details about Component A</p>
-                <a href="wiki_link_A" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component B">
-            <div class="component-detail" id="componentB">
-                <h5>Component B</h5>
-                <p>Details about Component B</p>
-                <a href="wiki_link_B" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component C">
-            <div class="component-detail" id="componentC">
-                <h5>Component C</h5>
-                <p>Details about Component C</p>
-                <a href="wiki_link_C" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component D">
-            <div class="component-detail" id="componentD">
-                <h5>Component D</h5>
-                <p>Details about Component D</p>
-                <a href="wiki_link_D" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component E">
-            <div class="component-detail" id="componentE">
-                <h5>Component E</h5>
-                <p>Details about Component E</p>
-                <a href="wiki_link_E" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component F">
-            <div class="component-detail" id="componentF">
-                <h5>Component F</h5>
-                <p>Details about Component F</p>
-                <a href="wiki_link_F" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component G">
-            <div class="component-detail" id="componentG">
-                <h5>Component G</h5>
-                <p>Details about Component G</p>
-                <a href="wiki_link_G" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component H">
-            <div class="component-detail" id="componentH">
-                <h5>Component H</h5>
-                <p>Details about Component H</p>
-                <a href="wiki_link_H" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-        <div class="col-md-4 position-relative component-container">
-            <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component I">
-            <div class="component-detail" id="componentI">
-                <h5>Component I</h5>
-                <p>Details about Component I</p>
-                <a href="wiki_link_I" class="btn btn-primary">Learn More</a>
-            </div>
+<!-- Sezione componenti -->
+<!-- TODO: Inserire foto componenti -->
+<div class="py-5 boxino border border-3">
+    <div class="sponsor d-flex align-items-center">
+        <div class="order-1">
+            <h1 class="bold">Componenti del progetto</h1>
+            <p>
+                Il progetto "Aria Connect" è composto da una serie di componenti hardware e software che lavorano insieme per rilevare e trasmettere i dati sulla qualità dell'aria. Di seguito sono elencati i componenti utilizzati nel progetto.
+            </p>
         </div>
     </div>
-</section>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component A">
+                <div class="component-detail" id="componentA">
+                    <h5>CCS811</h5>
+                    <p>Il sensore di qualità dell'aria Keyestudio CCS811 è un sensore di gas digitale miniaturizzato a bassissima potenza in grado di rilevare un'ampia gamma di composti organici volatili (TVOC).</p>
+                    <a href="https://wiki.keyestudio.com/KS0457_keyestudio_CCS811_Carbon_Dioxide_Air_Quality_Sensor" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component B">
+                <div class="component-detail" id="componentB">
+                    <h5>Grove - Air Quality Sensor v1.3</h5>
+                    <p>Questo sensore è progettato per il monitoraggio completo delle condizioni dell'aria interna. Risponde a un'ampia gamma di gas nocivi, come monossido di carbonio, alcol, acetone, diluente, formaldeide e così via.</p>
+                    <a href="https://wiki.seeedstudio.com/Grove-Air_Quality_Sensor_v1.3/" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component C">
+                <div class="component-detail" id="componentC">
+                    <h5>Grove - Dust Sensor (PPD42NS)</h5>
+                    <p>Questo sensore di polvere fornisce una buona indicazione della qualità dell'aria in un ambiente misurando la concentrazione di polvere.</p>
+                    <a href="https://wiki.seeedstudio.com/Grove-Dust_Sensor/" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component D">
+                <div class="component-detail" id="componentD">
+                    <h5>MICS-6814</h5>
+                    <p>Il MiCS-6814 è un sensore MOS (Metal-Oxide Semiconductor) compatto con tre elementi di rilevamento indipendenti. Possiamo rilevare gas nocivi presenti nell'aria come (\(CO\)) (monossido di carbonio), (\(NH_3\)) (ammoniaca) e (\(NO_2\)) (biossido di azoto).</p>
+                    <a href="https://www.fattelodasolo.it/2021/06/07/arduino-sensore-mics-6814-qualita-aria/" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component E">
+                <div class="component-detail" id="componentE">
+                    <h5>DHT11</h5>
+                    <p>Il DHT11 è un sensore di temperatura e umidità di uso comune. Il sensore è dotato di un NTC dedicato per misurare la temperatura e di un microcontrollore a 8 bit che fornisce i valori di temperatura e umidità come dati seriali. Il sensore è inoltre calibrato in fabbrica e quindi facilmente interfacciabile con altri microcontrollori.</p>
+                    <p>Il sensore può misurare la temperatura da 0°C a 50°C e l'umidità dal 20% al 90% con una precisione di ±1°C e ±1%. Pertanto, se desiderate misurare in questo intervallo, questo sensore potrebbe essere la scelta giusta per voi.</p>
+                    <a href="https://arduinogetstarted.com/tutorials/arduino-dht11" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component F">
+                <div class="component-detail" id="componentF">
+                    <h5>GY-BMP280</h5>
+                    <p>Il sensore barometrico GY-BMP280 è una scheda breakout per il barometro digitale ad alta precisione e a basso consumo Bosch BMP280. Può essere utilizzato per misurare con precisione la temperatura e la pressione atmosferica. Può essere collegato a un microcontrollore con I2C.</p>
+                    <a href="https://circuitdigest.com/microcontroller-projects/interfacing-bmp280-sensor-with-arduino" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component G">
+                <div class="component-detail" id="componentG">
+                    <h5>GoouuuT Tech GT-U7</h5>
+                    <p>La serie di moduli GT-U7 è una famiglia di ricevitori GPS autonomi dotati del motore di posizionamento u-blox 6 ad alte prestazioni. Questi ricevitori flessibili ed economici offrono numerose opzioni di connettività in un pacchetto miniaturizzato di 16 x 12,2 x 2,4 mm. La loro architettura compatta e le opzioni di alimentazione e memoria rendono i moduli GT-U7 ideali per i dispositivi mobili a batteria con vincoli di costo e di spazio molto stringenti.</p>
+                    <a href="https://randomnerdtutorials.com/guide-to-neo-6m-gps-module-with-arduino/" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+            <div class="col-md-4 position-relative component-container">
+                <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" class="img-fluid" alt="Component H">
+                <div class="component-detail" id="componentH">
+                    <h5>EBYTE E220-900T22D 5KM long-distance communication</h5>
+                    <p>Il sensore adotta una tecnologia a spettro diffuso LoRa di nuova generazione e un modulo di porta seriale wireless (UART) progettato sulla base del chip LLCC68. Funziona nella banda di frequenza (850.125~930.125MHz) (default 873.125MHz), potenza 22dBm. Distanza di comunicazione 5 km.</p>
+                    <a href="https://mischianti.org/it/ebyte-lora-e220-llcc68-per-arduino-esp32-o-esp8266-libreria-2/" class="btn btn-primary" target="_blank">Scopri di più</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}
