@@ -117,6 +117,11 @@ html[data-bs-theme="light"] .footerBorder {
     html {
         scroll-padding-top: 145px !important;
     }
+
+    /* Hide the carousel section and associated elements */
+    #carouselSection, #carouselSectionHR {
+        display: none !important;
+    }
 }
 
 /* Switch to horizontal layout for devices wider than 610px */
@@ -134,6 +139,13 @@ html[data-bs-theme="dark"] a:hover {
     color: #bbbbbb !important;
 }
 
+html[data-bs-theme="dark"] .carousel-control-prev-icon, html[data-bs-theme="dark"] .carousel-control-next-icon {
+    filter: none !important;
+}
+
+html[data-bs-theme="light"] .carousel-control-prev-icon, html[data-bs-theme="light"] .carousel-control-next-icon {
+    filter: invert(1) !important;
+}
 
 html[data-bs-theme="light"] a.btn-primary, html[data-bs-theme="light"] a.btn-secondary {
     color: #ffffff !important;
@@ -190,7 +202,7 @@ html[data-bs-theme="light"] a:hover {
     flex-grow: 3 !important;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .vrVr {
         display: none;
     }
@@ -278,6 +290,13 @@ html[data-bs-theme="light"] .boxino {
     height: auto;
 }
 
+.sponsor .carousel img {
+    max-width: none;
+    /* margin-top: 1.5rem !important; */
+    max-height: 550px !important;
+    object-fit: contain;
+}
+
 .img-img {
     max-width: 200px !important;
 }
@@ -331,13 +350,20 @@ html {
     scroll-padding-top: 175px;
 }
 
+.gruppoPulsantiIndex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 @media (max-width: 1500px) {
     #projectLogoIndex {
         max-width: 35% !important;
     }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .img-bigimg, .img-biggerimg, .img-biggestimg {
         /* Center images */
         margin-left: auto;

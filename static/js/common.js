@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
         navbarNav.addEventListener('hidden.bs.collapse', fixNav);
     }
 
+    
+
     try {
         const nomeIstituto = document.getElementById('nomeIstituto');
         if (nomeIstituto) {
@@ -73,7 +75,7 @@ function fixSponsor() {
         const sponsorImg = sponsor.querySelector('img');
         const sponsorDiv = sponsor.querySelector('div');
 
-        if (window.innerWidth > 1100) {
+        if (window.innerWidth > 1200) {
             try {
                 if (sponsorImg) {
                     sponsorImg.classList.remove('order-0');
