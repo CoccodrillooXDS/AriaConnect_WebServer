@@ -68,19 +68,12 @@ function fixNav() {
 
 function fixSponsor() {
     const sponsors = document.querySelectorAll('.sponsor');
-    // console.log(sponsors);
 
     sponsors.forEach((sponsor, index) => {
-        // Extract the number from the sponsor's parent ID
-        // console.log(sponsor, index, window.innerWidth);
-
         const sponsorImg = sponsor.querySelector('img');
         const sponsorDiv = sponsor.querySelector('div');
 
-        console.log(sponsorImg, sponsorDiv);
-
         if (window.innerWidth > 1100) {
-            // console.log('removing order-0 from', sponsorImg, sponsorDiv);
             try {
                 if (sponsorImg) {
                     sponsorImg.classList.remove('order-0');
@@ -92,7 +85,6 @@ function fixSponsor() {
                 console.error('An error occurred while removing classes:', error);
             }
         } else {
-            // console.log('adding order-0 to', sponsorImg, sponsorDiv);
             try {
                 if (sponsorImg) {
                     sponsorImg.classList.add('order-0');

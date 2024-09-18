@@ -135,11 +135,11 @@ html[data-bs-theme="dark"] a:hover {
 }
 
 
-html[data-bs-theme="light"] a.btn-primary  {
+html[data-bs-theme="light"] a.btn-primary, html[data-bs-theme="light"] a.btn-secondary {
     color: #ffffff !important;
 }
 
-html[data-bs-theme="light"] a.btn-primary:hover {
+html[data-bs-theme="light"] a.btn-primary:hover, html[data-bs-theme="light"] a.btn-secondary:hover {
     color: #bbbbbb !important;
 }
 
@@ -165,6 +165,40 @@ html[data-bs-theme="light"] a:hover {
     font-size: 1.25rem; /* Increase font size */
     padding: 0.75rem; /* Add padding */
     display: block; /* Ensure links are block level */
+}
+
+.vrVr {
+    width: 1px !important;
+    min-width: 1px !important;
+    flex: 0 0 1px !important;
+    margin: 0 25px !important;
+}
+
+.infoZaino {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 2 !important;
+    flex-shrink: 2 !important;
+}
+
+.infoZaino > *:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.infoProgetto {
+    flex-grow: 3 !important;
+}
+
+@media (max-width: 1100px) {
+    .vrVr {
+        display: none;
+    }
+
+    .vrAlternative {
+        display: block !important;
+        width: 100% !important;
+    }
 }
 
 html, body {
@@ -274,12 +308,6 @@ html[data-bs-theme="dark"] .img-addbg {
     width: auto !important;
 }
 
-@media (max-width: 1500px) {
-    #projectLogoIndex {
-        max-width: 35% !important;
-    }
-}
-
 #germanSponsor {
     display: flex;
     align-items: center;
@@ -301,6 +329,12 @@ html[data-bs-theme="dark"] .img-addbg {
 
 html {
     scroll-padding-top: 175px;
+}
+
+@media (max-width: 1500px) {
+    #projectLogoIndex {
+        max-width: 35% !important;
+    }
 }
 
 @media (max-width: 1100px) {

@@ -9,8 +9,19 @@
         <div class="order-1" id="welcomeUsers">
             <h1 class="display-4 bold">Aria Connect</h1>
             <p class="lead italic">Monitoraggio della qualità dell'aria da remoto con uno zaino intelligente.</p>
-            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">Inizia ora</a>
-            <a href="{{ url_for('project') }}" class="btn btn-link">Scopri di più</a>
+            <!-- Dropdown con selettori per Parametri ambientali e Meteo -->
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Seleziona cosa visualizzare
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="{{ url_for('meteo') }}">Meteo</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('inquinanti') }}">Parametri ambientali</a></li>
+                </ul>
+                <a href="{{ url_for('project') }}" class="btn btn-secondary">Scopri di più</a>
+            </div>
+
         </div>
         <img src="{{ url_for('static', filename='img/Logo_Aria_Connect_Verticale_Testo_Piccolo.jpg') }}" alt="Aria Connect"
             class="img-right img-biggestimg rounded" id="projectLogoIndex">

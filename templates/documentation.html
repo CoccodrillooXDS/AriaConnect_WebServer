@@ -80,7 +80,7 @@
 <!-- Welcoming users -->
 <div class="py-5 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
-        <div class="order-1">
+        <div class="order-1 infoProgetto">
             <h1 class="bold">Aria Connect</h1>
             <p class="lead italic">Monitoraggio della qualità dell'aria da remoto con uno zaino intelligente.</p>
             <p>
@@ -107,10 +107,7 @@
             </p>
 
         </div>
-        <video autoplay loop muted class="img-right img-biggerimg rounded">
-            <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
-            Il tuo browser non supporta la riproduzione di video.
-        </video>
+        {% include 'layout_zaino.html' %}
     </div>
 </div>
 

@@ -69,8 +69,6 @@
 
 {% block style %}
 <style>
-
-
     .component-container {
         overflow: hidden;
         position: relative;
@@ -124,28 +122,10 @@
     /* Responsive design */
     @media (max-width: 768px) {
         .component-detail {
-            width: 100%;
             /* Full width on smaller screens */
+            width: 100%;
         }
     }
-
-        /* Responsive design */
-    @media (max-width: 1100px) {
-        canvas{
-            aspect-ratio: 16/9;
-            max-width: 100%;
-        }
-    }
-
-    @media (min-width: 1100px) {
-        canvas{
-        aspect-ratio: 5 / 10;
-        height: 100%;
-        max-height: 600px;
-        max-width: 30%;
-        }
-    }
-</style
 </style>
 {% endblock %}
 
@@ -153,7 +133,7 @@
 <!-- Welcoming users -->
 <div class="py-5 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
-        <div class="order-1">
+        <div class="order-0 infoProgetto">
             <h1 class="display-4 bold" id="sez1">Aria Connect</h1>
             <p class="lead italic">Monitoraggio della qualità dell'aria da remoto con uno zaino intelligente.</p>
             <p>
@@ -194,10 +174,7 @@
                 simili per monitorare e migliorare la qualità dell'aria che respiriamo.</p>
 
         </div>
-        <video autoplay loop muted class="img-right img-biggerimg rounded">
-            <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
-            Il tuo browser non supporta la riproduzione di video.
-        </video>
+        {% include 'layout_zaino.html' %}
     </div>
 </div>
 
@@ -210,7 +187,7 @@
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
-        <img src="{{ url_for('static', filename='img/orig1.png') }}"
+        <img src="{{ url_for('static', filename='img/orig1.jpeg') }}"
             class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Integrazione di Tecnologia e Mobilità</h3>
@@ -226,7 +203,7 @@
             <h3 class="bold">Accesso ai Dati tramite Cloud</h3>
             <p>La pubblicazione dei dati su un server Cloud permette una facile accessibilità e consultazione da parte di chiunque, promuovendo la trasparenza e la diffusione delle informazioni. Questa scelta tecnologica facilita anche la collaborazione tra diverse scuole e comunità.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/orig2.png') }}"
+        <img src="{{ url_for('static', filename='img/orig2.jpeg') }}"
             class="img-right rounded">
     </div>
 
@@ -234,7 +211,7 @@
 
     <!-- Aspect 3 -->
     <div class="sponsor d-flex align-items-center" id="sponsor3">
-        <img src="{{ url_for('static', filename='img/orig3.png') }}"
+        <img src="{{ url_for('static', filename='img/orig3.jpeg') }}"
             class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Partecipazione e Collaborazione Educativa</h3>
@@ -250,7 +227,7 @@
             <h3 class="bold">Documentazione e Replicabilità</h3>
             <p>La fornitura di documentazione dettagliata attraverso il sito INTERNET del progetto consente ad altre scuole e istituzioni di replicare e adattare il sistema. Questo aspetto promuove l'adozione di pratiche simili e amplifica l'impatto del progetto.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/orig4.png') }}"
+        <img src="{{ url_for('static', filename='img/orig4.jpeg') }}"
             class="img-right rounded">
     </div>
 
@@ -258,7 +235,7 @@
 
     <!-- Aspect 5 -->
     <div class="sponsor d-flex align-items-center" id="sponsor5">
-        <img src="{{ url_for('static', filename='img/orig5.png') }}"
+        <img src="{{ url_for('static', filename='img/orig5.jpeg') }}"
             class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Focus sulle Competenze Green</h3>
@@ -274,7 +251,7 @@
             <h3 class="bold">Approccio Innovativo alla Sensibilizzazione</h3>
             <p>L'uso di tecnologie moderne per monitorare e visualizzare i dati ambientali contribuisce a una maggiore sensibilizzazione pubblica e educativa, rendendo il tema della qualità dell'aria più accessibile e coinvolgente per le comunità.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/orig6.png') }}"
+        <img src="{{ url_for('static', filename='img/orig6.jpeg') }}"
             class="img-right rounded">
     </div>
 </div>
