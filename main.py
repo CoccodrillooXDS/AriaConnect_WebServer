@@ -1,7 +1,8 @@
-from flask import Flask, render_template, redirect, request, jsonify
+from flask import Flask, render_template, redirect, request, jsonify, send_from_directory, abort
 import requests
 import mysql.connector
 import json
+import os
 
 import mimetypes
 mimetypes.add_type('text/css', '.css')
@@ -24,6 +25,20 @@ except ImportError:
     exit(1)
 
 app = Flask(__name__)
+
+@app.route('/static/<path:filename>')
+def serve_static_file(filename):
+    static_folder = app.static_folder
+    normalized_filename = filename.lower()
+    
+    # Cerca il file ignorando il case
+    for root, dirs, files in os.walk(static_folder):
+        for file in files:
+            if file.lower() == normalized_filename:
+                return send_from_directory(root, file)
+    
+    # Se il file non viene trovato, restituisci un errore 404
+    abort(404)
 
 @app.route('/')
 def index():
