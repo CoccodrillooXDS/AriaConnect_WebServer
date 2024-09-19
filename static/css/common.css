@@ -352,7 +352,7 @@ html {
 
 .gruppoPulsantiIndex {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     flex-wrap: wrap;
     gap: 20px;
 }
