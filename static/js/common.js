@@ -139,3 +139,14 @@ function showAlert(message, alertType) {
         bsAlert.close();
     }, 3500);
 }
+
+function openModal(imgElement) {
+    var modalImage = document.getElementById('modalImage');
+    if (imgElement.tagName === 'DIV') {
+        alert('Errore: immagine non disponibile');
+        return;
+    }
+    modalImage.src = imgElement.src;
+    var photoModal = new bootstrap.Modal(document.getElementById('photoModal'));
+    photoModal.show();
+}

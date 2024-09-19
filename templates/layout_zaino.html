@@ -1,11 +1,53 @@
+<style>
+    .video-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tooltip-trigger {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        cursor: default;
+    }
+
+    .top-half {
+        top: 0;
+        cursor: default;
+    }
+
+    .bottom-half {
+        bottom: 0;
+        cursor: default;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    })
+</script>
+
 <div class="vr vrVr order-1"></div>
 <hr class="vrAlternative my-2 order-1" style="display: none;">
 <div class="infoZaino order-1">
-    <img src="{{ url_for('static', filename='img/Logo_Placeholder.png') }}" alt="Zaino Aria Connect" class="img-bigimg rounded">
-    <p class="text-center">Nella parte superiore sono visibili a sinistra i sensori e a destra il display touch da 7" e l'antenna per il collegamento radio.</p>
-    <video autoplay loop muted class="img-bigimg rounded" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="Progetto 3D dell'interno dello zaino smart.<br>Realizzato con Fusion 360 e animato con Blender">
-        <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
-        Il tuo browser non supporta la riproduzione di video.
-    </video>
-    <p class="text-center">Nella parte inferiore sono presenti le batterie per l'alimentazione del sistema caricate dal pannello fotovoltaico e le ventole per l'aerazione.</p>
+    <img src="{{ url_for('static', filename='img/Zaino.jpeg') }}" alt="Zaino Aria Connect" class="img-bigimg rounded" onclick="openModal(this)">
+    <p class="italic">Lo zaino smart per il monitoraggio mobile da remoto dei parametri della qualità dell'aria.</p>
+    <div class="position-relative video-container img-bigimg">
+        <video autoplay loop muted class="img-fluid rounded">
+            <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
+            Il tuo browser non supporta la riproduzione di video.
+        </video>
+        <div class="tooltip-trigger top-half" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Nella parte superiore sono visibili a sinistra i sensori e a destra il display touch da 7&quot; e l'antenna per il collegamento radio.">
+        </div>
+        <div class="tooltip-trigger bottom-half" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Nella parte inferiore sono presenti le batterie per l'alimentazione del sistema caricate dal pannello fotovoltaico e le ventole per l'aereazione.">
+        </div>
+    </div>
+    <p class="italic" style="margin-bottom: 0;">Progetto 3D dell'interno dello zaino smart.</p>
+    <p class="italic">Realizzato con Fusion 360 e animato con Blender.</p>
 </div>

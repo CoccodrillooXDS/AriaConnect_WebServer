@@ -32,6 +32,8 @@
 
     <!-- Custom JS -->
     {% block script %}{% endblock %}
+
+    <!-- Other stuff -->
 </head>
 
 <body>
@@ -65,6 +67,7 @@
         </nav>
     </div>
 
+    <!-- Sidebar -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Aria Connect</h5>
@@ -76,6 +79,7 @@
                 <li class="mb-2"><a href="{{ url_for('about_school') }}" class="d-block"><i class="bi bi-building"></i> La nostra scuola</a></li>
                 <li class="mb-2"><a href="{{ url_for('project') }}" class="d-block"><i class="bi bi-lightbulb"></i> Il progetto</a></li>
                 <li class="mb-2"><a href="{{ url_for('objectives') }}" class="d-block"><i class="bi bi-flag"></i> Obiettivi</a></li>
+                <li class="mb-2"><a href="{{ url_for('documentation') }}" class="d-block"><i class="bi bi-cpu"></i> Documentazione Tecnica</a></li>
                 <li class="mb-2">
                     <a href="{{ url_for('dashboard') }}" class="d-block"><i class="bi bi-clouds"></i> Dashboard</a>
                     <ul class="list-unstyled ms-3">
@@ -83,11 +87,26 @@
                         <li class="mb-2"><a href="{{ url_for('inquinanti') }}" class="d-block text-decoration-none"><i class="bi bi-exclamation-triangle"></i> Parametri ambientali</a></li>
                     </ul>
                 </li>
-                <li class="mb-2"><a href="{{ url_for('documentation') }}" class="d-block"><i class="bi bi-cpu"></i> Documentazione Tecnica</a></li>
             </ul>
         </div>
     </div>
 
+    <!-- Modal to view images -->
+    <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="photoModalLabel">Foto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" src="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
     <div class="wrapper">
         <div class="content" id="realBody">
             {% block content %}{% endblock %}
@@ -119,6 +138,7 @@
                         <li><a href="{{ url_for('about_school') }}" class="text-decoration-none">La nostra scuola</a></li>
                         <li><a href="{{ url_for('project') }}" class="text-decoration-none">Il progetto</a></li>
                         <li><a href="{{ url_for('objectives') }}" class="text-decoration-none">Obiettivi</a></li>
+                        <li><a href="{{ url_for('documentation') }}" class="text-decoration-none">Documentazione Tecnica</a></li>
                         <li>
                             <a href="{{ url_for('dashboard') }}" class="text-decoration-none">Dashboard</a>
                             <ul class="list-unstyled ms-3">
@@ -126,7 +146,6 @@
                                 <li><a href="{{ url_for('inquinanti') }}" class="text-decoration-none">Parametri ambientali</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{ url_for('documentation') }}" class="text-decoration-none">Documentazione Tecnica</a></li>
                     </ul>
                 </div>
             </div>
@@ -137,6 +156,7 @@
         </div>
     </footer>
 
+    <!-- Dark Mode Toggler Button -->
     <div class="dropup" id="dropdownThemeDiv" style="display: none;">
         <button class="btn btn-info dropdown-toggle" type="button" id="themeDropdown" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -149,5 +169,4 @@
         </ul>
     </div>
 </body>
-
 </html>

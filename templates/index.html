@@ -12,15 +12,22 @@
             <!-- Dropdown con selettori per Parametri ambientali e Meteo -->
             <div class="dropdown gruppoPulsantiIndex">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Seleziona cosa visualizzare
+                    Meteo e parametri ambientali
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ url_for('meteo') }}">Meteo</a></li>
                     <li><a class="dropdown-item" href="{{ url_for('inquinanti') }}">Parametri ambientali</a></li>
                 </ul>
-                <a href="{{ url_for('project') }}" class="btn btn-secondary">Scopri di più</a>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Scopri di più sul progetto
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item" href="{{ url_for('about_school') }}">La nostra scuola</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('project') }}">Il progetto</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('objectives') }}">Obiettivi</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('documentation') }}">Documentazione tecnica</a></li>
+                </ul>
             </div>
-
         </div>
         <img src="{{ url_for('static', filename='img/Logo_Aria_Connect_Verticale_Testo_Piccolo.jpg') }}" alt="Aria Connect"
             class="img-right img-biggestimg rounded" id="projectLogoIndex">

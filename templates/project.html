@@ -18,56 +18,25 @@
             });
         });
 
-        var offCanvas = document.getElementById('offcanvasSidebar');
-        // Obtain the sections, sections' titles from the page and add them to the offcanvas
-        var sections = ['sez1', 'sez2', 'sez3', 'sezTeam'];
-        var currentPageLink = document.querySelector('.offcanvas a[href="' + window.location.pathname + '"]');
+        FlexMasonry.init('.photo-gallery', {
+            responsive: true,
 
-        if (currentPageLink) {
-            var ul = document.createElement('ul');
-            ul.className = 'nested-sections';
-
-            for (var i = 0; i < sections.length; i++) {
-                var section = document.getElementById(sections[i]);
-                var title = section.textContent;
-                var li = document.createElement('li');
-                var a = document.createElement('a');
-                a.href = '#' + sections[i];
-                a.className = 'd-block';
-                a.textContent = title;
-                li.appendChild(a);
-                ul.appendChild(li);
+            breakpointCols: {
+                'min-width: 1200px': 5,
+                'min-width: 992px': 4,
+                'min-width: 768px': 3,
+                'min-width: 576px': 2,
+                'min-width: 0': 1
             }
-
-            currentPageLink.parentElement.appendChild(ul);
-        }
-
-        // Add sections to the footer "Link rapidi"
-        var footerLinksContainer = document.querySelector('#footer-links');
-        var footerCurrentPageLink = document.querySelector('#footer-links a[href="' + window.location.pathname + '"]');
-        if (footerCurrentPageLink) {
-            var ul = document.createElement('ul');
-            ul.className = 'list-unstyled ms-3';
-
-            for (var i = 0; i < sections.length; i++) {
-                var section = document.getElementById(sections[i]);
-                var title = section.textContent;
-                var li = document.createElement('li');
-                var a = document.createElement('a');
-                a.href = '#' + sections[i];
-                a.className = 'text-decoration-none';
-                a.textContent = title;
-                li.appendChild(a);
-                ul.appendChild(li);
-            }
-
-            footerCurrentPageLink.appendChild(ul);
-        }
+        });
     });
 </script>
+
+<script src="https://unpkg.com/flexmasonry/dist/flexmasonry.js"></script>
 {% endblock %}
 
 {% block style %}
+<link rel="stylesheet" href="https://unpkg.com/flexmasonry/dist/flexmasonry.css">
 <style>
     .component-container {
         overflow: hidden;
@@ -126,6 +95,56 @@
             width: 100%;
         }
     }
+
+    .vrVr {
+        width: 3px !important;
+        min-width: 3px !important;
+        flex: 0 0 1px !important;
+        margin: 0 25px !important;
+    }
+
+    .infoZaino {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        flex-shrink: 2 !important;
+    }
+
+    .infoZaino> :not(p) {
+        align-self: center;
+    }
+
+    .infoZaino>*:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    .infoProgetto {
+        flex-grow: 2 !important;
+    }
+
+    @media (max-width: 1200px) {
+        .vrVr {
+            display: none;
+        }
+
+        .vrAlternative {
+            display: block !important;
+            width: 100% !important;
+        }
+    }
+
+    .photo-item {
+        overflow: hidden;
+        border-radius: 8px;
+        padding: 16px;
+    }
+
+    .photo-item img {
+        display: block;
+        height: auto;
+        width: 100%;
+        max-width: none !important;
+    }
 </style>
 {% endblock %}
 
@@ -148,7 +167,7 @@
             <p>
                 Il collegamento principale avviene tramite moduli radio a 900 MHz, che consentono una trasmissione
                 affidabile
-                dei dati fino a una distanza di 5 km. I dati raccolti vengono quindi pubblicati su un server cloud,
+                dei dati fino a una distanza di 1 km. I dati raccolti vengono quindi pubblicati su un server cloud,
                 rendendoli accessibili a chiunque desideri consultarli attraverso questo sito INTERNET.
             </p>
             <p>
@@ -160,7 +179,7 @@
                 e
                 controllo della qualità dell'aria nelle nostre comunità. Per garantire l'attendibilità dei dati
                 acquisiti sono state effettuate misure di confronto con il nostro prototipo presso la centralina
-                dell'ARPA situata presso Piazza Loggia a Brescia, dimostrando un ottimo accordo.
+                dell'ARPA situata presso Via Tartaglia a Brescia, dimostrando un ottimo accordo.
             </p>
             <p>Tutta la documentazione sulla realizzazione del progetto è disponibile <a
                     href="{{ url_for('documentation') }}">qui</a> e potrà essere utilizzata da altre scuole tecniche per
@@ -181,38 +200,16 @@
 <!-- Horizontal Line -->
 <hr class="my-4" id="carouselSectionHR">
 
-<!-- Carosello di foto del progetto -->
+<!-- Galleria foto del progetto -->
 <div class="py-5 boxino border border-3" id="carouselSection">
     <div class="sponsor">
-        <h2 class="text-center mb-4 bold" id="sez2">Galleria fotografica</h2>
-        <div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{{ url_for('static', filename='img/Carousel/Carousel1.jpg') }}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ url_for('static', filename='img/Carousel/Carousel2.jpg') }}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ url_for('static', filename='img/Carousel/Carousel3.jpg') }}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ url_for('static', filename='img/Carousel/Carousel4.jpg') }}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ url_for('static', filename='img/Carousel/Carousel5.jpg') }}" class="d-block w-100" alt="...">
-                </div>
-                <!-- Altre immagini -->
-                <!-- TODO: Inserire immagini -->
+        <h2 class="text-center mb-4 bold" id="sez2">Durante il progetto</h2>
+        <div class="photo-gallery">
+            {% for i in range(1, 31) %}
+            <div class="photo-item">
+                <img src="{{ url_for('static', filename='img/DuranteIlProgetto/' ~ i ~ '.jpg') }}" class="img-fluid" onclick="openModal(this)">
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Precedente</span>                
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Successivo</span>
-            </button>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -226,11 +223,13 @@
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
-        <img src="{{ url_for('static', filename='img/orig1.jpeg') }}"
-            class="img-left rounded">
+        <img src="{{ url_for('static', filename='img/orig1.jpeg') }}" class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Integrazione di Tecnologia e Mobilità</h3>
-            <p>Il progetto utilizza uno zaino intelligente come veicolo mobile per la stazione di monitoraggio dell'aria, combinando la praticità del trasporto con la tecnologia avanzata. Questa soluzione permette di raccogliere dati in tempo reale da diverse località anche difficilmente raggiungibili, rendendo il monitoraggio dell'aria più dinamico e versatile.</p>
+            <p>Il progetto utilizza uno zaino intelligente come veicolo mobile per la stazione di monitoraggio
+                dell'aria, combinando la praticità del trasporto con la tecnologia avanzata. Questa soluzione permette
+                di raccogliere dati in tempo reale da diverse località anche difficilmente raggiungibili, rendendo il
+                monitoraggio dell'aria più dinamico e versatile.</p>
         </div>
     </div>
 
@@ -240,21 +239,23 @@
     <div class="sponsor d-flex align-items-center" id="sponsor2">
         <div class="order-1">
             <h3 class="bold">Accesso ai Dati tramite Cloud</h3>
-            <p>La pubblicazione dei dati su un server Cloud permette una facile accessibilità e consultazione da parte di chiunque, promuovendo la trasparenza e la diffusione delle informazioni. Questa scelta tecnologica facilita anche la collaborazione tra diverse scuole e comunità.</p>
+            <p>La pubblicazione dei dati su un server Cloud permette una facile accessibilità e consultazione da parte
+                di chiunque, promuovendo la trasparenza e la diffusione delle informazioni. Questa scelta tecnologica
+                facilita anche la collaborazione tra diverse scuole e comunità.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/orig2.jpeg') }}"
-            class="img-right rounded">
+        <img src="{{ url_for('static', filename='img/orig2.jpeg') }}" class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 3 -->
     <div class="sponsor d-flex align-items-center" id="sponsor3">
-        <img src="{{ url_for('static', filename='img/orig3.jpeg') }}"
-            class="img-left rounded">
+        <img src="{{ url_for('static', filename='img/orig3.jpeg') }}" class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Partecipazione e Collaborazione Educativa</h3>
-            <p>Coinvolgere le scuole nella raccolta e confronto dei dati crea una rete di collaborazione educativa, stimolando l'interesse degli studenti verso la tecnologia e l'ambiente. Questo approccio favorisce l'apprendimento pratico e la consapevolezza ambientale.</p>
+            <p>Coinvolgere le scuole nella raccolta e confronto dei dati crea una rete di collaborazione educativa,
+                stimolando l'interesse degli studenti verso la tecnologia e l'ambiente. Questo approccio favorisce
+                l'apprendimento pratico e la consapevolezza ambientale.</p>
         </div>
     </div>
 
@@ -264,21 +265,23 @@
     <div class="sponsor d-flex align-items-center" id="sponsor4">
         <div class="order-1">
             <h3 class="bold">Documentazione e Replicabilità</h3>
-            <p>La fornitura di documentazione dettagliata attraverso il sito INTERNET del progetto consente ad altre scuole e istituzioni di replicare e adattare il sistema. Questo aspetto promuove l'adozione di pratiche simili e amplifica l'impatto del progetto.</p>
+            <p>La fornitura di documentazione dettagliata attraverso il sito INTERNET del progetto consente ad altre
+                scuole e istituzioni di replicare e adattare il sistema. Questo aspetto promuove l'adozione di pratiche
+                simili e amplifica l'impatto del progetto.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/orig4.jpeg') }}"
-            class="img-right rounded">
+        <img src="{{ url_for('static', filename='img/orig4.jpeg') }}" class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 5 -->
     <div class="sponsor d-flex align-items-center" id="sponsor5">
-        <img src="{{ url_for('static', filename='img/orig5.jpeg') }}"
-            class="img-left rounded">
+        <img src="{{ url_for('static', filename='img/orig5.jpeg') }}" class="img-left rounded">
         <div class="order-1">
-            <h3 class="bold">Focus sulle Competenze Green</h3>
-            <p>L'integrazione di competenze Green Comp nel progetto, come la gestione ambientale e l'innovazione tecnologica sostenibile, sottolinea l'impegno verso un monitoraggio ecologico e responsabile della qualità dell'aria.</p>
+            <h3 class="bold">Focus sulle GreenComp</h3>
+            <p>Il progetto consente di sviluppare le GreenComp secondo il quadro Europeo delle competenze per la
+                sostenibilità. Gli studenti sono incoraggiati ad agire individualmente e con gli altri per trasformare
+                la nostra società e plasmare un futuro sostenibile per tutti.</p>
         </div>
     </div>
 
@@ -288,10 +291,11 @@
     <div class="sponsor d-flex align-items-center" id="sponsor6">
         <div class="order-1">
             <h3 class="bold">Approccio Innovativo alla Sensibilizzazione</h3>
-            <p>L'uso di tecnologie moderne per monitorare e visualizzare i dati ambientali contribuisce a una maggiore sensibilizzazione pubblica e educativa, rendendo il tema della qualità dell'aria più accessibile e coinvolgente per le comunità.</p>
+            <p>L'uso di tecnologie moderne per monitorare e visualizzare i dati ambientali contribuisce a una maggiore
+                sensibilizzazione pubblica e educativa, rendendo il tema della qualità dell'aria più accessibile e
+                coinvolgente per le comunità.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/orig6.jpeg') }}"
-            class="img-right rounded">
+        <img src="{{ url_for('static', filename='img/orig6.jpeg') }}" class="img-right rounded">
     </div>
 </div>
 
@@ -304,11 +308,13 @@
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
-        <img src="{{ url_for('static', filename='img/imp1.jpg') }}"
-            class="img-left rounded">
+        <img src="{{ url_for('static', filename='img/imp1.jpg') }}" class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Sensibilizzazione Ambientale</h3>
-            <p>"ARIA Connect" contribuisce a una maggiore consapevolezza riguardo alla qualità dell'aria e ai suoi effetti sulla salute pubblica. I dati raccolti e pubblicati accessibili al pubblico aiutano a informare i cittadini sui livelli di inquinamento atmosferico e promuovono comportamenti più responsabili verso l'ambiente.</p>
+            <p>"ARIA Connect" contribuisce a una maggiore consapevolezza riguardo alla qualità dell'aria e ai suoi
+                effetti sulla salute pubblica. I dati raccolti e pubblicati accessibili al pubblico aiutano a informare
+                i cittadini sui livelli di inquinamento atmosferico e promuovono comportamenti più responsabili verso
+                l'ambiente.</p>
         </div>
     </div>
 
@@ -318,21 +324,25 @@
     <div class="sponsor d-flex align-items-center" id="sponsor2">
         <div class="order-1">
             <h3 class="bold">Cittadinanza Attiva</h3>
-            <p>Il progetto incoraggia la partecipazione attiva degli studenti e delle scuole nella raccolta e analisi dei dati sulla qualità dell'aria. Coinvolgendo le comunità educative nel monitoraggio ambientale, "ARIA Connect" promuove un senso di responsabilità civica e incoraggia i giovani a diventare cittadini più consapevoli e impegnati nella tutela dell'ambiente.</p>
+            <p>Il progetto incoraggia la partecipazione attiva degli studenti e delle scuole nella raccolta e analisi
+                dei dati sulla qualità dell'aria. Coinvolgendo le comunità educative nel monitoraggio ambientale, "ARIA
+                Connect" promuove un senso di responsabilità civica e incoraggia i giovani a diventare cittadini più
+                consapevoli e impegnati nella tutela dell'ambiente.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/imp2.jpg') }}"
-            class="img-right rounded">
+        <img src="{{ url_for('static', filename='img/imp2.jpg') }}" class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 3 -->
     <div class="sponsor d-flex align-items-center" id="sponsor3">
-        <img src="{{ url_for('static', filename='img/imp3.jpg') }}"
-            class="img-left rounded">
+        <img src="{{ url_for('static', filename='img/imp3.jpg') }}" class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Educazione e Formazione</h3>
-            <p>Attraverso l'implementazione e l'uso dello zaino intelligente, gli studenti acquisiscono competenze pratiche in scienze ambientali, tecnologia e ingegneria. Questo approccio educativo stimola l'interesse per le STEM (scienze, tecnologia, ingegneria e matematica) e prepara i giovani a carriere future in campi legati all'ambiente e alla sostenibilità.</p>
+            <p>Attraverso l'implementazione e l'uso dello zaino intelligente, gli studenti acquisiscono competenze
+                pratiche in scienze ambientali, tecnologia e ingegneria. Questo approccio educativo stimola l'interesse
+                per le STEM (scienze, tecnologia, ingegneria e matematica) e prepara i giovani a carriere future in
+                campi legati all'ambiente e alla sostenibilità.</p>
         </div>
     </div>
 
@@ -342,21 +352,24 @@
     <div class="sponsor d-flex align-items-center" id="sponsor4">
         <div class="order-1">
             <h3 class="bold">Collaborazione e Comunità</h3>
-            <p>Il progetto facilita la collaborazione tra diverse scuole e comunità, creando una rete di monitoraggio condivisa. Questa cooperazione non solo amplifica l'impatto del progetto, ma promuove anche un senso di comunità e di azione collettiva per il miglioramento della qualità dell'aria.</p>
+            <p>Il progetto facilita la collaborazione tra diverse scuole e comunità, creando una rete di monitoraggio
+                condivisa. Questa cooperazione non solo amplifica l'impatto del progetto, ma promuove anche un senso di
+                comunità e di azione collettiva per il miglioramento della qualità dell'aria.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/imp4.jpg') }}"
-            class="img-right rounded">
+        <img src="{{ url_for('static', filename='img/imp4.jpg') }}" class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 5 -->
     <div class="sponsor d-flex align-items-center" id="sponsor5">
-        <img src="{{ url_for('static', filename='img/imp5.jpg') }}"
-            class="img-left rounded">
+        <img src="{{ url_for('static', filename='img/imp5.jpg') }}" class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Trasparenza e Accessibilità</h3>
-            <p>La pubblicazione dei dati su un server Cloud rende le informazioni sulla qualità dell'aria facilmente accessibili a tutti. Questa trasparenza contribuisce a una gestione più informata e partecipativa dei problemi ambientali, permettendo ai cittadini di prendere decisioni più consapevoli riguardo alla loro salute e al loro ambiente.</p>
+            <p>La pubblicazione dei dati su un server Cloud rende le informazioni sulla qualità dell'aria facilmente
+                accessibili a tutti. Questa trasparenza contribuisce a una gestione più informata e partecipativa dei
+                problemi ambientali, permettendo ai cittadini di prendere decisioni più consapevoli riguardo alla loro
+                salute e al loro ambiente.</p>
         </div>
     </div>
 
@@ -366,21 +379,24 @@
     <div class="sponsor d-flex align-items-center" id="sponsor6">
         <div class="order-1">
             <h3 class="bold">Innovazione Sociale</h3>
-            <p>"ARIA Connect" dimostra come l'innovazione tecnologica possa essere utilizzata per affrontare sfide sociali e ambientali. La combinazione di tecnologie avanzate e partecipazione comunitaria rappresenta un modello di come la tecnologia possa essere integrata nella vita quotidiana per migliorare il benessere collettivo.</p>
+            <p>"ARIA Connect" dimostra come l'innovazione tecnologica possa essere utilizzata per affrontare sfide
+                sociali e ambientali. La combinazione di tecnologie avanzate e partecipazione comunitaria rappresenta un
+                modello di come la tecnologia possa essere integrata nella vita quotidiana per migliorare il benessere
+                collettivo.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/imp6.jpg') }}"
-            class="img-right rounded">
+        <img src="{{ url_for('static', filename='img/imp6.jpg') }}" class="img-right rounded">
     </div>
 
     <hr class="my-2">
 
     <!-- Aspect 7 -->
     <div class="sponsor d-flex align-items-center" id="sponsor7">
-        <img src="{{ url_for('static', filename='img/imp7.jpg') }}"
-            class="img-left rounded">
+        <img src="{{ url_for('static', filename='img/imp7.jpg') }}" class="img-left rounded">
         <div class="order-1">
             <h3 class="bold">Promozione della Sostenibilità</h3>
-            <p>Il progetto enfatizza l'importanza della sostenibilità ambientale attraverso l'uso di tecnologie verdi e pratiche ecologiche. Educando i cittadini e promuovendo l'adozione di soluzioni tecnologiche sostenibili, "ARIA Connect" contribuisce a una cultura di rispetto e protezione dell'ambiente.</p>
+            <p>Il progetto enfatizza l'importanza della sostenibilità ambientale attraverso l'uso di tecnologie verdi e
+                pratiche ecologiche. Educando i cittadini e promuovendo l'adozione di soluzioni tecnologiche
+                sostenibili, "ARIA Connect" contribuisce a una cultura di rispetto e protezione dell'ambiente.</p>
         </div>
     </div>
 </div>
