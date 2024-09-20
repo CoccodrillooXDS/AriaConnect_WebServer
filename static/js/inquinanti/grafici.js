@@ -14,7 +14,7 @@ const limitiLegge = {
     "PM10": 1637,
     "NH3": 50,
     "CO": 100,
-    "TVOC": 17000,
+    "TVOC": 1000,
     "CO2": 5000,
     "humidity": 60,
     "temperature": 27
