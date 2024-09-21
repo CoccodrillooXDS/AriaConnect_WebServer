@@ -81,10 +81,6 @@
         flex-shrink: 2 !important;
     }
 
-    .infoZaino>*:not(:last-child) {
-        margin-bottom: 1rem;
-    }
-
     .infoProgetto {
         flex-grow: 2 !important;
         display: flex;
@@ -93,8 +89,9 @@
     }
 
     #circSensori {
-        max-width: 85% !important;
+        max-width: 100% !important;
         margin-bottom: 1rem !important;
+        margin-right: 25px !important;
         align-self: center;
     }
 
@@ -110,10 +107,10 @@
         display: none;
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1250px) {
         #circSensori {
-            max-width: 50% !important;
-            margin-bottom: 0 !important;
+            max-width: 100% !important;
+            margin: 0 !important;
         }
 
         .infoProgetto {
@@ -127,7 +124,7 @@
 
 {% block content %}
 <!-- Welcoming users -->
-<div class="py-5 boxino border border-3">
+<div class="py-3 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1 infoProgetto">
             <h1 class="bold">Aria Connect</h1>
@@ -143,7 +140,7 @@
 <hr class="my-4">
 
 <!-- Schema funzionamento -->
-<div class="py-5 boxino border border-3">
+<div class="py-3 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1">
             <h1 class="bold">Schema funzionamento</h1>
@@ -158,7 +155,7 @@
 <hr class="my-4">
 
 <!-- Codice sorgente -->
-<div class="py-5 boxino border border-3">
+<div class="py-3 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1">
             <h1 class="bold">Codice sorgente</h1>
@@ -190,7 +187,7 @@
 <hr class="my-4">
 
 <!-- Sezione componenti -->
-<div class="py-5 boxino border border-3">
+<div class="py-3 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1">
             <h1 class="bold">Componenti del progetto</h1>

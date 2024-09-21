@@ -29,6 +29,8 @@
                 'min-width: 0': 1
             }
         });
+
+        loadTooltips();
     });
 </script>
 
@@ -57,9 +59,7 @@
         transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
         opacity: 0;
         overflow-y: auto;
-        /* Make the panel scrollable */
         max-height: 100%;
-        /* Set a maximum height */
     }
 
     html[data-bs-theme="dark"] .component-detail {
@@ -96,41 +96,55 @@
         }
     }
 
-    .vrVr {
-        width: 3px !important;
-        min-width: 3px !important;
-        flex: 0 0 1px !important;
-        margin: 0 25px !important;
+    @media (max-width: 576px) {
+        .infoZaino {
+            flex-direction: column !important;
+        }
     }
 
     .infoZaino {
         display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
+    .zaino, .zaino3D {
+        display: flex;
         flex-direction: column;
-        align-items: left;
-        flex-shrink: 2 !important;
+        align-items: center;
+        flex: 1;
+        margin: 0 20px;
     }
 
-    .infoZaino> :not(p) {
-        align-self: center;
+    .zaino img, .zaino3D .tooltip-trigger {
+        cursor: pointer;
     }
 
-    .infoZaino>*:not(:last-child) {
-        margin-bottom: 1rem;
+    .zaino img, .zaino3D video {
+        max-width: 100% !important;
     }
 
-    .infoProgetto {
-        flex-grow: 2 !important;
+    .video-container {
+        position: relative;
+        overflow: hidden;
     }
 
-    @media (max-width: 1200px) {
-        .vrVr {
-            display: none;
-        }
+    .tooltip-trigger {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        cursor: default;
+    }
 
-        .vrAlternative {
-            display: block !important;
-            width: 100% !important;
-        }
+    .top-half {
+        top: 0;
+        cursor: default;
+    }
+
+    .bottom-half {
+        bottom: 0;
+        cursor: default;
     }
 
     .photo-gallery {
@@ -154,10 +168,45 @@
 
 {% block content %}
 <!-- Welcoming users -->
-<div class="py-5 boxino border border-3">
+<div class="py-3 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-0 infoProgetto">
-            <h1 class="display-4 bold" id="sez1">Aria Connect</h1>
+            <h1 class="display-4 bold">Aria Connect</h1>
+            <p class="lead italic">Lo zaino smart per il monitoraggio dei dati ambientali con <b>Internet delle Cose</b> (IoT)</p>
+            <div class="infoZaino">
+                <div class="zaino">
+                    <img src="{{ url_for('static', filename='img/Zaino.jpeg') }}" alt="Zaino Aria Connect" class="img-fluid rounded" onclick="openModal(this)">
+                    <p class="italic">Lo zaino smart per il monitoraggio mobile da remoto dei parametri della qualità dell'aria.</p>
+                </div>
+                <div class="zaino3D">
+                    <div class="position-relative video-container">
+                        <video autoplay loop muted class="img-fluid rounded">
+                            <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
+                            Il tuo browser non supporta la riproduzione di video.
+                        </video>
+                        <div class="tooltip-trigger top-half" data-bs-toggle="tooltip" data-bs-placement="top" onclick="openModal(this)"
+                            title="Nella parte superiore sono visibili a sinistra i sensori e a destra il display touch da 7&quot; e l'antenna per il collegamento radio.">
+                        </div>
+                        <div class="tooltip-trigger bottom-half" data-bs-toggle="tooltip" data-bs-placement="bottom" onclick="openModal(this)"
+                            title="Nella parte inferiore sono presenti le batterie per l'alimentazione del sistema caricate dal pannello fotovoltaico e le ventole per l'aereazione.">
+                        </div>
+                    </div>
+                    <p class="italic" style="margin-bottom: 0;">Progetto 3D dell'interno dello zaino smart.</p>
+                    <p class="italic">Realizzato con Fusion 360 e animato con Blender.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Horizontal Line -->
+<hr class="my-4">
+
+<!-- Welcoming users -->
+<div class="py-3 boxino border border-3">
+    <div class="sponsor d-flex align-items-center">
+        <div class="order-0">
+            <h1 class="display-4 bold">Aria Connect</h1>
             <p class="lead italic">Monitoraggio della qualità dell'aria da remoto con uno zaino intelligente.</p>
             <p>
                 "Aria Connect" è un innovativo progetto di monitoraggio dell'aria da remoto, ideato e realizzato da un
@@ -195,9 +244,9 @@
             </p>
             <p>Con questo progetto, speriamo di ispirare altre istituzioni educative e comunità a prendere iniziative
                 simili per monitorare e migliorare la qualità dell'aria che respiriamo.</p>
-
         </div>
-        {% include 'layout_zaino.html' %}
+        <img src="{{ url_for('static', filename='img/Misure.jpg') }}" alt="Aria Connect"
+            class="img-right img-biggestimg rounded">
     </div>
 </div>
 
@@ -205,11 +254,11 @@
 <hr class="my-4" id="carouselSectionHR">
 
 <!-- Galleria foto del progetto -->
-<div class="py-5 boxino border border-3" id="carouselSection">
+<div class="py-3 boxino border border-3" id="carouselSection">
     <div class="sponsor">
-        <h2 class="text-center mb-4 bold" id="sez2">Durante il progetto</h2>
+        <h2 class="text-center mb-4 bold">Durante il progetto</h2>
         <div class="photo-gallery">
-            {% for i in range(1, 31) %}
+            {% for i in range(1, 33) %}
             <div class="photo-item">
                 <img src="{{ url_for('static', filename='img/DuranteIlProgetto/' ~ i ~ '.jpg') }}" class="img-fluid" onclick="openModal(this)">
             </div>
@@ -222,8 +271,8 @@
 <hr class="my-4">
 
 <!-- Originality -->
-<div class="py-5 boxino border border-3">
-    <h2 class="text-center mb-4 bold" id="sez3">Perché questo progetto è originale?</h2>
+<div class="py-3 boxino border border-3">
+    <h2 class="text-center mb-4 bold">Perché questo progetto è originale?</h2>
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">
@@ -307,8 +356,8 @@
 <hr class="my-4">
 
 <!-- Impatto sociale -->
-<div class="py-5 boxino border border-3">
-    <h2 class="text-center mb-4 bold" id="sez3">Impatto sociale</h2>
+<div class="py-3 boxino border border-3">
+    <h2 class="text-center mb-4 bold">Impatto sociale</h2>
 
     <!-- Aspect 1 -->
     <div class="sponsor d-flex align-items-center" id="sponsor1">

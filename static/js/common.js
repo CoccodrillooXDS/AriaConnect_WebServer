@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         navbarNav.addEventListener('hidden.bs.collapse', fixNav);
     }
 
-    
+
 
     try {
         const nomeIstituto = document.getElementById('nomeIstituto');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     } catch (error) {
         console.error('An error occurred while setting the tooltip:', error);
     }
@@ -51,7 +51,7 @@ try {
         options: {
             enableMenu: false,
         }
-    };    
+    };
 } catch (error) {
     console.error('An error occurred while setting MathJax options:', error);
 }
@@ -140,13 +140,51 @@ function showAlert(message, alertType) {
     }, 3500);
 }
 
-function openModal(imgElement) {
-    var modalImage = document.getElementById('modalImage');
-    if (imgElement.tagName === 'DIV') {
-        alert('Errore: immagine non disponibile');
-        return;
+function loadTooltips() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+}
+
+function openModal(element) {
+    if (element.classList.contains('tooltip-trigger')) {
+        const tooltip = bootstrap.Tooltip.getInstance(element);
+        tooltip.hide();
     }
-    modalImage.src = imgElement.src;
+
+    var modalImage = document.getElementById('modalImage');
+    var modal = document.getElementById('photoModal');
+    var modalBody = modal.querySelector('.modal-body');
+    modalImage.remove();
+
+    if (element.tagName === 'DIV') {
+        var elementClone = element.parentElement.cloneNode(true);
+        elementClone.id = 'modalImage';
+        try {
+            elementClone.classList.remove('img-bigimg', 'img-biggerimg', 'img-biggestimg');
+            // remove onClick also recursively
+            var children = elementClone.getElementsByTagName('*');
+            for (var i = 0; i < children.length; i++) {
+                children[i].onclick = null;
+            }
+
+            // Copy 
+        } catch (error) {
+            pass;
+        }
+        modalBody.appendChild(elementClone);
+    } else {
+        // add an img tag to the modal
+        var img = document.createElement('img');
+        img.classList.add('img-fluid');
+        img.id = 'modalImage';
+        img.src = element.src;
+        modalBody.appendChild(img);    
+    }
+
+    loadTooltips();
+    
     var photoModal = new bootstrap.Modal(document.getElementById('photoModal'));
     photoModal.show();
 }

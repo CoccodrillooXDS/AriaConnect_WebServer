@@ -34,17 +34,17 @@
 <div class="vr vrVr order-1"></div>
 <hr class="vrAlternative my-2 order-1" style="display: none;">
 <div class="infoZaino order-1">
-    <img src="{{ url_for('static', filename='img/Zaino.jpeg') }}" alt="Zaino Aria Connect" class="img-bigimg rounded" onclick="openModal(this)">
+    <img src="{{ url_for('static', filename='img/Zaino.jpeg') }}" alt="Zaino Aria Connect" class="img-fluid rounded" style="max-width: 100% !important;" onclick="openModal(this)">
     <p class="italic">Lo zaino smart per il monitoraggio mobile da remoto dei parametri della qualità dell'aria.</p>
-    <div class="position-relative video-container img-bigimg">
+    <div class="position-relative video-container img-fluid">
         <video autoplay loop muted class="img-fluid rounded">
             <source src="{{ url_for('static', filename='img/Progetto_Quadrato.mp4') }}" type="video/mp4">
             Il tuo browser non supporta la riproduzione di video.
         </video>
-        <div class="tooltip-trigger top-half" data-bs-toggle="tooltip" data-bs-placement="top"
+        <div class="tooltip-trigger top-half" data-bs-toggle="tooltip" data-bs-placement="top" onclick="openModal(this)"
             title="Nella parte superiore sono visibili a sinistra i sensori e a destra il display touch da 7&quot; e l'antenna per il collegamento radio.">
         </div>
-        <div class="tooltip-trigger bottom-half" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        <div class="tooltip-trigger bottom-half" data-bs-toggle="tooltip" data-bs-placement="bottom" onclick="openModal(this)"
             title="Nella parte inferiore sono presenti le batterie per l'alimentazione del sistema caricate dal pannello fotovoltaico e le ventole per l'aereazione.">
         </div>
     </div>
