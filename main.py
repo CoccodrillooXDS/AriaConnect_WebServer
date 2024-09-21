@@ -93,7 +93,7 @@ def valoriAttualiInquinanti():
         query = """
             SELECT id, data, value
             FROM json_values
-            WHERE data >= NOW() - INTERVAL 10 MINUTE
+            WHERE data >= NOW() - INTERVAL 1 MINUTE
             ORDER BY data DESC
             LIMIT 10;
         """

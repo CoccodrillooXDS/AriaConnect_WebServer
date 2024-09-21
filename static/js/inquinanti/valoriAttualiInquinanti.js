@@ -76,5 +76,5 @@ async function fetchValoriAttualiInquinanti() {
 document.addEventListener('DOMContentLoaded', async function () {
     await fetchValoriAttualiInquinanti(); // Recupera i valori attuali di tutti gli inquinanti
 
-    setInterval(() => fetchValoriAttualiInquinanti(), 10000);
+    setInterval(() => fetchValoriAttualiInquinanti(), 1000);
 });

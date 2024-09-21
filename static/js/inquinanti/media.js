@@ -81,5 +81,6 @@ addEventListener("DOMContentLoaded", (event)=>{
     }
 
     fetchAllAverages();
+    setInterval(() => fetchAllAverages(), 1500);
 })
 

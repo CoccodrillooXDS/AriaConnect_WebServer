@@ -219,6 +219,6 @@ function setAnno() {
 
 document.addEventListener("DOMContentLoaded", async function () {
     setGrafici();
-    setInterval(() => setGrafici(), 20000);
+    setInterval(() => setGrafici(), 1500);
 });
 

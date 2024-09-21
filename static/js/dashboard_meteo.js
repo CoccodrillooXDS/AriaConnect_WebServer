@@ -118,9 +118,9 @@ async function caricaMappa() {
 }
 
 async function caricaTutto() {
+    fetchPosition(0);
     await fetchOpenWeather();
     await caricaMappa();
-    fetchPosition(0);
 }
 
 /* aspetta il caricamento della pagina prima di prendere i vari elementi */
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // Add a marker to the map with a popup
 function addMarker(latitude, longitude) {
-const customMarker = L.AwesomeMarkers.icon({
+    const customMarker = L.AwesomeMarkers.icon({
         icon: 'location-dot',
         iconColor: "cyan",
         prefix: 'fa'
@@ -186,7 +186,6 @@ async function fetchPosition(param) {
         }else{
             addMarker(data.lat, data.long);
         }
-
     } catch (error) {
         text = elementi.nomeCitta.innerText + " - GPS non disponibile";
         elementi.nomeCitta.innerText = text;

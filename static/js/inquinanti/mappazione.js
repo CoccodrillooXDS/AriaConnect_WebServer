@@ -72,7 +72,7 @@ async function fetchPosition(param) {
         } else {
             console.log(data.longitudine, data.latitudine);
             addMarker(data.air_quality_level, data.air_quality, data.latitudine, data.longitudine);
-            elementi.statoGPS.innerText = "Latitudine: " + data.latitudine + "\nLongitudine: " + data.longitudine;
+            elementi.statoGPS.innerHTML = "<b>Latitudine:</b> " + data.latitudine + " <b>Longitudine:</b> " + data.longitudine;
         }
     } catch (error) {
         //console.error('Error:', error);
@@ -88,5 +88,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     await initializeMap();
     await fetchPosition(1);
-    setInterval(() => fetchPosition(1), 20000); // Fetch position every 10 seconds
+    setInterval(() => fetchPosition(1), 1000); // Fetch position every second
 });
