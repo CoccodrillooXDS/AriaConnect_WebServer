@@ -173,7 +173,8 @@
     <div class="sponsor d-flex align-items-center">
         <div class="order-0 infoProgetto">
             <h1 class="display-4 bold">Aria Connect</h1>
-            <p class="lead italic">Lo zaino smart per il monitoraggio dei dati ambientali con <b>Internet delle Cose</b> (IoT)</p>
+            <p class="lead italic" style="margin-bottom: 0 !important;">Lo zaino smart per il monitoraggio dei dati ambientali con <b>Internet delle Cose</b> (IoT)</p>
+            <p class="italic">Passa il mouse sul video della parte 3D per vedere i dettagli.</p>
             <div class="infoZaino">
                 <div class="zaino">
                     <img src="{{ url_for('static', filename='img/Zaino.jpeg') }}" alt="Zaino Aria Connect" class="img-fluid rounded" onclick="openModal(this)">
@@ -222,7 +223,7 @@
                 Il collegamento principale avviene tramite moduli radio a 900 MHz, che consentono una trasmissione
                 affidabile
                 dei dati fino a una distanza di 1 km. I dati raccolti vengono quindi pubblicati su un server cloud,
-                rendendoli accessibili a chiunque desideri consultarli attraverso questo sito INTERNET.
+                rendendoli accessibili a chiunque desideri consultarli attraverso <a href="{{ url_for('inquinanti') }}">questo sito INTERNET</a>.
             </p>
             <p>
                 In caso di mancato funzionamento del collegamento principale, entra in gioco un sistema di backup basato
@@ -231,9 +232,12 @@
                 che
                 i dati sulla qualità dell'aria siano sempre disponibili, contribuendo così a una maggiore consapevolezza
                 e
-                controllo della qualità dell'aria nelle nostre comunità. Per garantire l'attendibilità dei dati
-                acquisiti sono state effettuate misure di confronto con il nostro prototipo presso la centralina
-                dell'ARPA situata presso Via Tartaglia a Brescia, dimostrando un ottimo accordo.
+                controllo della qualità dell'aria nelle nostre comunità.
+                <a href="https://youtu.be/C9x3BvaO0KI">
+                    Per garantire l'attendibilità dei dati
+                    acquisiti sono state effettuate misure di confronto con il nostro prototipo presso la centralina
+                    di A.R.P.A. situata presso Via Tartaglia a Brescia, dimostrando un ottimo accordo.
+                </a>
             </p>
             <p>Tutta la documentazione sulla realizzazione del progetto è disponibile <a
                     href="{{ url_for('documentation') }}">qui</a> e potrà essere utilizzata da altre scuole tecniche per
@@ -264,6 +268,7 @@
                 <img src="{{ url_for('static', filename='img/DuranteIlProgetto/' ~ i ~ '.jpg') }}" class="img-fluid" onclick="openModal(this)">
             </div>
             {% endfor %}
+            <!-- TODO: Aggiungere didascalie -->
         </div>
     </div>
 </div>
