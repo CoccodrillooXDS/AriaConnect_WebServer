@@ -49,6 +49,7 @@ function addMarker(airQualityLevel, airQuality, latitude, longitude) {
 
     const marker = L.marker([latitude, longitude], { icon: customMarker }).addTo(map);
     marker.bindPopup(`${airQuality}<br>${latitude}, ${longitude}`);
+    map.setView([latitude, longitude], ZOOM_DEFAULT);
 }
 
 // Fetch position and air quality data
