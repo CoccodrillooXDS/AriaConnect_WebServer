@@ -143,9 +143,30 @@
 <div class="py-3 boxino border border-3">
     <div class="sponsor d-flex align-items-center">
         <div class="order-1">
-            <h1 class="bold">Schema funzionamento</h1>
-            <!-- TODO: Riempire questa sezione -->
-            <p>Sezione in fase di sviluppo</p>
+            <h1 class="bold">Come funziona questo sistema?</h1>
+            <p>
+                Il sistema è composto da due parti principali: la stazione mobile nello zaino e la stazione base. La stazione mobile è responsabile dell'acquisizione, visualizzazione e trasmissione dei dati, mentre la stazione base si occupa dell'elaborazione e della visualizzazione dei dati.
+            </p>
+            <h2 class="bold">Stazione Mobile nello zaino</h2>
+            <h3 class="bold">Acquisizione, visualizzazione e trasmissione radio dei dati</h3>
+            <p>
+                Nello zaino è contenuta la stazione mobile, composta da una scheda elettronica programmabile Arduino UNO e un mini computer Raspberry Pi 4. Ad Arduino UNO sono collegati i sensori che rilevano i dati sulla qualità dell'aria, come \(CO_2\), TVOC, PM10, \(CO\), \(NH_3\), \(NO_2\), temperatura, umidità, pressione ed un dispositivo GPS che consente di geolocalizzare la posizione in cui vengono effettuate le misure. I dati provenienti dai sensori e dal GPS vengono elaborati da Arduino UNO e successivamente trasferiti a Raspberry Pi 4 tramite la porta seriale emulata dalla porta USB. La stazione mobile è dotata di un monitor touch da 7 pollici collegato a Raspberry Pi 4 tramite la porta HDMI, che consente all'operatore sul posto di visualizzare le misure.
+            </p>
+            <p>
+                I dati ricevuti da Raspberry Pi 4 vengono trasmessi alla stazione base, il server centrale, tramite un modulo Radio LoRa collegato ai pin GPIO di Raspberry Pi 4. Il modulo LoRa trasmette i dati a una frequenza di 900 MHz, consentendo comunicazioni a medio raggio (1-5 km) con basso consumo energetico.
+            </p>
+            <h3 class="bold">Comunicazione alternativa tramite Wi-Fi</h3>
+            <p>
+                Nel caso in cui la connessione Radio LoRa dovesse interrompersi, il sistema commuta automaticamente alla comunicazione Wi-Fi tramite un Hotspot mobile fornito da un cellulare. Questa connessione di backup permette a Raspberry Pi della stazione mobile di continuare ad inviare i dati al server centrale, assicurandosi che l'acquisizione continui senza interruzioni. Una volta stabilita la connessione Wi-Fi, i dati vengono inviati direttamente ad un server MQTT (Message Queuing Telemetry Transport, protocollo di messaggistica utilizzato in ambito IoT per la comunicazione di dati da sensori intelligenti) nel cloud, che si incarica di recapitarli alla stazione base.
+            </p>
+            <h2 class="bold">Stazione Base</h2>
+            <h3 class="bold">Server Centrale - Elaborazione dei Dati</h3>
+            <p>
+                Le funzioni del server centrale sono basate su un secondo Raspberry Pi 4 presente nella stazione base. Esso riceve i dati trasmessi dalla stazione mobile nello zaino, attraverso un modulo Radio LoRa o tramite il server MQTT presente nel cloud, via Wi-Fi (in caso di mancato collegamento radio). In tutti i casi, i dati ricevuti vengono elaborati e presentati tramite la piattaforma Node-RED. Essa consente la visualizzazione e la gestione dei flussi di dati attraverso una dashboard dedicata, permettendo un monitoraggio dei parametri ambientali in tempo reale.
+            </p>
+            <p>
+                Infine, tutti i dati ricevuti ed elaborati localmente dalla stazione base vengono inviati e memorizzati nel CLOUD su un server di database MySQL per essere elaborati e visualizzati da tutti tramite il nostro sito <a href="{{ url_for('inquinanti') }}">WEB</a> dedicato.
+            </p>
         </div>
         <img src="{{ url_for('static', filename='img/AspettiTecniciProgetto.png') }}" class="img-right img-biggestimg rounded" onclick="openModal(this)">
     </div>
