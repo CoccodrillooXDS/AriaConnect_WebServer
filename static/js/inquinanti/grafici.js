@@ -1,4 +1,4 @@
-let tempoIntervallo = "WEEK";
+let tempoIntervallo = "DAY";
 const nomiValori = ["CO", "CO2", "PM10", "NH3", "NO2", "TVOC", "humidity", "temperature", "pressure"];
 
 const unitDisplay = {
