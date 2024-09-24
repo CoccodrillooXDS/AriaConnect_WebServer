@@ -326,6 +326,16 @@ html {
     gap: 20px;
 }
 
+#fotoMisureEVideo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#fotoMisureEVideo > img {
+    max-width: 100% !important;
+}
+
 @media (max-width: 1500px) {
     #projectLogoIndex {
         max-width: 35% !important;
@@ -355,6 +365,20 @@ html {
         margin-bottom: 1rem;
         /* Make images full width */
         width: 35% !important;
+    }
+
+    #fotoMisureEVideo {
+        flex-direction: row;
+        max-width: 100% !important;
+    }
+
+    #fotoMisureEVideo > img {
+        max-width: 50% !important;
+        flex-grow: 1;
+    }
+
+    #fotoMisureEVideo > div {
+        max-width: 50% !important;
     }
 
     #germanSponsor {
@@ -397,5 +421,19 @@ html {
         margin-bottom: 1rem;
         /* Make images full width */
         width: 50% !important;
+    }
+}
+
+@media (max-width: 576px) {
+    #fotoMisureEVideo {
+        flex-direction: column !important;
+    }
+
+    #fotoMisureEVideo > img {
+        max-width: 100% !important;
+    }
+
+    #fotoMisureEVideo > div {
+        max-width: 100% !important;
     }
 }
