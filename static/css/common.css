@@ -294,6 +294,7 @@ html[data-bs-theme="dark"] .img-addbg {
 #welcomeUsers {
     width: auto !important;
     margin-left: 25px !important;
+    margin-right: 25px !important;
 }
 
 #germanSponsor {
@@ -338,7 +339,7 @@ html {
 
 @media (max-width: 1500px) {
     #projectLogoIndex {
-        max-width: 35% !important;
+        display: none !important;
     }
 }
 
@@ -398,6 +399,11 @@ html {
         margin-right: 10px !important;
     }
 
+    #vidYT {
+        max-width: 50% !important;
+        margin-bottom: 15px !important;
+    }
+
     .content {
         width: 95% !important;
     }
@@ -421,6 +427,11 @@ html {
         margin-bottom: 1rem;
         /* Make images full width */
         width: 50% !important;
+    }
+
+    #vidYT {
+        max-width: 100% !important;
+        margin-bottom: 15px !important;
     }
 }
 
