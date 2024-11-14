@@ -75,7 +75,13 @@ function fixSponsor() {
         const sponsorImg = sponsor.querySelector('img');
         const sponsorDiv = sponsor.querySelector('div');
 
-        if (window.innerWidth > 1200) {
+        let innerWidth = 1200;
+
+        if (sponsor.id === 'welcomeUsersSponsor') {
+            innerWidth = 1500;
+        }
+
+        if (window.innerWidth > innerWidth) {
             try {
                 if (sponsorImg) {
                     sponsorImg.classList.remove('order-0');

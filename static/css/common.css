@@ -337,9 +337,78 @@ html {
     max-width: 100% !important;
 }
 
+#vidYTGdR {
+    width: 100% !important;
+    /* margin-bottom: 25px !important; */
+    /* align-self: center; */
+}
+
+#vidYT2 {
+    margin-left: 1rem;
+}
+
+#vidEmbed {
+    gap: 1rem;
+}
+
+#welcomeUsersSponsor > div {
+    flex: auto !important;
+}
+
+#diconoDiNoi {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.news-logos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    padding-right: 0;
+    align-items: center;
+    justify-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 65px;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.logo-link:hover {
+    background-color: rgba(255, 255, 255, 0.836) !important;
+}
+
+.logo-link img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.logo-link-hover {
+    background-color: rgba(255, 255, 255, 0.836) !important;
+}
+
 @media (max-width: 1500px) {
     #projectLogoIndex {
         display: none !important;
+    }
+
+    #welcomeUsersSponsor {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+
+    #vidEmbed {
+        margin-bottom: 1rem;
     }
 }
 
@@ -404,6 +473,21 @@ html {
         margin-bottom: 15px !important;
     }
 
+    #vidYT2 {
+        max-width: 50% !important;
+        margin-bottom: 15px !important;
+    }
+
+    #diconoDiNoi {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .news-logos-grid {
+        padding-right: 2rem;
+    }
+
     .content {
         width: 95% !important;
     }
@@ -432,6 +516,17 @@ html {
     #vidYT {
         max-width: 100% !important;
         margin-bottom: 15px !important;
+    }
+
+    #vidYT2 {
+        max-width: 100% !important;
+        margin-bottom: 15px !important;
+        margin-left: 0 !important;
+    }
+
+    #vidEmbed {
+        flex-direction: column;
+        gap: 0.25rem;
     }
 }
 

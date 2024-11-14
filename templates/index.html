@@ -5,20 +5,22 @@
 {% block content %}
 <!-- Welcoming users -->
 <div class="py-3 boxino border border-3">
-    <div class="sponsor d-flex align-items-center">
+    <div class="sponsor d-flex align-items-center" id="welcomeUsersSponsor">
         <div class="order-1" id="welcomeUsers">
             <h1 class="display-4 bold">Aria Connect</h1>
             <p class="lead italic">Monitoraggio della qualità dell'aria da remoto con uno zaino intelligente.</p>
             <!-- Dropdown con selettori per Parametri ambientali e Meteo -->
             <div class="dropdown gruppoPulsantiIndex">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     Meteo e parametri ambientali
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ url_for('meteo') }}">Meteo</a></li>
                     <li><a class="dropdown-item" href="{{ url_for('inquinanti') }}">Parametri ambientali</a></li>
                 </ul>
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     Scopri di più sul progetto
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
@@ -30,11 +32,66 @@
             </div>
         </div>
         <!-- Video embed -->
-        <div class="ratio ratio-16x9" id="vidYT">
-            <iframe src="https://www.youtube.com/embed/zFZwBUbjzxQ" title="Guarda il video presentazione del progetto" class="rounded" style="max-width: 100%;height: 100%;" allowfullscreen></iframe>
+        <div class="d-flex" id="vidEmbed">
+            <div class="ratio ratio-16x9" id="vidYT">
+                <iframe src="https://www.youtube.com/embed/4HnlXjAB5qI?start=4882&end=4965&controls=0&disablekb=1" title="Punto in qui veniamo citati dell'evento"
+                    class="rounded" style="max-width: 100%;height: 100%;" allowfullscreen></iframe>
+            </div>
+            <div class="ratio ratio-16x9" id="vidYT2">
+                <iframe src="https://www.youtube.com/embed/zFZwBUbjzxQ" title="Guarda il video presentazione del progetto"
+                    class="rounded" style="max-width: 100%;height: 100%;" allowfullscreen></iframe>
+            </div>
         </div>
-        <img src="{{ url_for('static', filename='img/Logo_Aria_Connect_Verticale_Testo_Piccolo.jpg') }}" alt="Aria Connect"
-            class="img-right img-bigimg rounded" id="projectLogoIndex">
+        <!-- <img src="{{ url_for('static', filename='img/Logo_Aria_Connect_Verticale_Testo_Piccolo.jpg') }}" alt="Aria Connect"
+            class="img-right img-bigimg rounded" id="projectLogoIndex"> -->
+    </div>
+</div>
+<!-- Horizontal Line -->
+<hr class="my-4">
+<!-- They talk about us -->
+<div class="py-3 boxino border border-3">
+    <h2 class="text-center mb-4 bold">Dicono di noi</h2>
+    <div id="diconoDiNoi">
+        <!-- Video Evento -->
+        <div class="ratio ratio-16x9" id="vidYTGdR">
+            <iframe src="https://www.youtube.com/embed/jcjbhy0dmjQ?start=104" title="Guarda il video dell'intervista alle tre scuole" class="rounded"
+                style="max-width: 100%;height: 100%;" allowfullscreen></iframe>
+        </div>
+        <!-- Testate giornalistiche -->
+        <div class="news-logos-grid">
+            <a href="https://www.youtube.com/watch?v=jcjbhy0dmjQ&t=104s" target="_blank" class="logo-link logo-link-hover img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_YT_Lombardia.png') }}" alt="Evento Giornata della Ricerca 2024">
+            </a>
+            <a href="https://www.youtube.com/watch?v=4HnlXjAB5qI&t=4882s" target="_blank" class="logo-link img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_YT_Lombardia.png') }}" alt="Evento Giornata della Ricerca 2024">
+            </a>
+            <a href="https://www.lombardianotizie.online/premio-lombardia-ricerca-scuole/" target="_blank"
+                class="logo-link img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_Regione_Lombardia.png') }}"
+                    alt="Lombardia Notizie Online">
+            </a>
+            <a href="https://www.giornaledibrescia.it/scienza/limmunologo-mantovani-e-il-castelli-premiati-con-il-nobel-lombardo-gvmjrr9k"
+                target="_blank" class="logo-link img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_GDB.png') }}" alt="Giornale di Brescia">
+            </a>
+            <a href="https://milano.corriere.it/notizie/cronaca/24_novembre_09/le-terapie-su-misura-di-matteo-e-serena-e-gli-altri-progetti-degli-studenti-premiati-dalla-regione-la-libera-curiosita-e-un-diritto-7a6c0a8c-7ec1-43b0-9a1c-992728faexlk.shtml"
+                target="_blank" class="logo-link img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_Corriere.png') }}"
+                    alt="Corriere della Sera di Milano">
+            </a>
+            <a href="https://milano.repubblica.it/cronaca/2024/11/09/news/studenti_premiati_progetti_ricerca_regione_lombardia-423607352/"
+                target="_blank" class="logo-link img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_Repubblica.png') }}" alt="la Repubblica">
+            </a>
+            <a href="https://www.ilgiorno.it/milano/cronaca/inventori-sin-dalle-superiori-un-robot-prescrive-i-probiotici-e-laria-si-controlla-in-uno-zaino-00fd72a5"
+                target="_blank" class="logo-link img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_Il_Giorno.png') }}" alt="IL GIORNO">
+            </a>
+            <a href="https://www.quibrescia.it/citta/2024/11/08/lstituto-castelli-di-brescia-terzo-al-premio-lombardia-e-ricerca-con-un-innovativo-zaino-smart/727607/"
+                target="_blank" class="logo-link img-addbg">
+                <img src="{{ url_for('static', filename='img/Logo_quibrescia.png') }}" alt="quibrescia">
+            </a>
+        </div>
     </div>
 </div>
 <!-- Horizontal Line -->
@@ -88,11 +145,12 @@
 
     <!-- Sponsor 3 -->
     <div class="sponsor d-flex align-items-center" id="sponsor3">
-        <img src="{{ url_for('static', filename='img/Logo_Elettrica_Bresciani.png') }}" alt="Elettrica Bresciani Giovanni"
-            class="img-left img-bigimg rounded">
+        <img src="{{ url_for('static', filename='img/Logo_Elettrica_Bresciani.png') }}"
+            alt="Elettrica Bresciani Giovanni" class="img-left img-bigimg rounded">
         <div class="order-1">
             <h3 class="bold">Elettrica Bresciani Giovanni</h3>
-            <p>Si ringrazia <a href="http://www.elettricabg.it">Elettrica Bresciani Giovanni</a>, una ditta specializzata in impianti elettrici civili ed
+            <p>Si ringrazia <a href="http://www.elettricabg.it" target="_blank">Elettrica Bresciani Giovanni</a>, una ditta
+                specializzata in impianti elettrici civili ed
                 industriali, fotovoltaici, automazioni, impianti allarme e video sorveglianza, per la donazione di parte
                 del materiale servito per la realizzazione del progetto come il pannello solare e materiale elettrico di
                 vario genere.</p>
