@@ -4,6 +4,13 @@
 
 Questo parte del progetto riguarda il server web per il progetto Aria Connect, che fornisce varie funzionalità relative al monitoraggio della qualità dell'aria e alla visualizzazione dei dati ambientali ricavati dallo zaino intelligente.
 
+**Vedi il video di presentazione del progetto Aria Connect su YouTube:**
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=zFZwBUbjzxQ" target="_blank">
+    <img src="https://img.youtube.com/vi/zFZwBUbjzxQ/0.jpg" alt="Aria Connect YouTube Video" width="300"/>
+  </a>
+</p>
+
 ## Prerequisiti
 
 - Docker
