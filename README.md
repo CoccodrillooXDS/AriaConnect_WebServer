@@ -52,7 +52,7 @@ Questo parte del progetto riguarda il server web per il progetto Aria Connect, c
 3. **Esegui il container Docker:**
 
     ```sh
-    docker run -p 5000:5000 --mount type=bind,source=./config.py,target=/app/config.py --restart always ariaconnect_webserver
+    docker run -p 5500:5500 --mount type=bind,source=./config.py,target=/app/config.py --restart always ariaconnect_webserver
     ```
 
     **Nota:** Il container continuerà a crashare fino a quando non verrà configurato correttamente il file `config.py`, come riportato nella fase successiva.
@@ -63,7 +63,7 @@ Questo parte del progetto riguarda il server web per il progetto Aria Connect, c
 
 5. **Accedi al server web:**
 
-    Apri il tuo browser e naviga a `http://localhost:5000`.
+    Apri il tuo browser e naviga a `http://localhost:5500`.
 
 ## Licenza
 
