@@ -34,12 +34,14 @@
         <!-- Video embed -->
         <div class="d-flex" id="vidEmbed">
             <div class="ratio ratio-16x9" id="vidYT">
-                <iframe src="https://www.youtube.com/embed/4HnlXjAB5qI?start=4882&end=4965&controls=0&disablekb=1" title="Punto in qui veniamo citati dell'evento"
-                    class="rounded" style="max-width: 100%;height: 100%;" allowfullscreen></iframe>
+                <div class="youtube-placeholder rounded" data-video-id="4HnlXjAB5qI" data-query="start=4882&end=4965&controls=0&disablekb=1" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.25)), url('https://img.youtube.com/vi/4HnlXjAB5qI/hqdefault.jpg');background-size:cover;background-position:center;">
+                    <button class="btn btn-light"><b>Guarda video su YouTube</b></button>
+                </div>
             </div>
             <div class="ratio ratio-16x9" id="vidYT2">
-                <iframe src="https://www.youtube.com/embed/zFZwBUbjzxQ" title="Guarda il video presentazione del progetto"
-                    class="rounded" style="max-width: 100%;height: 100%;" allowfullscreen></iframe>
+                <div class="youtube-placeholder rounded" data-video-id="zFZwBUbjzxQ" data-query="" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.25)), url('https://img.youtube.com/vi/zFZwBUbjzxQ/hqdefault.jpg');background-size:cover;background-position:center;">
+                    <button class="btn btn-light"><b>Guarda video</b></button>
+                </div>
             </div>
         </div>
         <!-- <img src="{{ url_for('static', filename='img/Logo_Aria_Connect_Verticale_Testo_Piccolo.jpg') }}" alt="Aria Connect"
@@ -54,8 +56,9 @@
     <div id="diconoDiNoi">
         <!-- Video Evento -->
         <div class="ratio ratio-16x9" id="vidYTGdR">
-            <iframe src="https://www.youtube.com/embed/jcjbhy0dmjQ?start=104" title="Guarda il video dell'intervista alle tre scuole" class="rounded"
-                style="max-width: 100%;height: 100%;" allowfullscreen></iframe>
+            <div class="youtube-placeholder rounded" data-video-id="jcjbhy0dmjQ" data-query="start=104" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;background:linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.25)), url('https://img.youtube.com/vi/jcjbhy0dmjQ/hqdefault.jpg');background-size:cover;background-position:center;">
+                <button class="btn btn-light"><b>Guarda video</b></button>
+            </div>
         </div>
         <!-- Testate giornalistiche -->
         <div class="news-logos-grid">
@@ -177,4 +180,40 @@
             class="img-right img-bigimg img-addbg rounded">
     </div> -->
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.youtube-placeholder').forEach(function(placeholder){
+        placeholder.addEventListener('click', function(){
+            var videoId = this.getAttribute('data-video-id');
+            var query = this.getAttribute('data-query') || '';
+            // Special rule: for video 4HnlXjAB5qI open YouTube in new tab with start param
+            if (videoId === '4HnlXjAB5qI') {
+                // Extract start value from query if present
+                var startMatch = query.match(/start=(\d+)/);
+                var startParam = startMatch ? ('&t=' + startMatch[1] + 's') : '';
+                var url = 'https://www.youtube.com/watch?v=' + videoId + startParam;
+                window.open(url, '_blank');
+                return;
+            }
+
+            // Default: create an iframe using youtube-nocookie and insert it
+            var src = 'https://www.youtube-nocookie.com/embed/' + videoId + (query ? ('?' + query) : '');
+            var iframe = document.createElement('iframe');
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('title', 'YouTube video');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('loading', 'lazy');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            this.innerHTML = '';
+            this.appendChild(iframe);
+        });
+    });
+});
+</script>
 {% endblock %}

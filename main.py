@@ -357,5 +357,13 @@ def database_connection():
     )
     return conn
 
+# Pulisci intestazioni di risposta indesiderate
+@app.after_request
+def sanitize_response_headers(response):
+    for header_name in ('Permissions-Policy', 'permissions-policy', 'Feature-Policy', 'Permissions-Policy-Report-Only'):
+        if header_name in response.headers:
+            del response.headers[header_name]
+    return response
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5500)
