@@ -189,29 +189,10 @@ document.addEventListener('DOMContentLoaded', function(){
         placeholder.addEventListener('click', function(){
             var videoId = this.getAttribute('data-video-id');
             var query = this.getAttribute('data-query') || '';
-            // Special rule: for video 4HnlXjAB5qI open YouTube in new tab with start param
-            if (videoId === '4HnlXjAB5qI') {
-                // Extract start value from query if present
-                var startMatch = query.match(/start=(\d+)/);
-                var startParam = startMatch ? ('&t=' + startMatch[1] + 's') : '';
-                var url = 'https://www.youtube.com/watch?v=' + videoId + startParam;
-                window.open(url, '_blank');
-                return;
-            }
-
-            // Default: create an iframe using youtube-nocookie and insert it
-            var src = 'https://www.youtube-nocookie.com/embed/' + videoId + (query ? ('?' + query) : '');
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('src', src);
-            iframe.setAttribute('title', 'YouTube video');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('loading', 'lazy');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            this.innerHTML = '';
-            this.appendChild(iframe);
+            var startMatch = query.match(/start=(\d+)/);
+            var startParam = startMatch ? ('&t=' + startMatch[1] + 's') : '';
+            var url = 'https://www.youtube.com/watch?v=' + videoId + startParam;
+            window.open(url, '_blank');
         });
     });
 });
