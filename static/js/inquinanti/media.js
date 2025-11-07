@@ -80,7 +80,13 @@ addEventListener("DOMContentLoaded", (event)=>{
         });
     }
 
+    // Riduci la frequenza di polling a 3s ed evita chiamate sovrapposte
+    let caricamentoDatiInCorso = false;
     fetchAllAverages();
-    setInterval(() => fetchAllAverages(), 1500);
+    setInterval(() => {
+        if (caricamentoDatiInCorso) return;
+        caricamentoDatiInCorso = true;
+        fetchAllAverages().finally(() => { caricamentoDatiInCorso = false; });
+    }, 3000);
 })
 

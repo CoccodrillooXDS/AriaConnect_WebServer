@@ -74,7 +74,12 @@ async function fetchValoriAttualiInquinanti() {
 
 // Inizializzazione al caricamento della pagina
 document.addEventListener('DOMContentLoaded', async function () {
+    // Riduci la frequenza di polling a 2s ed evita chiamate sovrapposte
+    let caricamentoDatiInCorso = false;
     await fetchValoriAttualiInquinanti(); // Recupera i valori attuali di tutti gli inquinanti
-
-    setInterval(() => fetchValoriAttualiInquinanti(), 1000);
+    setInterval(() => {
+        if (caricamentoDatiInCorso) return;
+        caricamentoDatiInCorso = true;
+        fetchValoriAttualiInquinanti().finally(() => { caricamentoDatiInCorso = false; });
+    }, 2000);
 });

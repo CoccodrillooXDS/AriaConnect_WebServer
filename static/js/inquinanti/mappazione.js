@@ -7,6 +7,10 @@ const ZOOM_NOT_AVAILABLE = 5;
 let map;
 let tileLayer;
 let isCityAvailable = true;
+// Keep a list of created markers to avoid adding duplicates that are too close
+const markersList = [];
+// Minimum distance in meters under which a new marker will NOT be added
+const MIN_DISTANCE_METERS = 2; // adjust as needed (e.g., 5-20 meters)
 
 // Initialize the map with default or current settings
 async function initializeMap() {
@@ -39,6 +43,28 @@ function getColorForAirQuality(level) {
 function addMarker(airQualityLevel, airQuality, latitude, longitude) {
     const color = getColorForAirQuality(airQualityLevel);
 
+    // If map or Leaflet not available, bail out
+    if (typeof L === 'undefined' || !map) return;
+
+    // Check existing markers for proximity
+    try {
+        const newLatLng = L.latLng(latitude, longitude);
+        for (const existing of markersList) {
+            const existingLatLng = existing.getLatLng();
+            const dist = newLatLng.distanceTo(existingLatLng); // meters
+            if (dist <= MIN_DISTANCE_METERS) {
+                // Too close to an existing marker — don't add another
+                // Move the map view to the new coordinates anyway
+                map.setView([latitude, longitude], ZOOM_DEFAULT);
+                // Optionally update popup content or timestamp of existing marker here if needed
+                return;
+            }
+        }
+    } catch (e) {
+        // If something goes wrong with distance calc, continue to add marker
+        console.warn('Proximity check failed, continuing to add marker', e);
+    }
+
     const customMarker = L.icon({
         iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
         iconSize: [25, 41],
@@ -49,6 +75,8 @@ function addMarker(airQualityLevel, airQuality, latitude, longitude) {
 
     const marker = L.marker([latitude, longitude], { icon: customMarker }).addTo(map);
     marker.bindPopup(`${airQuality}<br>${latitude}, ${longitude}`);
+    // store marker reference for future proximity checks
+    markersList.push(marker);
     map.setView([latitude, longitude], ZOOM_DEFAULT);
 }
 
@@ -71,12 +99,12 @@ async function fetchPosition(param) {
             text = "Dati GPS non disponibili";
             elementi.statoGPS.innerText = text;
         } else {
-            console.log(data.longitudine, data.latitudine);
+            // console.log(data.longitudine, data.latitudine);
             addMarker(data.air_quality_level, data.air_quality, data.latitudine, data.longitudine);
             elementi.statoGPS.innerHTML = "<b>Latitudine:</b> " + data.latitudine + " <b>Longitudine:</b> " + data.longitudine;
         }
     } catch (error) {
-        //console.error('Error:', error);
+        console.error('Error:', error);
         text = "Dati GPS non disponibili";
         elementi.statoGPS.innerText = text;
     }
@@ -89,5 +117,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     await initializeMap();
     await fetchPosition(1);
-    setInterval(() => fetchPosition(1), 1000); // Fetch position every second
+    setInterval(() => fetchPosition(1), 2000); // Fetch position every second
 });
